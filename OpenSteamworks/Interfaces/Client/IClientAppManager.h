@@ -40,6 +40,9 @@ public:
 	virtual uint64 GetAppInstallDir( AppId_t unAppID, char *pchPath, uint32 cchPath ) = 0;
 	virtual bool IsAppDlcInstalled( AppId_t unAppID, AppId_t unDLCAppID ) = 0;
 	virtual bool GetDlcDownloadProgress( AppId_t unAppID, AppId_t unDLCAppID, uint64* lluUnk1, uint64* lluUnk2 ) = 0;
+	virtual unknown_ret GetDlcSizeOnDisk(AppId_t unAppID, uint32) = 0;
+	virtual bool BIsDlcEnabled(AppId_t unAppID, uint32, bool*) = 0;
+	virtual void SetDlcEnabled(AppId_t unAppID, uint32, bool) = 0;
 	virtual uint32 GetNumInstalledApps() = 0;
 	virtual uint32 GetInstalledApps( uint32 *punAppIDs, uint32 cAppIDsMax ) = 0;
 	virtual uint32 GetAppDependency( AppId_t unAppID ) = 0;
@@ -54,8 +57,6 @@ public:
 	virtual unknown_ret GetCurrentLanguage( AppId_t unAppID ) = 0;
 	virtual unknown_ret GetFallbackLanguage( AppId_t unAppID, ELanguage) = 0;
 	virtual unknown_ret SetCurrentLanguage( AppId_t unAppID, ELanguage) = 0;
-	virtual bool BIsDlcEnabled( AppId_t unAppID, uint32, bool* ) = 0;
-	virtual void SetDlcEnabled( AppId_t unAppID, uint32, bool ) = 0;
 	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
 	virtual bool CancelValidation( AppId_t unAppID ) = 0;
 	virtual bool MarkContentCorrupt( AppId_t unAppID, bool bCorrupt ) = 0;

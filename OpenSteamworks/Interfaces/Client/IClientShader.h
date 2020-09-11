@@ -35,7 +35,6 @@ public:
     virtual unknown_ret GetShaderCacheProcessingCompletion() = 0;
     virtual unknown_ret GetShaderCacheProcessingAppID() = 0;
     virtual unknown_ret SkipShaderProcessing( uint32 ) = 0;
-	virtual unknown_ret SetupShaderCacheEnvironment( char*, uint32 ) = 0;
 	virtual unknown_ret BAppHasPendingShaderContentDownload( uint32 ) = 0;
 	virtual unknown_ret GetAppPendingShaderDownloadSize( uint32 ) = 0;
 };

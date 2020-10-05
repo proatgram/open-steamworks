@@ -661,7 +661,8 @@ struct DRMDataResponse_t
 {
 	enum { k_iCallback = k_iClientUserCallbacks + 25 };
 
-	// TODO : Reverse this callback
+	EResult m_EResult;
+	AppId_t m_appID;
 };
 
 struct DRMFailureResponse_t

@@ -265,6 +265,8 @@ public:
 	virtual bool BGetParentalWebToken( CUtlBuffer *, CUtlBuffer * ) = 0;
 	virtual unknown_ret GetCommunityPreference( ECommunityPreference eunk ) = 0;
 	virtual unknown_ret SetCommunityPreference( ECommunityPreference eUnk, bool bUnk ) = 0;
+	virtual unknown_ret GetTextFilterSetting() = 0;
+	virtual bool BTextFilterIgnoresFriends() = 0;
 	virtual bool BCanLogonOfflineMode() = 0;
 	virtual EResult LogOnOfflineMode() = 0;
 	virtual EResult ValidateOfflineLogonTicket( const char * pchUnk ) = 0;

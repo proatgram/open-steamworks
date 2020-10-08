@@ -131,7 +131,7 @@ public:
 	virtual unknown_ret DispatchClearAllBrowsingData() = 0;
 	virtual unknown_ret DispatchClientSettingsChanged() = 0;
 	virtual unknown_ret DispatchClientPostMessage(const char*, const char*, const char*) = 0;
-	virtual unknown_ret IsSteamChinaLauncher() = 0;
+	virtual unknown_ret IsSteamChina() = 0;
 	virtual unknown_ret NeedsSteamChinaWorkshop() = 0;
 	virtual unknown_ret InitFilterText(uint32, uint32) = 0;
 	virtual unknown_ret FilterText(uint32, ETextFilteringContext, CSteamID, const char*, char*, uint32) = 0;

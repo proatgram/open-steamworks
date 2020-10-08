@@ -31,12 +31,14 @@ public:
     virtual unknown_ret StartShaderScan( uint32, const char* ) = 0;
 	virtual unknown_ret StartPipelineBuild( uint32, int32 ) = 0;
     virtual unknown_ret StartShaderConversion( uint32, uint64, const char* ) = 0;
+    virtual unknown_ret StartShaderPruning() = 0;
     virtual unknown_ret ProcessShaderCache( uint32 ) = 0;
     virtual unknown_ret GetShaderCacheProcessingCompletion() = 0;
     virtual unknown_ret GetShaderCacheProcessingAppID() = 0;
     virtual unknown_ret SkipShaderProcessing( uint32 ) = 0;
 	virtual unknown_ret BAppHasPendingShaderContentDownload( uint32 ) = 0;
 	virtual unknown_ret GetAppPendingShaderDownloadSize( uint32 ) = 0;
+    virtual unknown_ret GetBucketManifest( uint32 , const char*, const char*) = 0;
 };
 
 #endif // ICLIENTSHADER_H

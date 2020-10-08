@@ -85,6 +85,7 @@ public:
 	virtual void SetAllowDownloadsWhileAnyAppRunning( bool bAllowDownloadsWhileAnyAppRunning ) = 0;
 	virtual bool BAllowDownloadsWhileAnyAppRunning() = 0;
 	virtual bool ChangeAppDownloadQueuePlacement( AppId_t unAppID, EAppDownloadQueuePlacement eAppDownloadQueuePlacement ) = 0;
+	virtual unknown_ret SetAppDownloadQueueIndex( AppId_t unAppID, int32 iUnk ) = 0;
 	virtual int32 GetAppDownloadQueueIndex( AppId_t unAppID ) = 0;
 	virtual int32 GetAppAutoUpdateDelayedUntilTime( AppId_t unAppID ) = 0;
 	virtual int32 GetNumAppsInDownloadQueue() = 0;

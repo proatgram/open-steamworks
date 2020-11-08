@@ -87,6 +87,8 @@
     <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient015.h" />
     <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient016.h" />
     <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient017.h" />
+    <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient018.h" />
+    <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient019.h" />
     <ClInclude Include="Interfaces\Steam\ISteamContentServer\ISteamContentServer001.h" />
     <ClInclude Include="Interfaces\Steam\ISteamContentServer\ISteamContentServer002.h" />
     <ClInclude Include="Interfaces\Steam\ISteamController\ISteamController001.h" />

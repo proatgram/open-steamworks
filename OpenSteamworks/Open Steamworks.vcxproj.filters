@@ -829,6 +829,12 @@
     <ClInclude Include="Types\RemoteClientCommon.h">
       <Filter>Types</Filter>
     </ClInclude>
+    <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient018.h">
+      <Filter>Interfaces\Steam\ISteamClient</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient019.h">
+      <Filter>Interfaces\Steam\ISteamClient</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Types">

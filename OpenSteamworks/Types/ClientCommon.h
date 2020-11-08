@@ -51,7 +51,10 @@ class ISteamHTMLSurface;
 class ISteamInventory;
 class ISteamVideo;
 class ISteamParentalSettings;
-
+class ISteamInput;
+class ISteamParties;
+class ISteamGameSearch;
+class ISteamRemotePlay;
 
 #define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION005"
 
@@ -69,5 +72,6 @@ class ISteamParentalSettings;
 #define STEAMCLIENT_INTERFACE_VERSION_016		"SteamClient016"
 #define STEAMCLIENT_INTERFACE_VERSION_017		"SteamClient017"
 #define STEAMCLIENT_INTERFACE_VERSION_018		"SteamClient018"
+#define STEAMCLIENT_INTERFACE_VERSION_019		"SteamClient019"
 
 #endif

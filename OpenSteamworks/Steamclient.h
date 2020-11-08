@@ -43,6 +43,8 @@
 #include "Interfaces/Steam/ISteamClient/ISteamClient015.h"
 #include "Interfaces/Steam/ISteamClient/ISteamClient016.h"
 #include "Interfaces/Steam/ISteamClient/ISteamClient017.h"
+#include "Interfaces/Steam/ISteamClient/ISteamClient018.h"
+#include "Interfaces/Steam/ISteamClient/ISteamClient019.h"
 
 // friends
 #include "Interfaces/Steam/ISteamFriends/ISteamFriends001.h"

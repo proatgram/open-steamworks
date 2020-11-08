@@ -823,6 +823,12 @@
       <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="OpenAPI.h" />
+    <ClInclude Include="Interfaces\Client\IClientRemoteClientManager.h">
+      <Filter>Interfaces\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\RemoteClientCommon.h">
+      <Filter>Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Types">

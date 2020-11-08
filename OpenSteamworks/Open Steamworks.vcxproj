@@ -47,6 +47,7 @@
     <ClInclude Include="Interfaces\Client\IClientNetworkingSocketsSerialized.h" />
     <ClInclude Include="Interfaces\Client\IClientParentalSettings.h" />
     <ClInclude Include="Interfaces\Client\IClientProductBuilder.h" />
+    <ClInclude Include="Interfaces\Client\IClientRemoteClientManager.h" />
     <ClInclude Include="Interfaces\Client\IClientRemoteStorage.h" />
     <ClInclude Include="Interfaces\Client\IClientScreenshots.h" />
     <ClInclude Include="Interfaces\Client\IClientShader.h" />
@@ -259,6 +260,7 @@
     <ClInclude Include="Types\NetworkingCommon.h" />
     <ClInclude Include="Types\OAuthCommon.h" />
     <ClInclude Include="Types\ParentalSettingsCommon.h" />
+    <ClInclude Include="Types\RemoteClientCommon.h" />
     <ClInclude Include="Types\RemoteStorageCommon.h" />
     <ClInclude Include="Types\ScreenshotsCommon.h" />
     <ClInclude Include="Types\servernetadr.h" />

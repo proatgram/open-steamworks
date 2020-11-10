@@ -153,6 +153,7 @@
     <ClInclude Include="Interfaces\Steam\ISteamNetworking\ISteamNetworking005.h" />
     <ClInclude Include="Interfaces\Steam\ISteamOAuth\ISteamOAuth001.h" />
     <ClInclude Include="Interfaces\Steam\ISteamParentalSettings\ISteamParentalSettings001.h" />
+    <ClInclude Include="Interfaces\Steam\ISteamRemotePlay\ISteamRemotePlay001.h" />
     <ClInclude Include="Interfaces\Steam\ISteamRemoteStorage\ISteamRemoteStorage001.h" />
     <ClInclude Include="Interfaces\Steam\ISteamRemoteStorage\ISteamRemoteStorage002.h" />
     <ClInclude Include="Interfaces\Steam\ISteamRemoteStorage\ISteamRemoteStorage003.h" />

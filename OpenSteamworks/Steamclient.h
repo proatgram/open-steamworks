@@ -253,6 +253,9 @@
 // parental settings
 #include "Interfaces/Steam/ISteamParentalSettings/ISteamParentalSettings001.h"
 
+// remote plat
+#include "Interfaces/Steam/ISteamRemotePlay/ISteamRemotePlay001.h"
+
 #ifndef NO_ICLIENT
 // client interfaces
 #include "Interfaces/Client/IClientEngine.h"

@@ -14,9 +14,10 @@
 //
 //=============================================================================
 
-#ifndef ICLIENTREMOTECLIENTCOMMON_H
-#define ICLIENTREMOTECLIENTCOMMON_H
+#ifndef REMOTECLIENTCOMMON_H
+#define REMOTECLIENTCOMMON_H
 
+#define STEAMREMOTEPLAY_INTERFACE_VERSION "STEAMREMOTEPLAY_INTERFACE_VERSION001"
 
 enum ESteamDeviceFormFactor
 {
@@ -131,4 +132,4 @@ struct RemotePlayInviteResult_t
 
 #pragma pack( pop )
 
-#endif // ICLIENTREMOTECLIENTCOMMON_H
+#endif // REMOTECLIENTCOMMON_H

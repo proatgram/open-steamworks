@@ -835,6 +835,9 @@
     <ClInclude Include="Interfaces\Steam\ISteamClient\ISteamClient019.h">
       <Filter>Interfaces\Steam\ISteamClient</Filter>
     </ClInclude>
+    <ClInclude Include="Interfaces\Steam\ISteamRemotePlay\ISteamRemotePlay001.h">
+      <Filter>Interfaces\Steam\ISteamRemotePlay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Types">
@@ -947,6 +950,9 @@
     </Filter>
     <Filter Include="Interfaces\Steam\ISteamParentalSettings">
       <UniqueIdentifier>{e6ada59e-b417-45cc-977b-008c5dfa7dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces\Steam\ISteamRemotePlay">
+      <UniqueIdentifier>{bcae77cf-9a4a-493e-a880-cd859dca6e18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -25,7 +25,7 @@ class ISteamRemotePlay001
 public:
     virtual uint32 GetSessionCount() = 0;
     virtual uint32 GetSessionID(int iSessionIndex) = 0;
-    STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetSessionSteamID, uint32 unSessionID);
+    STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetSessionSteamID, uint32, unSessionID);
     virtual const char* GetSessionClientName(uint32 unSessionID) = 0;
     virtual ESteamDeviceFormFactor GetSessionClientFormFactor(uint32 unSessionID) = 0;
     virtual bool BGetSessionClientResolution(uint32 unSessionID, int* pnResolutionX, int* pnResolutionY) = 0;

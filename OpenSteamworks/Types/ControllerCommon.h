@@ -284,6 +284,7 @@ enum EControllerType
 	k_EControllerTypeController_switch_joycon_pair,
 	k_EControllerTypeController_switch_pro_generic,
 	k_EControllerTypeController_mobile_touch,
+	k_EControllerTypeController_ps5 = 45,
 	k_EControllerTypeController_keyboard_generic = 400,
 	k_EControllerTypeController_mouse_generic = 800,
 };
@@ -338,6 +339,8 @@ enum EControllerSourceMode
 	k_EControllerSourceModeRadial_menu,
 	k_EControllerSourceModeSingle_button,
 	k_EControllerSourceModeSwitches,
+	k_EControllerSourceModeFlickstick,
+	k_EControllerSourceMode2dscroll,
 };
 
 enum EControllerModeInput

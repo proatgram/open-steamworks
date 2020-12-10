@@ -82,6 +82,7 @@ class IClientNetworkingUtils;
 class IClientNetworkingUtilsSerialized;
 class IClientSTARInternal;
 class IClientRemotePlay;
+class IClientGameServerPacketHandler;
 
 struct SteamIPAddress_t;
 
@@ -99,6 +100,7 @@ public:
 	virtual bool IsValidHSteamUserPipe( HSteamPipe hSteamPipe, HSteamUser hUser ) = 0;
 	virtual IClientUser *GetIClientUser( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientGameServer *GetIClientGameServer( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
+	virtual IClientGameServerPacketHandler *GetIClientGameServerPacketHandler( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual void SetLocalIPBinding( const SteamIPAddress_t& ipAddr, uint16 usPort ) = 0;
 	virtual char const *GetUniverseName( EUniverse eUniverse ) = 0;
 	virtual IClientFriends *GetIClientFriends( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;

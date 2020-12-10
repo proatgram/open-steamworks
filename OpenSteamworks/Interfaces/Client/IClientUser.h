@@ -146,7 +146,6 @@ public:
 	virtual void GetTwoFactorDetails() = 0;
 	virtual bool BHasTwoFactor() = 0;
 	virtual bool GetEmail( char* pchEmail, int32 cchEmail, bool* pbValidated ) = 0;
-	virtual void FindAccountsByCdKey( const char *pchCdKey ) = 0;
 	virtual void Test_FakeConnectionTimeout() = 0;
 	virtual bool RunInstallScript( AppId_t pAppIDs, const char *pchUnk, bool bUninstall ) = 0;
 	virtual AppId_t IsInstallScriptRunning() = 0;
@@ -192,6 +191,7 @@ public:
 	virtual AppId_t GetMicroTxnAppID( GID_t gidTransID ) = 0;
 	virtual uint64 GetMicroTxnOrderID( GID_t gidTransID ) = 0;
 	virtual bool BGetMicroTxnPrice( GID_t gidTransID, CAmount *pamtTotal, CAmount *pamtTax, bool *pbVat, CAmount * pUnk ) = 0;
+	virtual unknown_ret GetMicroTxnSteamRealm( GID_t gidTransID ) = 0;
 	virtual int32 GetMicroTxnLineItemCount( GID_t gidTransID ) = 0;
 	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength, int32 *pRecurringTimeUnit, uint8 *pRecurringFrequency, CAmount *pRecurringAmount, bool * pbUnk ) = 0;
 	virtual bool BIsSandboxMicroTxn( GID_t gidTransID, bool* pbSandbox ) = 0;
@@ -224,6 +224,7 @@ public:
 	virtual void SetUserMachineName( const char * pchMachineName ) = 0;
 	virtual bool GetUserMachineName( char * pchMachineName, int32 cbMachineName ) = 0;
 	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int32 cbEmailDomain ) = 0;
+	virtual unknown_ret GetAgreementSessionUrl() = 0;
 	virtual int64 GetDurationControl() = 0;
 	virtual unknown_ret GetDurationControlForApp( AppId_t nAppId ) = 0;
 	virtual bool BSetDurationControlOnlineState(EDurationControlOnlineState) = 0;

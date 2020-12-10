@@ -178,16 +178,6 @@ public:
 	// Source games use this to simplify the job of the server admins, so they 
 	// don't have to open up more ports on their firewalls.
 
-	// Call this when a packet that starts with 0xFFFFFFFF comes in. That means
-	// it's for us.
-	virtual bool HandleIncomingPacket( const void *pData, int32 cbData, uint32 srcIP, uint16 srcPort ) = 0;
-
-	// AFTER calling HandleIncomingPacket for any packets that came in that frame, call this.
-	// This gets a packet that the master server updater needs to send out on UDP.
-	// It returns the length of the packet it wants to send, or 0 if there are no more packets to send.
-	// Call this each frame until it returns 0.
-	virtual int32 GetNextOutgoingPacket( void *pOut, int32 cbMaxOut, uint32 *pNetAdr, uint16 *pPort ) = 0;
-
 	virtual void EnableHeartbeats( bool bEnabled ) = 0;
 	virtual void SetHeartbeatInterval( int32 iInterval ) = 0;
 

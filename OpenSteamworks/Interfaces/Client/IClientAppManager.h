@@ -93,11 +93,13 @@ public:
 	virtual bool BuildBackup( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
 	virtual bool BuildInstaller( const char *cszProjectFile, const char *cszBackupPath, const char *, const char * ) = 0;
 	virtual bool CancelBackup() = 0;
-	virtual EAppUpdateError RestoreApp( AppId_t unAppID, int32 iBaseFolder, char const *cszBackupPath ) = 0;
+	virtual EAppUpdateError RestoreAppFromBackup( AppId_t unAppID, const char *cszBackupPath ) = 0;
+	virtual unknown_ret RecoverAppFromFolder( AppId_t unAppID, const char *cszUnk  ) = 0;
 	virtual bool CanMoveApp( AppId_t unAppID ) = 0;
 	virtual unknown_ret MoveApp( AppId_t unAppID, int32 unk ) = 0;
 	virtual bool GetMoveAppProgress( AppId_t unAppID, uint64* unk_1, uint64* unk_2, uint32* unk_3) = 0;
 	virtual bool CancelMoveApp( AppId_t unAppID ) = 0;
+	virtual bool BWaitForFiles( AppId_t unAppID ) = 0;
 	virtual bool BNeedsFile( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
 	virtual bool BAddFileOnDisk( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
 	virtual uint32 FinishAddingFiles( AppId_t unAppID ) = 0;

@@ -21,20 +21,28 @@
 #endif
 
 class CUtlString;
+struct AppWhitelistSetting_t;
+struct AppControllerConfigOverride_t;
 template<typename T1, typename T2> class CUtlVector;
 template<typename T> class CUtlMemory;
 
 class IClientCompat
 {
 public:
-	virtual unknown_ret BIsCompatLayerEnabled() = 0;
-	virtual unknown_ret EnableCompat(bool) = 0;
-	virtual unknown_ret GetAvailableCompatTools(CUtlVector<CUtlString, CUtlMemory<CUtlString> >*) = 0;
-	virtual unknown_ret SpecifyCompatTool(uint32, const char*, const char*, int32) = 0;
-	virtual unknown_ret BIsCompatibilityToolEnabled(uint32) = 0;
-	virtual unknown_ret GetCompatToolName(uint32) = 0;
-	virtual unknown_ret GetCompatToolMappingPriority(uint32) = 0;
-	virtual unknown_ret GetCompatToolDisplayName(const char*) = 0;
+    virtual unknown_ret BIsCompatLayerEnabled() = 0;
+    virtual unknown_ret EnableCompat(bool) = 0;
+    virtual unknown_ret GetAvailableCompatTools(CUtlVector<CUtlString, CUtlMemory<CUtlString> >*) = 0;
+    virtual unknown_ret GetAvailableCompatToolsFiltered(CUtlVector<CUtlString, CUtlMemory<CUtlString> >*, ERemoteStoragePlatform) = 0;
+    virtual unknown_ret GetAvailableCompatToolsForApp(CUtlVector<CUtlString, CUtlMemory<CUtlString> >*, uint32) = 0;
+    virtual unknown_ret SpecifyCompatTool(uint32, const char*, const char*, int32) = 0;
+    virtual unknown_ret BIsCompatibilityToolEnabled(uint32) = 0;
+    virtual unknown_ret GetCompatToolName(uint32) = 0;
+    virtual unknown_ret GetCompatToolMappingPriority(uint32) = 0;
+    virtual unknown_ret GetCompatToolDisplayName(const char*) = 0;
+    virtual unknown_ret GetWhitelistedGameList(CUtlVector<AppWhitelistSetting_t, CUtlMemory<AppWhitelistSetting_t> >*) = 0;
+    virtual unknown_ret GetControllerConfigOverrides(CUtlVector<AppControllerConfigOverride_t, CUtlMemory<AppControllerConfigOverride_t> >*) = 0;
+    virtual unknown_ret StartSession(uint32) = 0;
+    virtual unknown_ret ReleaseSession(uint32, uint64) = 0;
 };
 
 #endif // ICLIENTCOMPAT_H

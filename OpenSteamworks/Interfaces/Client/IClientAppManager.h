@@ -68,7 +68,6 @@ public:
 	virtual bool BHasCachedBetaPassword( AppId_t unAppID, const char *cszBetaKey ) = 0;
 	virtual unknown_ret GetActiveBeta( AppId_t unAppID, char*, int32) = 0;
 	virtual bool BGetActiveBetaForApps( uint32* puUnk, int32 iUnk, char* pcUnk, int32 iUnk2) = 0;
-	virtual bool BIsManifestAvailableForUser( AppId_t unAppID, uint32 uUnk, uint64 ullUnk) = 0;
 	virtual bool SetDownloadingEnabled( bool ) = 0;
 	virtual bool BIsDownloadingEnabled() = 0;
 	virtual bool GetDownloadStats( DownloadStats_s *pDownloadStats ) = 0;

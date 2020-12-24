@@ -285,6 +285,7 @@ enum EControllerType
 	k_EControllerTypeController_switch_pro_generic,
 	k_EControllerTypeController_mobile_touch,
 	k_EControllerTypeController_ps5 = 45,
+	k_EControllerTypeController_xboxone_,
 	k_EControllerTypeController_keyboard_generic = 400,
 	k_EControllerTypeController_mouse_generic = 800,
 };

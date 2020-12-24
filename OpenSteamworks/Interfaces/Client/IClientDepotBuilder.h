@@ -58,7 +58,7 @@ abstract_class IClientDepotBuilder
 public:
     virtual bool BGetDepotBuildStatus(uint64, EDepotBuildStatus*, uint64*, uint64*) = 0;
     virtual unknown_ret VerifyChunkStore(uint32, uint32, const char*) = 0;
-    virtual unknown_ret DownloadDepot(uint32, uint32, uint64, uint64, uint64, uint32) = 0;
+    virtual unknown_ret DownloadDepot(uint32, uint32, uint64, uint64, uint64, uint32, const char*) = 0;
     virtual unknown_ret StartDepotBuild(uint32, uint32, uint32, const char*) = 0;
     virtual unknown_ret CommitAppBuild(uint32, uint32, const uint32*, const uint64*, const char*, const char*) = 0;
 };

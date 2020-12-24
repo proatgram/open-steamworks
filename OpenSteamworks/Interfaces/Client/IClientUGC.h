@@ -44,6 +44,11 @@ public:
 
 	// Retrieve an individual result after receiving the callback for querying UGC
 	virtual bool GetQueryUGCResult(UGCQueryHandle_t handle, uint32 index, SteamUGCDetails_t *pDetails) = 0;
+
+	virtual unknown_ret GetQueryUGCNumTags(UGCQueryHandle_t handle, uint32) = 0;
+	virtual unknown_ret GetQueryUGCTag(UGCQueryHandle_t handle, uint32, uint32, char*, uint32) = 0;
+	virtual unknown_ret GetQueryUGCTagDisplayName(UGCQueryHandle_t handle, uint32, uint32, char*, uint32) = 0;
+
 	virtual bool GetQueryUGCPreviewURL(UGCQueryHandle_t handle, uint32, char*, uint32) = 0;
 	virtual bool GetQueryUGCImageURL(UGCQueryHandle_t handle, uint32, char*, uint32, uint32*, uint32*) = 0;
 	virtual bool GetQueryUGCMetadata(UGCQueryHandle_t handle, uint32, char*, uint32) = 0;

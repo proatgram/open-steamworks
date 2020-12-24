@@ -39,6 +39,8 @@ public:
 	virtual unknown_ret BAppHasPendingShaderContentDownload( uint32 ) = 0;
 	virtual unknown_ret GetAppPendingShaderDownloadSize( uint32 ) = 0;
     virtual unknown_ret GetBucketManifest( uint32 , const char*, const char*) = 0;
+    virtual unknown_ret GetStaleBucket(const char*, const char*) = 0;
+    virtual unknown_ret ReportExternalBuild(uint32, const char*, const char*, uint64, const char*, const char*, uint64) = 0;
 };
 
 #endif // ICLIENTSHADER_H

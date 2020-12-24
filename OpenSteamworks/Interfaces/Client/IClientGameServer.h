@@ -50,6 +50,8 @@ abstract_class UNSAFE_INTERFACE IClientGameServer
 public:
 	// returns the HSteamUser this interface represents
 	virtual HSteamUser GetHSteamUser() = 0;
+	virtual HSteamPipe GetHSteamPipe() = 0;
+	virtual void SetSDRLogin(CUtlBuffer*) = 0;
 
 	virtual bool InitGameServer( uint32 unGameIP, uint16 unGamePort, uint16 usQueryPort, uint32 unServerFlags, AppId_t nAppID, const char *pchVersion ) = 0;
 	virtual void SetProduct( const char *pchProductName ) = 0;

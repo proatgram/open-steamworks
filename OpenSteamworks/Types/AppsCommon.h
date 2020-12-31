@@ -141,7 +141,7 @@ struct AppUpdateInfo_s
 	uint64 m_unBytesToProcess;
 	uint64 m_unBytesProcessed;
 	int32 m_unEstimatedSecondsRemaining;
-	char m_cUnk[12];
+	char m_cUnk[28];
 };
 #pragma pack( pop )
 

@@ -288,6 +288,7 @@ public:
 	virtual void UpdateSteamAnnouncementLastRead( uint64 ullUnk, uint32 uUnk) = 0;
 	virtual unknown_ret GetMarketEligibility() = 0;
 	virtual unknown_ret UpdateGameVrDllState(CGameID, bool, bool) = 0;
+	virtual unknown_ret KillVRTheaterPancakeGame(CGameID) = 0;
 	virtual bool BIsAnyGameOrServiceAppRunning() = 0;
 	virtual bool BGetAppArrayMinutesPlayed( uint32*, int32, int32*, int32*) = 0;
 	virtual bool BGetAppsLastPlayedTime( uint32*, int32, uint32*) = 0;

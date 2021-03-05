@@ -99,7 +99,7 @@ struct RemoteClientStartStreamSession_t
     bool m_bRestrictedSession;
 
     char m_szRemoteIP[64];
-    byte m_rgubAuthToken[32];
+    uint8 m_rgubAuthToken[32];
     uint32 m_cubAuthToken;
 
     char m_szDeviceName[128];

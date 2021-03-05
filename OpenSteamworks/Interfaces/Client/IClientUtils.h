@@ -37,7 +37,9 @@ public:
 
 	// the universe this client is connecting to
 	virtual EUniverse GetConnectedUniverse() = 0;
-
+	
+	virtual unknown_ret GetSteamRealm() = 0;
+	
 	// server time - in PST, number of seconds since January 1, 1970 (i.e unix time)
 	virtual uint32 GetServerRealTime() = 0;
 
@@ -132,7 +134,7 @@ public:
 	virtual unknown_ret DispatchClientSettingsChanged() = 0;
 	virtual unknown_ret DispatchClientPostMessage(const char*, const char*, const char*) = 0;
 	virtual unknown_ret IsSteamChina() = 0;
-	virtual unknown_ret NeedsSteamChinaWorkshop() = 0;
+	virtual unknown_ret NeedsSteamChinaWorkshop(uint32) = 0;
 	virtual unknown_ret InitFilterText(uint32, uint32) = 0;
 	virtual unknown_ret FilterText(uint32, ETextFilteringContext, CSteamID, const char*, char*, uint32) = 0;
 	virtual unknown_ret GetIPv6ConnectivityState( ESteamIPv6ConnectivityProtocol ) = 0;

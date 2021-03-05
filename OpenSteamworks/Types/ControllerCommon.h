@@ -285,7 +285,7 @@ enum EControllerType
 	k_EControllerTypeController_switch_pro_generic,
 	k_EControllerTypeController_mobile_touch,
 	k_EControllerTypeController_ps5 = 45,
-	k_EControllerTypeController_xboxone_,
+	k_EControllerTypeController_xboxelite,
 	k_EControllerTypeController_keyboard_generic = 400,
 	k_EControllerTypeController_mouse_generic = 800,
 };
@@ -342,6 +342,7 @@ enum EControllerSourceMode
 	k_EControllerSourceModeSwitches,
 	k_EControllerSourceModeFlickstick,
 	k_EControllerSourceMode2dscroll,
+	k_EControllerSourceModeHotbar,
 };
 
 enum EControllerModeInput
@@ -427,7 +428,7 @@ enum EControllerModeInput
 
 enum EControllerSetting
 {
-	k_EControllerSettingLeft_trackpad_mode = 0,
+	k_EControllerSettingLeft_trackpad_mode,
 	k_EControllerSettingRight_trackpad_mode,
 	k_EControllerSettingTrackpad_trigger_data,
 	k_EControllerSettingHaptic_intensity,
@@ -545,6 +546,10 @@ enum EControllerSetting
 	k_EControllerSettingPressurejoystick_min_pressure,
 	k_EControllerSettingPressurejoystick_max_pressure,
 	k_EControllerSettingPressurejoystick_enable_pressure,
+	k_EControllerSettingActivate_stick_or_trackpad,
+	k_EControllerSettingFrame_time,
+	k_EControllerSettingTransition_time,
+	k_EControllerSettingActivation_button,
 };
 
 enum EControllerConfigFeature

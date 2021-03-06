@@ -1,8 +1,15 @@
 UNAME := $(shell uname)
+UNAME_M := $(shell uname -m)
+BUILD_ARCH := 32
 CXX = g++
-FLAGS = -m32 -fPIC -O2 -c -I../../OpenSteamworks
 
-LIBNAME = ../lib/Linux32/OpenSteamAPI.a
+ifeq ($(UNAME_M), x86_64)
+	BUILD_ARCH := 64
+endif
+
+FLAGS = -m$(BUILD_ARCH) -fPIC -O2 -c -I../../OpenSteamworks
+
+LIBNAME = ../lib/Linux$(BUILD_ARCH)/OpenSteamAPI.a
 SRCS = CCallbackMgr.cpp ClientWrap.cpp Interface_OSW.cpp
 
 ifeq ($(UNAME), Darwin)

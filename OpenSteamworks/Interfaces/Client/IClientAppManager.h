@@ -34,10 +34,8 @@ public:
 	virtual EAppUpdateError LaunchApp( CGameID gameID, uint32 uLaunchOption, uint32 eLaunchSource, const char *pszUserArgs ) = 0;
 	virtual bool ShutdownApp( AppId_t unAppID, bool bForce ) = 0;
 	virtual EAppState GetAppInstallState( AppId_t unAppID ) = 0;
-	virtual uint32 GetAppBuildID( AppId_t unAppID ) = 0;
-	virtual int32 GetCurrentAppSizeOnDisk( AppId_t unAppID ) = 0;
-	virtual uint64 GetRequiredAppsSizeOnDisk( AppId_t unAppIDs[], int32 iUnk ) = 0;
 	virtual uint64 GetAppInstallDir( AppId_t unAppID, char *pchPath, uint32 cchPath ) = 0;
+	virtual unknown_ret GetAppContentInfo( AppId_t unAppID, bool, uint32*, uint32*, uint64*) = 0;
 	virtual bool IsAppDlcInstalled( AppId_t unAppID, AppId_t unDLCAppID ) = 0;
 	virtual bool GetDlcDownloadProgress( AppId_t unAppID, AppId_t unDLCAppID, uint64* lluUnk1, uint64* lluUnk2 ) = 0;
 	virtual unknown_ret GetDlcSizeOnDisk(AppId_t unAppID, uint32) = 0;
@@ -109,7 +107,7 @@ public:
 	virtual int32 GetNumInstallBaseFolders() = 0;
 	virtual int32 GetInstallBaseFolder( int32 iBaseFolder, char *pchPath, int32 cbPath ) = 0;
 	virtual int32 AddInstallBaseFolder( const char *szPath ) = 0;
-	virtual bool RemoveInstallBaseFolder( int32 iBaseFolder ) = 0;
+	virtual bool RemoveInstallBaseFolder( int32 iBaseFolder, bool ) = 0;
 	virtual uint64 GetFreeDiskSpace( int32 iBaseFolder ) = 0;
 	virtual bool BGetDiskSpaceStats( int32 iBaseFolder, uint64*, uint64*) = 0;
 	virtual int32 GetAppInstallBaseFolder( int32 iBaseFolder ) = 0;

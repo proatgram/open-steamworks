@@ -73,6 +73,18 @@ enum EClientUsedInputType
     k_EClientUsedInputTypeMax
 };
 
+#pragma pack( push, 1 )
+
+struct RemotePlayPlayer_t
+{
+    CSteamID m_playerID;
+    uint64 m_guestID;
+};
+
+#pragma pack( pop )
+
+#pragma pack( push, 8 )
+
 struct RemoteClientReservedGamepad_t
 {
 
@@ -83,16 +95,17 @@ struct RemoteClientInputSettings_t
 
 };
 
-#pragma pack( push, 8 )
+// k_iClientRemoteClientManager Callbacks
 
 struct RemoteClientStartStreamSession_t
 {
     enum { k_iCallback = k_iClientRemoteClientManagerCallbacks + 11 };
 
     uint32 m_unStreamingSessionID;
-    CSteamID m_player;
+    RemotePlayPlayer_t m_player;
     CGameID m_GameID;
 
+    bool m_bRemotePlayTogether;
     bool m_bEnableVideoStreaming;
     bool m_bEnableAudioStreaming;
     bool m_bEnableInputStreaming;
@@ -118,16 +131,17 @@ struct RemoteClientStopStreamSession_t
     enum { k_iCallback = k_iClientRemoteClientManagerCallbacks + 12 };
 
     uint32 m_unStreamingSessionID;
-    CSteamID m_player;
+    RemotePlayPlayer_t m_player;
 };
 
 struct RemotePlayInviteResult_t
 {
     enum { k_iCallback = k_iClientRemoteClientManagerCallbacks + 28 };
 
-    CSteamID m_player;
+    RemotePlayPlayer_t m_player;
     ERemoteClientLaunchResult m_eResult;
     CGameID m_nGameID;
+    char m_szConnectURL[1024];
 };
 
 #pragma pack( pop )

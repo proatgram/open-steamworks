@@ -145,6 +145,7 @@ typedef enum EResult
 	k_EResultNoLauncherSpecified,							// No launcher specified
 	k_EResultMustAgreeToSSA,								// Must agree to SSA
 	k_EResultClientNoLongerSupported,						// Client no longer supported
+	k_EResultSteamRealmMismatch,							// The current Steam realm does not match the requested resource
 } EResult;
 
 #endif // ERESULT_H

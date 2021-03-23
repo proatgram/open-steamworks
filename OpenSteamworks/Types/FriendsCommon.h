@@ -357,13 +357,7 @@ struct FriendSessionStateInfo_t
 	uint8 m_uiPublishedToFriendsSessionInstance;
 };
 
-
-
-
 // k_iSteamFriendsCallbacks callbacks
-
-
-
 
 //-----------------------------------------------------------------------------
 // Purpose: called when a friends' status changes

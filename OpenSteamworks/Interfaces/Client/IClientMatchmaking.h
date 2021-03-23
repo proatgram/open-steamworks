@@ -24,6 +24,8 @@
 #include "Types/MatchmakingCommon.h"
 #include "Types/UserCommon.h"
 
+// protobufs are leaking into clientapi(?)
+class CMsgGMSClientServerQueryResponse;
 
 abstract_class UNSAFE_INTERFACE IClientMatchmaking
 {
@@ -85,7 +87,7 @@ public:
 
 	virtual uint64 BeginGMSQuery( AppId_t nAppId, int32 iRegionCode, const char* szFilterText ) = 0;
 	virtual int32 PollGMSQuery( uint64 ullGMSQuery ) = 0;
-	virtual int32 GetGMSQueryResults( uint64 ullGMSQuery, GMSQueryResult_t *pGMSQueryResults, int32 nResultBufSizeInBytes ) = 0;
+	virtual int32 GetGMSQueryResults( uint64 ullGMSQuery, CMsgGMSClientServerQueryResponse*) = 0;
 	virtual void ReleaseGMSQuery( uint64 ullGMSQuery ) = 0;
 	
 	virtual uint64 EnsureFavoriteGameAccountsUpdated( bool bUnk ) = 0;

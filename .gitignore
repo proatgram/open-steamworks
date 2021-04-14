@@ -33,3 +33,4 @@ bld/
 UpgradeLog.*
 _UpgradeReport_Files
 .DS_Store
+*.vdf

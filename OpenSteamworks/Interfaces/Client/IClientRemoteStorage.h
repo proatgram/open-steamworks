@@ -143,6 +143,7 @@ public:
 	virtual void ResumeSubscribedFileDownloadsForApp( AppId_t nAppId ) = 0;
 	virtual void PauseAllSubscribedFileDownloads() = 0;
 	virtual void ResumeAllSubscribedFileDownloads() = 0;
+	virtual void CancelCurrentAndPendingOperations() = 0;
 };
 
 #endif // ICLIENTREMOTESTORAGE_H

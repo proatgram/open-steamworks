@@ -68,6 +68,8 @@ public:
 	virtual bool SetAchievement( CGameID nGameID, const char *pchName ) = 0;
 	virtual bool ClearAchievement( CGameID nGameID, const char *pchName ) = 0;
 
+	virtual unknown_ret GetAchievementProgress(CGameID, const char*, float*, float*, float*) = 0;
+
 	// Store the current data on the server, will get a callback when set
 	// And one callback for every new achievement
 	virtual bool StoreStats( CGameID nGameID ) = 0;

@@ -550,6 +550,7 @@ enum EControllerSetting
 	k_EControllerSettingFrame_time,
 	k_EControllerSettingTransition_time,
 	k_EControllerSettingActivation_button,
+	k_EControllerSettingDeadzone_enable_type,
 };
 
 enum EControllerConfigFeature

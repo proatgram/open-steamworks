@@ -211,7 +211,7 @@ public:
 	virtual int32 GetCountAuthedComputers() = 0;
 	virtual bool BSteamGuardNewMachineNotification() = 0;
 	virtual RTime32 GetSteamGuardEnabledTime() = 0;
-	virtual bool GetSteamGuardHistoryEntry( int32 iEntryIndex, RTime32 *puTimestamp, uint32 *puIP, bool *pbIsRemembered, char *pchGeolocInfo, int32 cchGeolocInfo, char * pchUnk, int32 cbUnk ) = 0;
+	virtual bool GetSteamGuardHistoryEntry( int32 iEntryIndex, RTime32 *puTimestamp, SteamIPAddress_t* puIP, bool *pbIsRemembered, char *pchGeolocInfo, int32 cchGeolocInfo, char * pchUnk, int32 cbUnk ) = 0;
 	virtual void SetSteamGuardNewMachineDialogResponse( bool bIsApproved, bool bIsWizardComplete ) = 0;
 	virtual void SetPhoneIsVerified(bool) = 0;
 	virtual bool BIsPhoneVerified() = 0;

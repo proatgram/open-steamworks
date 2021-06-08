@@ -56,7 +56,7 @@ bool TestClient::Init()
 		return false;
 	}
 
-    m_pClientFriends = (IClientFriends*)m_pClientEngine->GetIClientFriends(m_hUser, m_hPipe);
+	m_pClientFriends = (IClientFriends*)m_pClientEngine->GetIClientFriends(m_hUser, m_hPipe);
 	if (!m_pClientFriends)
 	{
 		fprintf(stderr, "Unable to get the client friends interface.\n");

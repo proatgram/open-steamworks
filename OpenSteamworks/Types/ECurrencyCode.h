@@ -65,6 +65,12 @@ typedef enum ECurrencyCode
 	k_ECurrencyCodeQAR = 39,
 	k_ECurrencyCodeCRC = 40,
 	k_ECurrencyCodeUYU = 41,
+	k_ECurrencyCodeBGN = 42,
+	k_ECurrencyCodeHRK = 43,
+	k_ECurrencyCodeCZK = 44,
+	k_ECurrencyCodeDKK = 45,
+	k_ECurrencyCodeHUF = 46,
+	k_ECurrencyCodeRON = 47,
 } ECurrencyCode;
 
 #endif // ECURRENCYCODE_H

@@ -83,6 +83,8 @@ class IClientNetworkingUtilsSerialized;
 class IClientSTARInternal;
 class IClientRemotePlay;
 class IClientGameServerPacketHandler;
+class IClientSystemManager;
+class IClientStorageDeviceManager;
 
 struct SteamIPAddress_t;
 
@@ -128,6 +130,8 @@ public:
 	virtual IClientProductBuilder *GetIClientProductBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientDepotBuilder *GetIClientDepotBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientNetworkDeviceManager *GetIClientNetworkDeviceManager( HSteamPipe hSteamPipe ) = 0;
+	virtual IClientStorageDeviceManager *GetIClientStorageDeviceManager( HSteamPipe hSteamPipe ) = 0;
+	virtual IClientSystemManager *GetIClientSystemManager( HSteamPipe hSteamPipe ) = 0;
 	virtual void ConCommandInit( IConCommandBaseAccessor *pAccessor ) = 0;
 	virtual IClientAppManager *GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientConfigStore *GetIClientConfigStore( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;

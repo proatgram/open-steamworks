@@ -172,11 +172,16 @@ typedef enum EPaymentMethod
 	k_EPaymentMethodLider, // Lider
 	k_EPaymentMethodWebMoneySteamCardJapan, // WebMoney Steam Card (Japan)
 	k_EPaymentMethodWebMoneySteamCardTopUpJapan, // WebMoney Steam Card Top Up (Japan)
-	k_EPaymentMethodWallet = 128, // Wallet
+	k_EPaymentMethodToss, // Toss
+	k_EPaymentMethodWallet, // Wallet
 	k_EPaymentMethodValve, // Valve
 	k_EPaymentMethodSteamPressMaster, // Steam/Press Master
 	k_EPaymentMethodStorePromotion, // Store Promotion
 	k_EPaymentMethodMasterSubscription = 134, // Master Subscription
+	k_EPaymentMethodPayco, // Payco
+	k_EPaymentMethodMobileWalletJapan, // Mobile Wallet (Japan)
+	k_EPaymentMethodBoletoFlash, // Boleto Flash
+	k_EPaymentMethodPIX, // PIX
 	k_EPaymentMethodOEMTicket = 256, // OEM Ticket
 	k_EPaymentMethodSplit = 512, // Split
 	k_EPaymentMethodComplimentary = 1024, // Complimentary

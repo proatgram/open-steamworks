@@ -60,6 +60,7 @@ enum EAppState
 	k_EAppStateComponentInUse	= 1 << 14,
 	k_EAppStateMovingFolder		= 1 << 15,
 	k_EAppStateUpdateHidden		= 1 << 16,
+	k_EAppStatePrefetchingInfo	= 1 << 17,
 };
 
 enum EAppUpdateState
@@ -215,6 +216,8 @@ enum EAppUpdateError
 	k_EAppUpdateErrorAllowedPlaytimeExceeded, // Allowed playtime exceeded
 	k_EAppUpdateErrorSteamClientFilesCorrupt, // Steam client files corrupt
 	k_EAppUpdateErrorMissingGameFiles, // Missing game files
+	k_EAppUpdateErrorCompatToolFailed, // Compat tool failed
+	k_EAppUpdateErrorInstallPathRemoved, // Install path removed
 };
 
 //-----------------------------------------------------------------------------

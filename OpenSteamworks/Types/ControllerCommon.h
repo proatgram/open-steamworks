@@ -343,6 +343,7 @@ enum EControllerSourceMode
 	k_EControllerSourceModeFlickstick,
 	k_EControllerSourceMode2dscroll,
 	k_EControllerSourceModeHotbar,
+	k_EControllerSourceModeDisabled,
 };
 
 enum EControllerModeInput

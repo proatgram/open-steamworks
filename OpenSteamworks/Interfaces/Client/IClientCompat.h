@@ -43,6 +43,7 @@ public:
     virtual unknown_ret GetControllerConfigOverrides(CUtlVector<AppControllerConfigOverride_t, CUtlMemory<AppControllerConfigOverride_t> >*) = 0;
     virtual unknown_ret StartSession(uint32) = 0;
     virtual unknown_ret ReleaseSession(uint32, uint64) = 0;
+    virtual unknown_ret DeleteCompatData(uint32) = 0;
 };
 
 #endif // ICLIENTCOMPAT_H

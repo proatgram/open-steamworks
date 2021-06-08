@@ -53,8 +53,10 @@
     <ClInclude Include="Interfaces\Client\IClientShader.h" />
     <ClInclude Include="Interfaces\Client\IClientSharedConnection.h" />
     <ClInclude Include="Interfaces\Client\IClientShortcuts.h" />
+    <ClInclude Include="Interfaces\Client\IClientStorageDeviceManager.h" />
     <ClInclude Include="Interfaces\Client\IClientStreamClient.h" />
     <ClInclude Include="Interfaces\Client\IClientStreamLauncher.h" />
+    <ClInclude Include="Interfaces\Client\IClientSystemManager.h" />
     <ClInclude Include="Interfaces\Client\IClientUGC.h" />
     <ClInclude Include="Interfaces\Client\IClientUnifiedMessages.h" />
     <ClInclude Include="Interfaces\Client\IClientUser.h" />

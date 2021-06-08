@@ -301,7 +301,8 @@
 #include "Interfaces/Client/IClientNetworkingSocketsSerialized.h"
 #include "Interfaces/Client/IClientCompat.h"
 #include "Interfaces/Client/IClientRemoteClientManager.h"
-
+#include "Interfaces/Client/IClientStorageDeviceManager.h"
+#include "Interfaces/Client/IClientSystemManager.h"
 #endif // NO_ICLIENT
 
 // callback

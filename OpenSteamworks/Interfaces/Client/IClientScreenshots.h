@@ -55,6 +55,8 @@ public:
 	virtual bool SetLocalScreenshotPrivacy( CGameID gameID, ScreenshotHandle hScreenshot, EUCMFilePrivacyState ePrivacy ) = 0;
 	virtual bool SetLocalScreenshotSpoiler( CGameID, ScreenshotHandle hScreenshot, bool bSpoiler ) = 0;
 
+	virtual unknown_ret GetLocalLastScreenshot(CGameID*, uint32*) = 0;
+
 	virtual bool StartBatch( CGameID gameID ) = 0;
 	virtual bool AddToBatch( ScreenshotHandle hScreenshot ) = 0;
 	virtual SteamAPICall_t UploadBatch( EUCMFilePrivacyState ePrivacy ) = 0;

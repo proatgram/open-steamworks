@@ -36,17 +36,16 @@ enum EWirelessSecurityFlags
 struct WirelessAccessPoint_t
 {
 	// TODO : Reverse this struct
-#ifdef _S4N_
-	int m_iPadding;
-#endif
 };
 
 struct WirelessCredentials_t
 {
 	// TODO : Reverse this struct
-#ifdef _S4N_
-	int m_iPadding;
-#endif
+};
+
+struct NetworkDevicesData_t
+{
+	// TODO : Reverse this struct
 };
 
 enum ENetworkDeviceManagerError
@@ -61,6 +60,15 @@ abstract_class UNSAFE_INTERFACE IClientNetworkDeviceManager
 public:
 	virtual bool IsInterfaceValid() = 0;
 	virtual void RefreshDevices() = 0;
+	virtual unknown_ret GetNetworkDevicesData(NetworkDevicesData_t*) = 0;
+	virtual unknown_ret ConnectToDevice(uint32, uint32, const char*, const char*, uint32, bool, bool) = 0;
+	virtual unknown_ret DisconnectFromDevice(uint32) = 0;
+	virtual unknown_ret SetWifiEnabled(bool) = 0;
+	virtual unknown_ret SetWifiScanningEnabled(bool) = 0;
+	virtual unknown_ret ForgetWirelessEndpoint(uint32, uint32) = 0;
+	virtual unknown_ret SetWirelessEndpointAutoconnect(uint32, uint32, bool) = 0;
+	virtual unknown_ret SetCustomIPSettings(uint32, uint32, uint32, uint32, uint32, uint32) = 0;
+	virtual unknown_ret GetCustomIPSettings(uint32, uint32*, uint32*, uint32*, uint32*, uint32*) = 0;
 	virtual unknown_ret EnumerateNetworkDevices(uint32, uint32*) = 0;
 	virtual unknown_ret GetDeviceType(uint32) = 0;
 	virtual bool IsCurrentDevice(uint32) = 0;
@@ -83,13 +91,8 @@ public:
 	virtual unknown_ret GetWirelessEndpointStrength(uint32, uint32) = 0;
 	virtual bool IsSecurityRequired(uint32, uint32) = 0;
 	virtual const char* GetCachedWirelessCredentials(uint32, uint32) = 0;
-	virtual bool DisconnectFromDevice(uint32, bool) = 0;
-	virtual void SetCustomIPSettings(uint32, uint32, uint32, uint32, uint32, uint32) = 0;
-	virtual bool ConnectToDevice(uint32, uint32, const char*, const char*, uint32, bool, bool) = 0;
 	virtual bool IsWirelessEndpointForgettable(uint32, uint32) = 0;
-	virtual void ForgetWirelessEndpointAutoconnect(uint32, uint32) = 0;
 	virtual bool IsUsingDHCP(uint32) = 0;
-	virtual bool GetCustomIPSettings(uint32, uint32*, uint32*, uint32*, uint32*, uint32*) = 0;
 };
 
 #endif // ICLIENTNETWORKDEVICEMANAGER_H

@@ -85,6 +85,7 @@ class IClientRemotePlay;
 class IClientGameServerPacketHandler;
 class IClientSystemManager;
 class IClientStorageDeviceManager;
+class IClientSystemPerfManager;
 
 struct SteamIPAddress_t;
 
@@ -131,6 +132,7 @@ public:
 	virtual IClientDepotBuilder *GetIClientDepotBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientNetworkDeviceManager *GetIClientNetworkDeviceManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientStorageDeviceManager *GetIClientStorageDeviceManager( HSteamPipe hSteamPipe ) = 0;
+	virtual IClientSystemPerfManager* GetIClientSystemPerfManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientSystemManager *GetIClientSystemManager( HSteamPipe hSteamPipe ) = 0;
 	virtual void ConCommandInit( IConCommandBaseAccessor *pAccessor ) = 0;
 	virtual IClientAppManager *GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;

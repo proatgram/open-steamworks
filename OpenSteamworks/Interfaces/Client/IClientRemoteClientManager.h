@@ -49,6 +49,7 @@ public:
 	virtual unknown_ret GetRemoteClientConnectedCount() = 0;
 	virtual unknown_ret GetRemoteClientStreamingEnabledCount() = 0;
 	virtual unknown_ret GetRemoteClientName(uint64) = 0;
+	virtual bool BRemoteClientStreaming(uint64) = 0;
 	virtual unknown_ret GetRemoteClientConnectState(uint64) = 0;
 	virtual bool BRemoteClientHasStreamingSupported(uint64) = 0;
 	virtual bool BRemoteClientHasStreamingEnabled(uint64) = 0;
@@ -58,6 +59,7 @@ public:
 	virtual unknown_ret GetRemoteDeviceIDByIndex(uint32) = 0;
 	virtual unknown_ret GetRemoteDeviceNameByIndex(uint32) = 0;
 	virtual unknown_ret GetRemoteDeviceName(uint64) = 0;
+	virtual bool BRemoteDeviceStreaming(uint64) = 0;
 	virtual unknown_ret UnpairRemoteDevices() = 0;
 	virtual bool BIsStreamingSupported() = 0;
 	virtual bool BIsStreamingEnabled() = 0;

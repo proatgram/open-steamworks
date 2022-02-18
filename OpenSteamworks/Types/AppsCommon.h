@@ -363,7 +363,7 @@ struct DlcInstalled_t
 
 struct AppEventStateChange_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 6 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 6 };
 
 	AppId_t m_nAppID;
 	uint32 m_eOldState;
@@ -373,7 +373,7 @@ struct AppEventStateChange_t
 
 struct AppValidationComplete_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 7 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 7 };
 
 	AppId_t m_nAppID;
 	bool m_bFinished;
@@ -398,7 +398,7 @@ struct RegisterActivationCodeResponse_t
 
 struct DownloadScheduleChanged_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 9 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 9 };
 
 	bool m_bDownloadEnabled;
 	uint32 m_nTotalAppsScheduled;
@@ -407,7 +407,7 @@ struct DownloadScheduleChanged_t
 
 struct AppUpdateStateChange_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 10 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 10 };
 
 	AppId_t m_nAppID;
 	uint32 m_eOldState;
@@ -416,7 +416,7 @@ struct AppUpdateStateChange_t
 
 struct AppLaunchTenFootOverlay_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 11 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 11 };
 
 	CGameID m_GameID;
 	uint64 m_nPid;
@@ -425,7 +425,7 @@ struct AppLaunchTenFootOverlay_t
 
 struct AppBackupStatus_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 12 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 12 };
 
 	AppId_t m_nAppID;
 	EResult m_eResult;
@@ -447,7 +447,7 @@ struct RequestAppProofOfPurchaseKeyResponse_t
 
 struct AppAutoUpdateBehaviorChanged_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 16 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 16 };
 
 	AppId_t m_nAppID;
 	EAppAutoUpdateBehavior m_eNewBehavior;
@@ -455,7 +455,7 @@ struct AppAutoUpdateBehaviorChanged_t
 
 struct AppInfoUpdateProgress_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 17 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 17 };
 
 	uint32 m_cAppsRequested;
 	uint32 m_cAppsUpdated;
@@ -465,7 +465,7 @@ struct AppInfoUpdateProgress_t
 
 struct AppUpdateStopped_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 18 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 18 };
 
 	AppId_t m_nAppID;
 	AppUpdateInfo_s m_UpdateState;
@@ -473,14 +473,14 @@ struct AppUpdateStopped_t
 
 struct AppConfigChanged_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 19 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 19 };
 
 	AppId_t m_nAppID;
 };
 
 struct CheckAppBetaPasswordResponse_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 20 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 20 };
 
 	AppId_t m_nAppID;
 	EResult m_eResult;
@@ -489,14 +489,14 @@ struct CheckAppBetaPasswordResponse_t
 
 struct AppUpdateProgress_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 25 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 25 };
 
 	AppId_t m_nAppID;
 };
 
 struct AppLaunchResult_t
 {
-	enum { k_iCallback = k_iSteamAppsCallbacks + 27 };
+	enum { k_iCallback = k_iClientAppsCallbacks + 27 };
 
 	CGameID m_GameID;
 	EAppUpdateError m_eAppError;

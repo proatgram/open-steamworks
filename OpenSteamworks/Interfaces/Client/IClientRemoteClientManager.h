@@ -83,6 +83,7 @@ public:
 	virtual bool BIsStreamClientRunningConnectedToClient(CGameID, uint64) = 0;
 	virtual bool BGetStreamingClientConfig(CUtlBuffer*) = 0;
 	virtual bool BSetStreamingClientConfig(CUtlBuffer*) = 0;
+	virtual void SetStreamingClientControllerInputPaused(bool) = 0;
 	virtual unknown_ret RequestControllerConfig(uint64, uint32, uint32) = 0;
 	virtual unknown_ret PostControllerConfig(uint64, const uint8*, uint32) = 0;
 	virtual unknown_ret GetControllerConfig(uint64, uint8*, uint32) = 0;

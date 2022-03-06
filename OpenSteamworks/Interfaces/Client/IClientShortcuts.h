@@ -24,6 +24,27 @@
 
 #define CLIENTSHORTCUTS_INTERFACE_VERSION "CLIENTSHORTCUTS_INTERFACE_VERSION001"
 
+#pragma pack( push, 8 )
+
+struct ShortcutChanged_t
+{
+	enum { k_iCallback = k_iClientShortcutsCallbacks + 1 };
+
+	AppId_t m_nAppID;
+	bool m_bRemote;
+};
+
+struct ShortcutRemoved_t
+{
+	enum { k_iCallback = k_iClientShortcutsCallbacks + 2 };
+
+	AppId_t m_nAppID;
+	bool m_bRemote;
+};
+
+#pragma pack( pop )
+
+
 abstract_class UNSAFE_INTERFACE IClientShortcuts
 {
 public:
@@ -42,6 +63,7 @@ public:
 	virtual bool BIsDevkitShortcutByIndex( uint32 uIndex ) = 0;
 	virtual unknown_ret GetDevkitGameIDByIndex( uint32 uIndex ) = 0;
 	virtual unknown_ret GetDevkitAppIDByDevkitGameID( const char * pchUnk) = 0;
+	virtual AppId_t GetOverrideAppID( uint32 uUnk ) = 0;
 	virtual const char * GetShortcutAppNameByAppID( AppId_t unAppID ) = 0;
 	virtual const char * GetShortcutExeByAppID( AppId_t unAppID ) = 0;
 	virtual const char * GetShortcutStartDirByAppID( AppId_t unAppID ) = 0;

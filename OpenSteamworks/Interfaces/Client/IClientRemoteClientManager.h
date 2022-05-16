@@ -81,6 +81,7 @@ public:
 	virtual bool BIsStreamClientRunning() = 0;
 	virtual bool BIsStreamClientRunning(CGameID) = 0;
 	virtual bool BIsStreamClientRunningConnectedToClient(CGameID, uint64) = 0;
+	virtual bool BIsStreamClientRemotePlayTogether() = 0;
 	virtual bool BGetStreamingClientConfig(CUtlBuffer*) = 0;
 	virtual bool BSetStreamingClientConfig(CUtlBuffer*) = 0;
 	virtual void SetStreamingClientControllerInputPaused(bool) = 0;

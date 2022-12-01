@@ -88,7 +88,8 @@ class IClientStorageDeviceManager;
 class IClientSystemPerfManager;
 class IClientSystemDockManager;
 class IClientSystemAudioManager;
-	
+class IClientSystemDisplayManager;
+
 struct SteamIPAddress_t;
 
 abstract_class UNSAFE_INTERFACE IClientEngine
@@ -138,6 +139,7 @@ public:
 	virtual IClientSystemManager *GetIClientSystemManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientSystemDockManager *GetIClientSystemDockManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientSystemAudioManager *GetIClientSystemAudioManager( HSteamPipe hSteamPipe ) = 0;
+	virtual IClientSystemDisplayManager *GetIClientSystemDisplayManager( HSteamPipe hSteamPipe ) = 0;
 	virtual void ConCommandInit( IConCommandBaseAccessor *pAccessor ) = 0;
 	virtual IClientAppManager *GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientConfigStore *GetIClientConfigStore( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;

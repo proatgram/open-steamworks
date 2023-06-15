@@ -90,7 +90,6 @@ public:
 	virtual bool BSetStreamingClientConfig(CUtlBuffer*) = 0;
 	virtual bool BQueueControllerConfigMessageForRemote(void* unk) = 0;
 	virtual bool BGetControllerConfigMessageForLocal(void* unk) = 0;
-	virtual void SetStreamingClientControllerInputPaused(bool) = 0;
 	virtual unknown_ret RequestControllerConfig(uint64, uint32, uint32) = 0;
 	virtual unknown_ret PostControllerConfig(uint64, const uint8*, uint32) = 0;
 	virtual unknown_ret GetControllerConfig(uint64, uint8*, uint32) = 0;
@@ -105,7 +104,7 @@ public:
 	virtual unknown_ret SetRemotePlayTogetherBitrateOverride(int32) = 0;
 	virtual bool BHasRemotePlayInviteAndSession(RemotePlayPlayer_t) = 0;
 	virtual bool BCreateRemotePlayGroup(void* unk) = 0;
-	virtual unknown_ret CreateRemotePlayInviteAndSession(RemotePlayPlayer_t friendID, AppId_t appID) = 0;
+    virtual bool BCreateRemotePlayInviteAndSession(RemotePlayPlayer_t friendID, AppId_t appID) = 0;
 	virtual unknown_ret CancelRemotePlayInviteAndSession(RemotePlayPlayer_t) = 0;
 	virtual unknown_ret JoinRemotePlaySession(CSteamID, const char*) = 0;
 	virtual bool BStreamingDesktopToRemotePlayTogetherEnabled() = 0;

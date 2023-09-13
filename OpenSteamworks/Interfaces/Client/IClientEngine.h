@@ -134,7 +134,6 @@ public:
 	virtual IClientProductBuilder *GetIClientProductBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientDepotBuilder *GetIClientDepotBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe ) = 0;
 	virtual IClientNetworkDeviceManager *GetIClientNetworkDeviceManager( HSteamPipe hSteamPipe ) = 0;
-	virtual IClientStorageDeviceManager *GetIClientStorageDeviceManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientSystemPerfManager* GetIClientSystemPerfManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientSystemManager *GetIClientSystemManager( HSteamPipe hSteamPipe ) = 0;
 	virtual IClientSystemDockManager *GetIClientSystemDockManager( HSteamPipe hSteamPipe ) = 0;

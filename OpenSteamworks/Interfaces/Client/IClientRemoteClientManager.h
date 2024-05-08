@@ -66,6 +66,7 @@ public:
 	virtual unknown_ret GetRemoteDeviceFormFactor(uint64) = 0;
 	virtual unknown_ret UnpairRemoteDevices() = 0;
 	virtual bool BIsStreamingSupported() = 0;
+	virtual bool BIsStreamingDisabledBySystemPolicy() = 0;
 	virtual bool BIsStreamingEnabled() = 0;
 	virtual unknown_ret SetStreamingEnabled(bool) = 0;
 	virtual unknown_ret StartStream(uint64, uint32, int32, ERemoteClientStreamEnv, RemoteClientReservedGamepad_t const*, int32) = 0;

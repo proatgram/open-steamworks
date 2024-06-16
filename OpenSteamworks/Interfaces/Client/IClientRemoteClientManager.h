@@ -98,6 +98,7 @@ public:
 	virtual unknown_ret SetStreamingDriversInstalled(bool) = 0;
 	virtual unknown_ret SetStreamingPIN(const char*) = 0;
 	virtual unknown_ret GetStreamingPINSize(int32*) = 0;
+    virtual unknown_ret CancelRemoteClientPairing(uint64) = 0;
 	virtual unknown_ret UsedVideoX264() = 0;
 	virtual unknown_ret UsedVideoH264() = 0;
 	virtual unknown_ret UsedVideoHEVC() = 0;

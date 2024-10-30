@@ -14,29 +14,27 @@
 //
 //=============================================================================
 
-#if !defined(INTERFACEOSW_H) && !defined(_S4N_)
-#define INTERFACEOSW_H
-#ifdef _WIN32
 #pragma once
-#endif
 
+#include <string_view>
+#include <string>
 
 #ifdef _WIN32
 	#include "Win32Library.h"
 	static const int k_iPathMaxSize = MAX_PATH;
 
 	#ifdef _WIN64
-		static const char* k_cszSteam3LibraryName = "steamclient64.dll";
+		static constexpr std::string_view k_cszSteam3LibraryName = "steamclient64.dll";
 	#else
-		static const char* k_cszSteam3LibraryName = "steamclient.dll";
+		static constexpr std::string_view k_cszSteam3LibraryName = "steamclient.dll";
 	#endif
 #elif defined(__APPLE_CC__)
 	#include "POSIXLibrary.h"
 	#include <sys/param.h>
 	#include "OSXPathHelper.h"
 
-	static const int k_iPathMaxSize = MAXPATHLEN;
-	static const char* k_cszSteam3LibraryName = "steamclient.dylib";
+	static constexpr int k_iPathMaxSize = MAXPATHLEN;
+	static constexpr std::string_view k_cszSteam3LibraryName = "steamclient.dylib";
 #elif defined(__linux__)
 	#include "POSIXLibrary.h"
 	#include <limits.h>
@@ -45,45 +43,40 @@
 	#include <sys/stat.h>
 	#include <pwd.h>
 
-	static const int k_iPathMaxSize = PATH_MAX;
-	static const char* k_cszSteam3LibraryName = "steamclient.so";
+	static constexpr int k_iPathMaxSize = PATH_MAX;
+	static constexpr std::string_view k_cszSteam3LibraryName = "steamclient.so";
 #else
-	#error Unsupported platform
+	#error Unsupported Platform
 #endif
 
 
-class CSteamAPILoader
-{
-public:
-	enum ESearchOrder
-	{
-		k_ESearchOrderLocalFirst,
-		k_ESearchOrderSteamInstallFirst,
-	};
+class CSteamAPILoader {
+    public:
+        enum ESearchOrder {
+            k_ESearchOrderLocalFirst,
+            k_ESearchOrderSteamInstallFirst,
+        };
 
-	CSteamAPILoader(ESearchOrder eSearchOrder = k_ESearchOrderLocalFirst);
+        CSteamAPILoader(ESearchOrder eSearchOrder = k_ESearchOrderLocalFirst);
 
-	~CSteamAPILoader();
+        ~CSteamAPILoader();
 
-	bool Load();
+        bool Load();
 
-	CreateInterfaceFn GetSteam3Factory();
+        CreateInterfaceFn GetSteam3Factory();
 
-	const char* GetSteamDir();
+        std::string GetSteamDir();
 
-	const DynamicLibrary *GetSteamClientModule();
+        const DynamicLibrary *GetSteamClientModule();
 
-private:
+    private:
+        void TryGetSteamDir();
 
-	void TryGetSteamDir();
+        void TryLoadLibraries();
+        
+        std::string m_szSteamPath;
 
-	void TryLoadLibraries();
-	
-	char m_szSteamPath[k_iPathMaxSize];
+        DynamicLibrary* m_pSteamclient;
 
-	DynamicLibrary* m_pSteamclient;
-
-	ESearchOrder m_eSearchOrder;
+        ESearchOrder m_eSearchOrder;
 };
-
-#endif // INTERFACEOSW_H

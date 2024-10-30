@@ -17,38 +17,33 @@
 #include "Types/SteamTypes.h"
 #include "Interface_OSW.h"
 
-CSteamAPILoader::CSteamAPILoader(ESearchOrder eSearchOrder)
-{
+CSteamAPILoader::CSteamAPILoader(ESearchOrder eSearchOrder) {
 	m_eSearchOrder = eSearchOrder;
 	m_pSteamclient = NULL;
 }
 
-CSteamAPILoader::~CSteamAPILoader()
-{
-	if(m_pSteamclient)
+CSteamAPILoader::~CSteamAPILoader() {
+	if(m_pSteamclient) {
 		delete m_pSteamclient;
+    }
 }
 
-bool CSteamAPILoader::Load()
-{
+bool CSteamAPILoader::Load() {
 	TryGetSteamDir();
 	TryLoadLibraries();
 
 	return m_pSteamclient->IsLoaded();
 }
 
-CreateInterfaceFn CSteamAPILoader::GetSteam3Factory()
-{
+CreateInterfaceFn CSteamAPILoader::GetSteam3Factory() {
 	return (CreateInterfaceFn)m_pSteamclient->GetSymbol("CreateInterface");
 }
 
-const char* CSteamAPILoader::GetSteamDir()
-{
+std::string CSteamAPILoader::GetSteamDir() {
 	return m_szSteamPath;
 }
 	
-const DynamicLibrary* CSteamAPILoader::GetSteamClientModule()
-{
+const DynamicLibrary* CSteamAPILoader::GetSteamClientModule() {
 	return m_pSteamclient;
 }
 
@@ -57,8 +52,7 @@ const DynamicLibrary* CSteamAPILoader::GetSteamClientModule()
 	#pragma warning(disable: 4996) 
 #endif
 
-void CSteamAPILoader::TryGetSteamDir()
-{
+void CSteamAPILoader::TryGetSteamDir() {
 #ifdef _WIN32
 	HKEY hRegKey;
 
@@ -70,73 +64,65 @@ void CSteamAPILoader::TryGetSteamDir()
 #endif
 	{
 		DWORD dwLength = sizeof(m_szSteamPath) - 1;
-		if(RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_szSteamPath, &dwLength) == ERROR_SUCCESS)
-		{
+		if(RegQueryValueExA(hRegKey, "InstallPath", nullptr, nullptr, (BYTE*)m_szSteamPath.data(), &dwLength) == ERROR_SUCCESS) {
 			m_szSteamPath[dwLength] = '\0';
 			bFallback = false;
 		}
 		RegCloseKey(hRegKey);
 	}
 
-	if(bFallback)
-	{
-		strcpy(m_szSteamPath, ".");
+	if(bFallback) {
+		strcpy(m_szSteamPath.data(), ".");
 	}
 #elif defined(__APPLE_CC__)
 	bool bFallback = true;
 
-	if (GetApplicationSupportPath(m_szSteamPath, sizeof(m_szSteamPath)))
-	{
-		strncat(m_szSteamPath, "/Steam/Steam.AppBundle/Steam/Contents/MacOS/", sizeof(m_szSteamPath));
+	if (GetApplicationSupportPath(m_szSteamPath, sizeof(m_szSteamPath))) {
+        m_szSteamPath.append("/Steam/Steam.AppBundle/Steam/Contents/MacOS/");
 		bFallback = false;
 	}
 
-	if (bFallback)
-	{
-		strcpy(m_szSteamPath, ".");
+	if (bFallback) {
+		strcpy(m_szSteamPath.data(), ".");
 	}
 #elif defined(__linux__)
 	bool bFallback = true;
 
 	char* szHome = getpwuid(getuid())->pw_dir;
 
-	strncat(m_szSteamPath, szHome, sizeof(m_szSteamPath));
+    m_szSteamPath.append(szHome);
 
+    // TODO: Rewrite because steamclient.so is only in 32 bit prefix
 #ifdef __LP64__
-	strncat(m_szSteamPath, "/.steam/sdk64/", sizeof(m_szSteamPath));
+    m_szSteamPath.append("/.steam/sdk64/");
 #else
-	strncat(m_szSteamPath, "/.steam/sdk32/", sizeof(m_szSteamPath));
+    m_szSteamPath.append("/.steam/sdk32/");
 #endif
 
 	struct stat info;
-	if (stat(m_szSteamPath, &info) == 0)
-	{
-		if (S_ISDIR(info.st_mode))
-		{
+	if (stat(m_szSteamPath.c_str(), &info) == 0) {
+		if (S_ISDIR(info.st_mode)) {
 			bFallback = false;
 		}
 	}
 
-	if (bFallback)
-	{
-		strcpy(m_szSteamPath, ".");
+	if (bFallback) {
+		strcpy(m_szSteamPath.data(), ".");
 	}
 #endif
 }
 
-void CSteamAPILoader::TryLoadLibraries()
-{
-	if(m_eSearchOrder == k_ESearchOrderLocalFirst)
-	{
-		m_pSteamclient = new DynamicLibrary(k_cszSteam3LibraryName);
+void CSteamAPILoader::TryLoadLibraries() {
+	if(m_eSearchOrder == k_ESearchOrderLocalFirst) {
+		m_pSteamclient = new DynamicLibrary(k_cszSteam3LibraryName.data());
 
-		if(!m_pSteamclient->IsLoaded())
-		{
+		if(!m_pSteamclient->IsLoaded()) {
 			delete m_pSteamclient;
-			m_pSteamclient = NULL;
+			m_pSteamclient = nullptr;
 		}
-		else
+		else {
 			return;
+        }
 	}
 
 #ifdef _WIN32
@@ -145,10 +131,7 @@ void CSteamAPILoader::TryLoadLibraries()
 	SetDllDirectoryA( m_szSteamPath );
 #endif
 
-	char szLibraryPath[k_iPathMaxSize];
-	szLibraryPath[sizeof(szLibraryPath) - 1] = '\0';
-
-	snprintf(szLibraryPath, sizeof(szLibraryPath) - 1, "%s/%s", m_szSteamPath, k_cszSteam3LibraryName);
+    std::string szLibraryPath = m_szSteamPath + "/" + k_cszSteam3LibraryName.data();
 	m_pSteamclient = new DynamicLibrary(szLibraryPath);
 }
 

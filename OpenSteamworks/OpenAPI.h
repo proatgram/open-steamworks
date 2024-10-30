@@ -14,14 +14,8 @@
 //
 //=============================================================================
 
-#ifndef CLIENTLOADER_H
-#define CLIENTLOADER_H
-#ifdef _WIN32
 #pragma once
-#endif
 
 #include "Types/SteamTypes.h"
 
 S_API bool STEAM_CALL OpenAPI_LoadLibrary();
-
-#endif // !CLIENTLOADER_H

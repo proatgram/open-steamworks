@@ -15,38 +15,37 @@
 //=============================================================================
 
 #pragma once
+
+#include <filesystem>
+#include <string>
+
 #include <dlfcn.h>
 
-class DynamicLibrary
-{
-public:
-	DynamicLibrary(const char* cszPath)
-	{
-		m_handle = dlopen(cszPath, RTLD_LAZY);
-	}
-	
-	~DynamicLibrary()
-	{
-		if(m_handle)
-			dlclose(m_handle);
-	}
-	
-	void * GetSymbol(const char* cszSymbol) const
-	{
-		if(!m_handle)
-			return NULL;
+class DynamicLibrary {
+    public:
+        DynamicLibrary(const std::filesystem::path &cszPath) {
+            m_handle = dlopen(cszPath.c_str(), RTLD_LAZY);
+        }
+        
+        ~DynamicLibrary() {
+            if(m_handle)
+                dlclose(m_handle);
+        }
+        
+        void * GetSymbol(const std::string &cszSymbol) const {
+            if(!m_handle)
+                return nullptr;
 
-		return dlsym(m_handle, cszSymbol);
-	}
+            return dlsym(m_handle, cszSymbol.c_str());
+        }
+        
+        bool IsLoaded() const {
+            return m_handle != nullptr;
+        }
 	
-	bool IsLoaded() const
-	{
-		return m_handle != NULL;
-	}
-	
-private:
-	void *m_handle;
-	
-	DynamicLibrary(const DynamicLibrary&);
-	void operator=(const DynamicLibrary&);
+    private:
+        void *m_handle;
+        
+        DynamicLibrary(const DynamicLibrary&);
+        void operator=(const DynamicLibrary&);
 };

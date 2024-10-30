@@ -22,33 +22,32 @@
 #include <map>
 #include "Steamworks.h"
 
-class CCallbackMgr
-{
-public:
-	CCallbackMgr();
-	~CCallbackMgr();
+class CCallbackMgr {
+    public:
+        CCallbackMgr();
+        ~CCallbackMgr();
 
-	void Init();
+        void Init();
 
-	bool BRunningCallbacks();
-	void RunCallbacks(HSteamPipe hPipe, bool bServer);
+        bool BRunningCallbacks();
+        void RunCallbacks(HSteamPipe hPipe, bool bServer);
 
-	void RegisterCallback(CCallbackBase *pCallback, int iCallback);
-	void UnregisterCallback(CCallbackBase *pCallback);
+        void RegisterCallback(CCallbackBase *pCallback, int iCallback);
+        void UnregisterCallback(CCallbackBase *pCallback);
 
-	void RegisterCallResult(CCallbackBase *pCallback, SteamAPICall_t hCallResult);
-	void UnregisterCallResult(CCallbackBase *pCallResult, SteamAPICall_t hCallResult);
+        void RegisterCallResult(CCallbackBase *pCallback, SteamAPICall_t hCallResult);
+        void UnregisterCallResult(CCallbackBase *pCallResult, SteamAPICall_t hCallResult);
 
-private:
-	std::atomic<bool> m_bRunning;
-	bool m_bInitialized;
+    private:
+        std::atomic<bool> m_bRunning;
+        bool m_bInitialized;
 
-	HSteamPipe m_hCurrentPipe;
+        HSteamPipe m_hCurrentPipe;
 
-	std::multimap<int, CCallbackBase*> m_registeredCallbacks;
-	std::multimap<SteamAPICall_t, CCallbackBase*> m_registeredCallResults;
+        std::multimap<int, CCallbackBase*> m_registeredCallbacks;
+        std::multimap<SteamAPICall_t, CCallbackBase*> m_registeredCallResults;
 
-	STEAM_CALLBACK_MANUAL(CCallbackMgr, OnAPICallComplete, SteamAPICallCompleted_t, m_steamApiCallCompleteCb);
+        STEAM_CALLBACK_MANUAL(CCallbackMgr, OnAPICallComplete, SteamAPICallCompleted_t, m_steamApiCallCompleteCb);
 };
 
 CCallbackMgr& GCallbackMgr();

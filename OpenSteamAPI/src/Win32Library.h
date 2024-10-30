@@ -16,36 +16,35 @@
 
 #pragma once
 
-class DynamicLibrary
-{
-public:
-	DynamicLibrary(const char* cszPath)
-	{
-		m_handle = LoadLibraryA(cszPath);
-	}
-	
-	~DynamicLibrary()
-	{
-		if(m_handle)
-			FreeLibrary(m_handle);
-	}
-	
-	void * GetSymbol(const char* cszSymbol) const
-	{
-		if(!m_handle)
-			return NULL;
+#include <filesystem>
+#include <string>
 
-		return (void *)GetProcAddress(m_handle, cszSymbol);
-	}
+class DynamicLibrary {
+    public:
+        DynamicLibrary(const std::filesystem::path &cszPath) {
+            m_handle = LoadLibraryA(cszPath.c_str());
+        }
+        
+        ~DynamicLibrary() {
+            if(m_handle) {
+                FreeLibrary(m_handle);
+            }
+        }
+        
+        void * GetSymbol(const std::string &cszSymbol) const {
+            if(!m_handle)
+                return nullptr;
+
+            return (void *)GetProcAddress(m_handle.c_str(), cszSymbol);
+        }
+        
+        bool IsLoaded() const {
+            return m_handle != nullptr;
+        }
 	
-	bool IsLoaded() const
-	{
-		return m_handle != NULL;
-	}
-	
-private:
-	HMODULE m_handle;
-	
-	DynamicLibrary(const DynamicLibrary&);
-	void operator=(const DynamicLibrary&);
+    private:
+        HMODULE m_handle;
+        
+        DynamicLibrary(const DynamicLibrary&);
+        void operator=(const DynamicLibrary&);
 };

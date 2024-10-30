@@ -17,18 +17,16 @@
 #include "CCallbackMgr.h"
 
 CCallbackMgr::CCallbackMgr(): 
-	m_bRunning(false), m_bInitialized(false)
+	m_bRunning(false),
+    m_bInitialized(false)
 {
+
 }
 
-CCallbackMgr::~CCallbackMgr()
-{
-}
+CCallbackMgr::~CCallbackMgr() {}
 
-void CCallbackMgr::Init()
-{
-	if (m_bInitialized)
-	{
+void CCallbackMgr::Init() {
+	if (m_bInitialized) {
 		return;
 	}
 
@@ -36,15 +34,12 @@ void CCallbackMgr::Init()
 	m_bInitialized = true;
 }
 
-bool CCallbackMgr::BRunningCallbacks()
-{
+bool CCallbackMgr::BRunningCallbacks() {
 	return m_bRunning;
 }
 
-void CCallbackMgr::RunCallbacks(HSteamPipe hPipe, bool bServer)
-{
-	if (m_bRunning || !m_bInitialized) 
-	{
+void CCallbackMgr::RunCallbacks(HSteamPipe hPipe, bool bServer) {
+	if (m_bRunning || !m_bInitialized)  {
 		return;
 	}
 
@@ -52,11 +47,9 @@ void CCallbackMgr::RunCallbacks(HSteamPipe hPipe, bool bServer)
 	m_hCurrentPipe = hPipe;
 
 	CallbackMsg_t msg;
-	while (Steam_BGetCallback(hPipe, &msg))
-	{
+	while (Steam_BGetCallback(hPipe, &msg)) {
 		auto matched = m_registeredCallbacks.equal_range(msg.m_iCallback);
-		for (auto it = matched.first; it != matched.second; ++it)
-		{
+		for (auto it = matched.first; it != matched.second; ++it) {
 			it->second->Run(msg.m_pubParam);
 		}
 
@@ -67,10 +60,8 @@ void CCallbackMgr::RunCallbacks(HSteamPipe hPipe, bool bServer)
 	m_bRunning = false;
 }
 
-void CCallbackMgr::RegisterCallback(CCallbackBase * pCallback, int iCallback)
-{
-	if (pCallback->m_nCallbackFlags & CCallbackBase::k_ECallbackFlagsRegistered)
-	{
+void CCallbackMgr::RegisterCallback(CCallbackBase * pCallback, int iCallback) {
+	if (pCallback->m_nCallbackFlags & CCallbackBase::k_ECallbackFlagsRegistered) {
 		return;
 	}
 
@@ -78,17 +69,13 @@ void CCallbackMgr::RegisterCallback(CCallbackBase * pCallback, int iCallback)
 	pCallback->m_nCallbackFlags |= CCallbackBase::k_ECallbackFlagsRegistered;
 }
 
-void CCallbackMgr::UnregisterCallback(CCallbackBase * pCallback)
-{
-	if (!(pCallback->m_nCallbackFlags & CCallbackBase::k_ECallbackFlagsRegistered))
-	{
+void CCallbackMgr::UnregisterCallback(CCallbackBase * pCallback) {
+	if (!(pCallback->m_nCallbackFlags & CCallbackBase::k_ECallbackFlagsRegistered)) {
 		return;
 	}
 
-	for (auto it = m_registeredCallbacks.begin(); it != m_registeredCallbacks.end(); ++it)
-	{
-		if (it->second == pCallback)
-		{
+	for (auto it = m_registeredCallbacks.begin(); it != m_registeredCallbacks.end(); ++it) {
+		if (it->second == pCallback) {
 			m_registeredCallbacks.erase(it);
 			pCallback->m_nCallbackFlags &= ~CCallbackBase::k_ECallbackFlagsRegistered;
 			break;
@@ -97,48 +84,40 @@ void CCallbackMgr::UnregisterCallback(CCallbackBase * pCallback)
 }
 
 // anything related to callresults is not tested... at all
-void CCallbackMgr::RegisterCallResult(CCallbackBase * pCallback, SteamAPICall_t hCallResult)
-{
+void CCallbackMgr::RegisterCallResult(CCallbackBase * pCallback, SteamAPICall_t hCallResult) {
 	m_registeredCallResults.insert(std::pair<SteamAPICall_t, CCallbackBase*>(hCallResult, pCallback));
 }
 
-void CCallbackMgr::UnregisterCallResult(CCallbackBase * pCallResult, SteamAPICall_t hCallResult)
-{
+void CCallbackMgr::UnregisterCallResult(CCallbackBase * pCallResult, SteamAPICall_t hCallResult) {
 	auto matched = m_registeredCallResults.equal_range(hCallResult);
-	for (auto it = matched.first; it != matched.second; ++it)
-	{
-		if (it->second == pCallResult)
-		{
+	for (auto it = matched.first; it != matched.second; ++it) {
+		if (it->second == pCallResult) {
 			m_registeredCallResults.erase(it);
 			break;
 		}
 	}
 }
 
-void CCallbackMgr::OnAPICallComplete(SteamAPICallCompleted_t * cbMsg)
-{
+void CCallbackMgr::OnAPICallComplete(SteamAPICallCompleted_t * cbMsg) {
 	auto matched = m_registeredCallResults.equal_range(cbMsg->m_hAsyncCall);
-	if (matched.first == matched.second)
-	{
+	if (matched.first == matched.second) {
 		return;
 	}
 
 	CCallbackBase * callResult = matched.first->second;
 	char * buf = new char[callResult->GetCallbackSizeBytes()];
 	bool failed;
-	if (Steam_GetAPICallResult(m_hCurrentPipe, cbMsg->m_hAsyncCall, buf, callResult->GetCallbackSizeBytes(), callResult->m_iCallback, &failed))
-	{
-		for (auto it = matched.first; it != matched.second;)
-		{
+	if (Steam_GetAPICallResult(m_hCurrentPipe, cbMsg->m_hAsyncCall, buf, callResult->GetCallbackSizeBytes(), callResult->m_iCallback, &failed)) {
+		for (auto it = matched.first; it != matched.second;) {
 			it->second->Run(buf, failed, cbMsg->m_hAsyncCall);
 			it = m_registeredCallResults.erase(it);
 		}
 	}
+
 	delete[] buf;
 }
 
-CCallbackMgr& GCallbackMgr()
-{
+CCallbackMgr& GCallbackMgr() {
 	static CCallbackMgr mgr;
 	return mgr;
 }

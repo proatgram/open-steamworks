@@ -18,6 +18,10 @@
 
 #include <string_view>
 #include <string>
+#include <optional>
+#include <filesystem>
+
+#include "Types/SteamTypes.h"
 
 #ifdef _WIN32
 	#include "Win32Library.h"
@@ -53,17 +57,18 @@
 class CSteamAPILoader {
     public:
         enum ESearchOrder {
+            k_ESearchOrderTryCustomLocation,
             k_ESearchOrderLocalFirst,
             k_ESearchOrderSteamInstallFirst,
         };
 
-        CSteamAPILoader(ESearchOrder eSearchOrder = k_ESearchOrderLocalFirst);
+        CSteamAPILoader(ESearchOrder eSearchOrder = k_ESearchOrderLocalFirst, const std::string &sCustomLocation = {});
 
         ~CSteamAPILoader();
 
         bool Load();
 
-        CreateInterfaceFn GetSteam3Factory();
+        CreateInterfaceFn* GetSteam3Factory();
 
         std::string GetSteamDir();
 
@@ -79,4 +84,6 @@ class CSteamAPILoader {
         DynamicLibrary* m_pSteamclient;
 
         ESearchOrder m_eSearchOrder;
+
+        std::string m_szCustomSearchLocation;
 };

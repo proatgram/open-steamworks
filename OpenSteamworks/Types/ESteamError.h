@@ -14,14 +14,9 @@
 //
 //=============================================================================
 
-#ifndef ESTEAMERROR_H
-#define ESTEAMERROR_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-typedef enum ESteamError
-{
+typedef enum ESteamError {
 	eSteamErrorNone													= 0,
 	eSteamErrorUnknown												= 1,
 	eSteamErrorLibraryNotInitialized								= 2,
@@ -89,5 +84,3 @@ typedef enum ESteamError
 
 	eSteamErrorOffline												= 201,
 } ESteamError;
-
-#endif // ESTEAMERROR_H

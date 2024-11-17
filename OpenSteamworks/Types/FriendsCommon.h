@@ -14,45 +14,21 @@
 //
 //=============================================================================
 
-#ifndef FRIENDSCOMMON_H
-#define FRIENDSCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define CLIENTFRIENDS_INTERFACE_VERSION "CLIENTFRIENDS_INTERFACE_VERSION001"
-
-#define STEAMFRIENDS_INTERFACE_VERSION_001 "SteamFriends001"
-#define STEAMFRIENDS_INTERFACE_VERSION_002 "SteamFriends002"
-#define STEAMFRIENDS_INTERFACE_VERSION_003 "SteamFriends003"
-#define STEAMFRIENDS_INTERFACE_VERSION_004 "SteamFriends004"
-#define STEAMFRIENDS_INTERFACE_VERSION_005 "SteamFriends005"
-#define STEAMFRIENDS_INTERFACE_VERSION_006 "SteamFriends006"
-#define STEAMFRIENDS_INTERFACE_VERSION_007 "SteamFriends007"
-#define STEAMFRIENDS_INTERFACE_VERSION_008 "SteamFriends008"
-#define STEAMFRIENDS_INTERFACE_VERSION_009 "SteamFriends009"
-#define STEAMFRIENDS_INTERFACE_VERSION_010 "SteamFriends010"
-#define STEAMFRIENDS_INTERFACE_VERSION_011 "SteamFriends011"
-#define STEAMFRIENDS_INTERFACE_VERSION_012 "SteamFriends012"
-#define STEAMFRIENDS_INTERFACE_VERSION_013 "SteamFriends013"
-#define STEAMFRIENDS_INTERFACE_VERSION_014 "SteamFriends014"
-#define STEAMFRIENDS_INTERFACE_VERSION_015 "SteamFriends015"
+#include "SteamTypes.h"
 
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
 //-----------------------------------------------------------------------------
-enum EAvatarSize
-{
+enum EAvatarSize {
 	k_EAvatarSize32x32 = 0,
 	k_EAvatarSize64x64 = 1,
 	k_EAvatarSize184x184 = 2,
 	k_EAvatarSizeMAX = 3,
 };
 
-enum ECallState
-{
+enum ECallState {
 	k_ECallStateUnknown = 0,
 	k_ECallStateWaiting = 1,
 	k_ECallStateDialing = 2,
@@ -63,8 +39,7 @@ enum ECallState
 //-----------------------------------------------------------------------------
 // Purpose: Chat Entry Types (previously was only friend-to-friend message types)
 //-----------------------------------------------------------------------------
-enum EChatEntryType
-{
+enum EChatEntryType {
 	k_EChatEntryTypeInvalid = 0,
 	k_EChatEntryTypeChatMsg = 1,		// Normal text message from another user
 	k_EChatEntryTypeTyping = 2,			// Another user is typing (not used in multi-user chat)
@@ -86,8 +61,7 @@ enum EChatEntryType
 //-----------------------------------------------------------------------------
 // Purpose: set of relationships to other users
 //-----------------------------------------------------------------------------
-enum EFriendRelationship
-{
+enum EFriendRelationship {
 	k_EFriendRelationshipNone = 0,
 	k_EFriendRelationshipBlocked = 1,
 	k_EFriendRelationshipRequestRecipient = 2,
@@ -101,15 +75,13 @@ enum EFriendRelationship
 	k_EFriendRelationshipMax = 8,
 };
 
-enum EChatRoomType
-{
+enum EChatRoomType {
 	k_EChatRoomTypeFriend = 1,
 	k_EChatRoomTypeMUC = 2,
 	k_EChatRoomTypeLobby = 3,
 };
 
-enum EChatRoomVoiceStatus
-{
+enum EChatRoomVoiceStatus {
 	eChatRoomVoiceStatus_Invalid = -1,
 	eChatRoomVoiceStatus_Bad = 0,
 	eChatRoomVoiceStatus_UnknownRoom = 1,
@@ -124,16 +96,14 @@ enum EChatRoomVoiceStatus
 	eChatRoomVoiceStatus_Count = 10,
 };
 
-enum EClanRank
-{
+enum EClanRank {
 	k_EClanRankNone = 0,
 	k_EClanRankOwner = 1,
 	k_EClanRankOfficer = 2,
 	k_EClanRankMember = 3,
 };
 
-enum EClanRelationship
-{
+enum EClanRelationship {
 	eClanRelationshipNone = 0,
 	eClanRelationshipBlocked = 1,
 	eClanRelationshipInvited = 2,
@@ -144,8 +114,7 @@ enum EClanRelationship
 //-----------------------------------------------------------------------------
 // Purpose: flags for enumerating friends list, or quickly checking a the relationship between users
 //-----------------------------------------------------------------------------
-enum EFriendFlags
-{
+enum EFriendFlags {
 	k_EFriendFlagNone			= 0x00,
 	k_EFriendFlagBlocked		= 0x01,
 	k_EFriendFlagFriendshipRequested	= 0x02,
@@ -169,8 +138,7 @@ typedef EFriendFlags k_EFriendFlags;
 //-----------------------------------------------------------------------------
 // Purpose: list of states a friend can be in
 //-----------------------------------------------------------------------------
-enum EPersonaState
-{
+enum EPersonaState {
 	k_EPersonaStateOffline = 0,			// friend is not currently logged on
 	k_EPersonaStateOnline = 1,			// friend is logged on
 	k_EPersonaStateBusy = 2,			// user is on, but busy
@@ -182,16 +150,14 @@ enum EPersonaState
 	k_EPersonaStateMax,
 };
 
-enum EPersonaStateFlag
-{
+enum EPersonaStateFlag {
 	k_EPersonaStateFlagHasRichPresence = 1,
 	k_EPersonaStateFlagInJoinableGame = 2,
 };
 
 // used in PersonaStateChange_t::m_nChangeFlags to describe what's changed about a user
 // these flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar & relationship change for every friend
-enum EPersonaChange
-{
+enum EPersonaChange {
 	k_EPersonaChangeName		= 0x001,
 	k_EPersonaChangeStatus		= 0x002,
 	k_EPersonaChangeComeOnline	= 0x004,
@@ -206,8 +172,7 @@ enum EPersonaChange
 	k_EPersonaChangeFacebookInfo = 0x800,
 };
 
-enum EChatPermission
-{
+enum EChatPermission {
 	k_EChatPermissionClose = 1,
 	k_EChatPermissionInvite = 2,
 	k_EChatPermissionTalk = 8,
@@ -228,8 +193,7 @@ enum EChatPermission
 //-----------------------------------------------------------------------------
 // Purpose: Chat Room Enter Responses
 //-----------------------------------------------------------------------------
-enum EChatRoomEnterResponse
-{
+enum EChatRoomEnterResponse {
 	k_EChatRoomEnterResponseSuccess = 1,				// Success
 	k_EChatRoomEnterResponseDoesntExist = 2,			// Chat doesn't exist (probably closed)
 	k_EChatRoomEnterResponseNotAllowed = 3,				// General Denied - You don't have the permissions needed to join the chat
@@ -246,8 +210,7 @@ enum EChatRoomEnterResponse
 	k_EChatRoomEnterResponseRankOutOfRange = 14,		// The user is out of the allowable ranking range
 };
 
-enum EChatAction
-{
+enum EChatAction {
 	k_EChatActionInviteChat = 1,
 	k_EChatActionKick = 2,
 	k_EChatActionBan = 3,
@@ -266,8 +229,7 @@ enum EChatAction
 	k_EChatActionSetUnmoderated = 16,
 };
 
-enum EChatActionResult
-{
+enum EChatActionResult {
 	k_EChatActionResultSuccess = 1,
 	k_EChatActionResultError = 2,
 	k_EChatActionResultNotPermitted = 3,
@@ -283,8 +245,7 @@ enum EChatActionResult
 //-----------------------------------------------------------------------------
 // Purpose: user restriction flags
 //-----------------------------------------------------------------------------
-enum EUserRestriction
-{
+enum EUserRestriction {
 	k_nUserRestrictionNone			= 0,	// no known chat/content restriction
 	k_nUserRestrictionUnknown		= 1,	// we don't know yet (user offline)
 	k_nUserRestrictionAnyChat		= 2,	// user is not allowed to (or can't) send/recv any chat
@@ -295,14 +256,12 @@ enum EUserRestriction
 	k_nUserRestrictionTrading		= 64,	// user cannot participate in trading (console, mobile)
 };
 
-enum EOverlayToStoreFlag
-{
+enum EOverlayToStoreFlag {
 	k_EOverlayToStoreFlagNone		= 0,
 	k_EOverlayToStoreFlagAddToCart	= 1,
 };
 
-enum EActivateGameOverlayToWebPageMode
-{
+enum EActivateGameOverlayToWebPageMode {
 	// TODO: reverse me
 };
 
@@ -334,8 +293,7 @@ const uint32 k_cchFriendChatMsgMax = 0x3000;
 // maximum number of characters in a user's name. Two flavors; one for UTF-8 and one for UTF-16.
 // The UTF-8 version has to be very generous to accomodate characters that get large when encoded
 // in UTF-8.
-enum
-{
+enum {
 	k_cchPersonaNameMax = 128,
 	k_cwchPersonaNameMax = 32,
 };
@@ -351,8 +309,7 @@ const int k_cchSystemIMTextMax = 4096;	// upper bound of length of system IM tex
 //-----------------------------------------------------------------------------
 // Purpose: information about user sessions
 //-----------------------------------------------------------------------------
-struct FriendSessionStateInfo_t
-{
+struct FriendSessionStateInfo_t {
 	uint32 m_uiOnlineSessionInstances;
 	uint8 m_uiPublishedToFriendsSessionInstance;
 };
@@ -362,8 +319,7 @@ struct FriendSessionStateInfo_t
 //-----------------------------------------------------------------------------
 // Purpose: called when a friends' status changes
 //-----------------------------------------------------------------------------
-struct PersonaStateChange_t
-{
+struct PersonaStateChange_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 4 };
 	
 	CSteamID m_ulSteamID;			// steamID of the friend who changed
@@ -375,8 +331,7 @@ struct PersonaStateChange_t
 // Purpose: posted when game overlay activates or deactivates
 //			the game can use this to be pause or resume single player games
 //-----------------------------------------------------------------------------
-struct GameOverlayActivated_t
-{
+struct GameOverlayActivated_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 31 };
 
 	uint8 m_bActive;	// true if it's just been activated, false otherwise
@@ -387,8 +342,7 @@ struct GameOverlayActivated_t
 // Purpose: called when the user tries to join a different game server from their friends list
 //			game client should attempt to connect to specified server when this is received
 //-----------------------------------------------------------------------------
-struct GameServerChangeRequested_t
-{
+struct GameServerChangeRequested_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 32 };
 
 	char m_rgchServer[64];		// server address ("127.0.0.1:27015", "tf2.valvesoftware.com")
@@ -400,8 +354,7 @@ struct GameServerChangeRequested_t
 // Purpose: called when the user tries to join a lobby from their friends list
 //			game client should attempt to connect to specified lobby when this is received
 //-----------------------------------------------------------------------------
-struct GameLobbyJoinRequested_t
-{
+struct GameLobbyJoinRequested_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 33 };
 	CSteamID m_steamIDLobby;
 
@@ -418,8 +371,7 @@ struct GameLobbyJoinRequested_t
 // Purpose: called when an avatar is loaded in from a previous GetLargeFriendAvatar() call
 //			if the image wasn't already available
 //-----------------------------------------------------------------------------
-struct AvatarImageLoaded_t
-{
+struct AvatarImageLoaded_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 34 };
 
 	CSteamID m_steamID; // steamid the avatar has been loaded for
@@ -432,8 +384,7 @@ struct AvatarImageLoaded_t
 //-----------------------------------------------------------------------------
 // Purpose: marks the return of a request officer list call
 //-----------------------------------------------------------------------------
-struct ClanOfficerListResponse_t
-{
+struct ClanOfficerListResponse_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 35 };
 
 	CSteamID m_steamIDClan;
@@ -444,8 +395,7 @@ struct ClanOfficerListResponse_t
 //-----------------------------------------------------------------------------
 // Purpose: callback indicating updated data about friends rich presence information
 //-----------------------------------------------------------------------------
-struct FriendRichPresenceUpdate_t
-{
+struct FriendRichPresenceUpdate_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 36 };
 
 	CSteamID m_steamIDFriend;	// friend who's rich presence has changed
@@ -456,8 +406,7 @@ struct FriendRichPresenceUpdate_t
 // Purpose: called when the user tries to join a game from their friends list
 //			rich presence will have been set with the "connect" key which is set here
 //-----------------------------------------------------------------------------
-struct GameRichPresenceJoinRequested_t
-{
+struct GameRichPresenceJoinRequested_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 37 };
 
 	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
@@ -467,8 +416,7 @@ struct GameRichPresenceJoinRequested_t
 //-----------------------------------------------------------------------------
 // Purpose: a chat message has been received for a clan chat the game has joined
 //-----------------------------------------------------------------------------
-struct GameConnectedClanChatMsg_t
-{
+struct GameConnectedClanChatMsg_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 38 };
 
 	CSteamID m_steamIDClanChat;
@@ -479,8 +427,7 @@ struct GameConnectedClanChatMsg_t
 //-----------------------------------------------------------------------------
 // Purpose: a user has joined a clan chat
 //-----------------------------------------------------------------------------
-struct GameConnectedChatJoin_t
-{
+struct GameConnectedChatJoin_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 39 };
 
 	CSteamID m_steamIDClanChat;
@@ -490,8 +437,7 @@ struct GameConnectedChatJoin_t
 //-----------------------------------------------------------------------------
 // Purpose: a user has left the chat we're in
 //-----------------------------------------------------------------------------
-struct GameConnectedChatLeave_t
-{
+struct GameConnectedChatLeave_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 40 };
 
 	CSteamID m_steamIDClanChat;
@@ -503,8 +449,7 @@ struct GameConnectedChatLeave_t
 //-----------------------------------------------------------------------------
 // Purpose: a DownloadClanActivityCounts() call has finished
 //-----------------------------------------------------------------------------
-struct DownloadClanActivityCountsResult_t
-{
+struct DownloadClanActivityCountsResult_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 41 };
 
 	bool m_bSuccess;
@@ -513,8 +458,7 @@ struct DownloadClanActivityCountsResult_t
 //-----------------------------------------------------------------------------
 // Purpose: a JoinClanChatRoom() call has finished
 //-----------------------------------------------------------------------------
-struct JoinClanChatRoomCompletionResult_t
-{
+struct JoinClanChatRoomCompletionResult_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 42 };
 
 	CSteamID m_steamIDClanChat;
@@ -524,16 +468,14 @@ struct JoinClanChatRoomCompletionResult_t
 //-----------------------------------------------------------------------------
 // Purpose: a chat message has been received from a user
 //-----------------------------------------------------------------------------
-struct GameConnectedFriendChatMsg_t
-{
+struct GameConnectedFriendChatMsg_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 43 };
 
 	CSteamID m_steamIDUser;
 	int m_iMessageID;
 };
 
-struct FriendsGetFollowerCount_t
-{
+struct FriendsGetFollowerCount_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 44 };
 
 	EResult m_eResult;
@@ -541,8 +483,7 @@ struct FriendsGetFollowerCount_t
 	int32 m_cCount;
 };
 
-struct FriendsIsFollowing_t
-{
+struct FriendsIsFollowing_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 45 };
 
 	EResult m_eResult;
@@ -550,8 +491,7 @@ struct FriendsIsFollowing_t
 	bool m_bIsFollowing;
 };
 
-struct FriendsEnumerateFollowingList_t
-{
+struct FriendsEnumerateFollowingList_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 46 };
 
 	EResult m_eResult;
@@ -563,8 +503,7 @@ struct FriendsEnumerateFollowingList_t
 //-----------------------------------------------------------------------------
 // Purpose: a SetPersonaName / SetPersonaNameEx call has finished
 //-----------------------------------------------------------------------------
-struct SetPersonaNameResponse_t
-{
+struct SetPersonaNameResponse_t {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 47 };
 
 	
@@ -579,8 +518,7 @@ struct SetPersonaNameResponse_t
 
 
 
-struct GameOverlayActivateRequested_t
-{
+struct GameOverlayActivateRequested_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 1 };
 
 	char m_rgchDialog[256];
@@ -590,8 +528,7 @@ struct GameOverlayActivateRequested_t
 	EOverlayToStoreFlag m_eFlag;
 };
 
-struct ClanEventReceived_t
-{
+struct ClanEventReceived_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 2 };
 
 	uint64 m_gidEvent;
@@ -604,8 +541,7 @@ struct ClanEventReceived_t
 //-----------------------------------------------------------------------------
 // Purpose: called after a friend has been successfully added
 //-----------------------------------------------------------------------------
-struct FriendAdded_t
-{
+struct FriendAdded_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 3 };
 
 	EResult m_eResult;
@@ -618,8 +554,7 @@ struct FriendAdded_t
 //			the persona details of this user are guaranteed to be available locally
 //			at the point this callback occurs
 //-----------------------------------------------------------------------------
-struct UserRequestingFriendship_t
-{
+struct UserRequestingFriendship_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 4 };
 
 	CSteamID m_ulSteamID;		// steamID of the friend who just added us
@@ -629,8 +564,7 @@ struct UserRequestingFriendship_t
 //-----------------------------------------------------------------------------
 // Purpose: called when this client has received a chat/invite/etc. message from a friend
 //-----------------------------------------------------------------------------
-struct FriendChatMsg_t
-{
+struct FriendChatMsg_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 5 };
 	
 	CSteamID m_ulFriendID;			// other participant in the msg
@@ -640,15 +574,13 @@ struct FriendChatMsg_t
 	uint32 m_iChatID;				// chat id
 };
 
-struct FriendInvited_t
-{
+struct FriendInvited_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 6 };
 
 	EResult m_eResult;
 };
 
-struct ChatRoomInvite_t
-{
+struct ChatRoomInvite_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 7 };
 
 	CSteamID m_ulSteamIDChat;
@@ -660,8 +592,7 @@ struct ChatRoomInvite_t
 	char m_rgchChatRoomName[ 128 ];
 };
 
-struct ChatRoomEnter_t
-{
+struct ChatRoomEnter_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 8 };
 
 	CSteamID m_ulSteamIDChat;
@@ -679,8 +610,7 @@ struct ChatRoomEnter_t
 	char m_rgchChatRoomName[ 128 ];
 };
 
-struct ChatMemberStateChange_t
-{
+struct ChatMemberStateChange_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 9 };
 
 	CSteamID m_ulSteamIDChat;
@@ -689,8 +619,7 @@ struct ChatMemberStateChange_t
 	uint64 m_ulSteamIDMakingChange; // Cannot use CSteamID here due to padding issues.
 };
 
-struct ChatRoomMsg_t
-{
+struct ChatRoomMsg_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 10 };
 
 	CSteamID m_ulSteamIDChat;
@@ -699,38 +628,33 @@ struct ChatRoomMsg_t
 	uint32 m_iChatID;
 };
 
-struct ChatRoomDlgClose_t
-{
+struct ChatRoomDlgClose_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 11 };
 
 	CSteamID m_ulSteamIDChat;
 };
 
-struct ChatRoomClosing_t
-{
+struct ChatRoomClosing_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 12 };
 
 	CSteamID m_ulSteamIDChat;
 };
 
-struct ChatRoomKicking_t
-{
+struct ChatRoomKicking_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 13 };
 
 	CSteamID m_ulSteamIDChat;
 	CSteamID m_ulSteamIDAdmin;
 };
 
-struct ChatRoomBanning_t
-{
+struct ChatRoomBanning_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 14 };
 
 	CSteamID m_ulSteamIDChat;
 	CSteamID m_ulSteamIDAdmin;
 };
 
-struct ChatRoomCreate_t
-{
+struct ChatRoomCreate_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 15 };
 
 	EResult m_eResult;
@@ -739,15 +663,13 @@ struct ChatRoomCreate_t
 	CSteamID m_ulSteamIDFriendChat;
 };
 
-struct OpenChatDialog_t
-{
+struct OpenChatDialog_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 16 };
 
 	CSteamID m_ulSteamID;
 };
 
-struct ChatRoomActionResult_t
-{
+struct ChatRoomActionResult_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 17 };
 
 	CSteamID m_ulSteamIDChat;
@@ -756,15 +678,13 @@ struct ChatRoomActionResult_t
 	EChatActionResult m_EChatActionResult;
 };
 
-struct ChatRoomDlgSerialized_t
-{
+struct ChatRoomDlgSerialized_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 18 };
 
 	CSteamID m_ulSteamID;
 };
 
-struct ClanInfoChanged_t
-{
+struct ClanInfoChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 19 };
 
 	CSteamID m_ulSteamID;
@@ -774,8 +694,7 @@ struct ClanInfoChanged_t
 	bool m_bAccountInfoChanged;
 };
 
-struct ChatMemberInfoChanged_t
-{
+struct ChatMemberInfoChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 20 };
 
 	CSteamID m_ulSteamIDChat;
@@ -783,8 +702,7 @@ struct ChatMemberInfoChanged_t
 	uint32  m_rgfChatMemberPermissions;
 };
 
-struct ChatRoomInfoChanged_t
-{
+struct ChatRoomInfoChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 21 };
 
 	CSteamID m_ulSteamIDChat;
@@ -792,15 +710,13 @@ struct ChatRoomInfoChanged_t
 	uint64 m_ulSteamIDMakingChange; // Cannot use CSteamID here due to padding issues.
 };
 
-struct OBSOLETE_CALLBACK SteamRackBouncing_t
-{
+struct OBSOLETE_CALLBACK SteamRackBouncing_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 22 };
 
 	// TODO : Reverse this callback
 };
 
-struct ChatRoomSpeakChanged_t
-{
+struct ChatRoomSpeakChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 23 };
 
 	CSteamID m_ulSteamIDChat;
@@ -808,8 +724,7 @@ struct ChatRoomSpeakChanged_t
 	bool m_bSpeaking;
 };
 
-struct NotifyIncomingCall_t
-{
+struct NotifyIncomingCall_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 24 };
 
 	HVoiceCall m_Handle;
@@ -820,31 +735,27 @@ struct NotifyIncomingCall_t
 	bool m_bIncoming;
 };
 
-struct NotifyHangup_t
-{
+struct NotifyHangup_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 25 };
 
 	HVoiceCall m_Handle;
 	EVoiceResult m_eVoiceResult;
 };
 
-struct NotifyRequestResume_t
-{
+struct NotifyRequestResume_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 26 };
 
 	HVoiceCall m_Handle;
 };
 
-struct NotifyChatRoomVoiceStateChanged_t
-{
+struct NotifyChatRoomVoiceStateChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 27 };
 
 	CSteamID m_steamChatRoom;
 	CSteamID m_steamUser;
 };
 
-struct ChatRoomDlgUIChange_t
-{
+struct ChatRoomDlgUIChange_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 28 };
 
 	CSteamID m_SteamIDChat;
@@ -854,8 +765,7 @@ struct ChatRoomDlgUIChange_t
 	bool m_bShowTimestampOnNewMsg;
 };
 
-struct VoiceCallInitiated_t
-{
+struct VoiceCallInitiated_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 29 };
 
 	uint64 m_ulSteamIDUser;
@@ -863,8 +773,7 @@ struct VoiceCallInitiated_t
 	HVoiceCall m_hVoiceCall;
 };
 
-struct FriendIgnored_t
-{
+struct FriendIgnored_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 30 };
 
 	EResult m_eResult;
@@ -873,35 +782,30 @@ struct FriendIgnored_t
 	bool m_bIgnored;
 };
 
-struct VoiceInputDeviceChanged_t
-{
+struct VoiceInputDeviceChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 31 };
 };
 
-struct VoiceEnabledStateChanged_t
-{
+struct VoiceEnabledStateChanged_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 32 };
 
 	bool m_bVoiceEnabled;
 };
 
-struct FriendsWhoPlayGameUpdate_t
-{
+struct FriendsWhoPlayGameUpdate_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 33 };
 
 	CGameID m_gameID;
 };
 
-struct FriendProfileInfoResponse_t
-{
+struct FriendProfileInfoResponse_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 34 };
 
 	CSteamID m_steamIDFriend;
 	EResult m_eResult;
 };
 
-struct RichInviteReceived_t
-{
+struct RichInviteReceived_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 35 };
 
 	CSteamID m_steamIDFriend;
@@ -909,8 +813,7 @@ struct RichInviteReceived_t
 	char m_rgchConnect[256];
 };
 
-struct FriendsMenuChange_t
-{
+struct FriendsMenuChange_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 36 };
 
 	bool m_bShowAvatars;
@@ -919,73 +822,63 @@ struct FriendsMenuChange_t
 	bool m_bShowUntaggedFriends;
 };
 
-struct TradeInviteReceived_t
-{
+struct TradeInviteReceived_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 37 };
 
 	CSteamID m_steamIDPartner;
 	uint32 m_unTradeRequestID;
 };
 
-struct TradeInviteResponse_t
-{
+struct TradeInviteResponse_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 38 };
 
 	CSteamID m_steamIDPartner;
 	uint32 m_eResponse;
 };
 
-struct TradeStartSession_t
-{
+struct TradeStartSession_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 39 };
 
 	CSteamID m_steamIDPartner;
 };
 
-struct TradeInviteCanceled_t
-{
+struct TradeInviteCanceled_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 40 };
 
 	// TODO : Reverse this callback
 };
 
-struct GameUsingVoice_t
-{
+struct GameUsingVoice_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 41 };
 
 	// TODO : Reverse this callback
 };
 
-struct FriendsGroupCreated_t
-{
+struct FriendsGroupCreated_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 42 };
 
 	// TODO : Reverse this callback
 };
 
-struct FriendsGroupDeleted_t
-{
+struct FriendsGroupDeleted_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 43 };
 
 	// TODO : Reverse this callback
 };
 
-struct FriendsGroupRenamed_t
-{
+struct FriendsGroupRenamed_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 44 };
 
 	// TODO : Reverse this callback
 };
 
-struct FriendsGroupMemberAdded_t
-{
+struct FriendsGroupMemberAdded_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 45 };
 
 	// TODO : Reverse this callback
 };
 
-struct FriendsGroupMemberRemoved_t
-{
+struct FriendsGroupMemberRemoved_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 46 };
 
 	// TODO : Reverse this callback
@@ -994,15 +887,10 @@ struct FriendsGroupMemberRemoved_t
 //-----------------------------------------------------------------------------
 // Purpose: called when the user requests the history of player names on a given account
 //-----------------------------------------------------------------------------
-struct NameHistoryResponse_t
-{
+struct NameHistoryResponse_t {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 47 };
 	int m_cSuccessfulLookups;		// number of lookups that were successful
 	int m_cFailedLookups;			// number of lookups that failed for one reason or another
 };
 
 #pragma pack( pop )
-
-
-
-#endif // FRIENDSCOMMON_H

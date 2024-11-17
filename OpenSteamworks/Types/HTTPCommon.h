@@ -14,25 +14,15 @@
 //
 //=============================================================================
 
-#ifndef HTTPCOMMON_H
-#define HTTPCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
+#include "SteamTypes.h"
 
-#define CLIENTHTTP_INTERFACE_VERSION "CLIENTHTTP_INTERFACE_VERSION001"
-#define STEAMHTTP_INTERFACE_VERSION_001 "STEAMHTTP_INTERFACE_VERSION001"
-#define STEAMHTTP_INTERFACE_VERSION_002 "STEAMHTTP_INTERFACE_VERSION002"
-
-
-typedef uint32 HTTPRequestHandle;
-#define INVALID_HTTPREQUEST_HANDLE		0
-
+using HTTPRequestHandle = uint32;
+static constexpr int INVALID_HTTPREQUEST_HANDLE	= 0;
 
 // This enum is used in client API methods, do not re-number existing values.
-enum EHTTPMethod
-{
+enum EHTTPMethod {
 	k_EHTTPMethodInvalid = 0,
 	k_EHTTPMethodGET,
 	k_EHTTPMethodHEAD,
@@ -51,8 +41,7 @@ enum EHTTPMethod
 
 // HTTP Status codes that the server can send in response to a request, see rfc2616 section 10.3 for descriptions
 // of each of these.
-typedef enum EHTTPStatusCode
-{
+typedef enum EHTTPStatusCode {
 	// Invalid status code (this isn't defined in HTTP, used to indicate unset in our code)
 	k_EHTTPStatusCodeInvalid =					0,
 
@@ -111,8 +100,7 @@ typedef enum EHTTPStatusCode
 
 #pragma pack( push, 8 )
 
-struct HTTPRequestCompleted_t
-{
+struct HTTPRequestCompleted_t {
 	enum { k_iCallback = k_iClientHTTPCallbacks + 1 };
 
 	// Handle value for the request that has completed.
@@ -132,5 +120,3 @@ struct HTTPRequestCompleted_t
 };
 
 #pragma pack( pop )
-
-#endif // HTTPCOMMON_H

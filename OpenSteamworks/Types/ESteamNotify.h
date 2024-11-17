@@ -14,14 +14,9 @@
 //
 //=============================================================================
 
-#ifndef ESTEAMNOTIFICATIONCALLBACKEVENT_H
-#define ESTEAMNOTIFICATIONCALLBACKEVENT_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-typedef enum ESteamNotify
-{
+typedef enum ESteamNotify {
 	eSteamNotifyTicketsWillExpire = 0,
 	eSteamNotifyAccountInfoChanged = 1,
 	eSteamNotifyContentDescriptionChanged = 2,
@@ -35,7 +30,3 @@ typedef enum ESteamNotify
 	eSteamNotifyAppDownloading = 10,
 	eSteamNotifyAppDownloadingPaused = 11,
 } ESteamNotify;
-
-
-
-#endif // ESTEAMNOTIFICATIONCALLBACKEVENT_H

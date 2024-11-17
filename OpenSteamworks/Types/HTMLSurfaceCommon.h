@@ -14,30 +14,20 @@
 //
 //=============================================================================
 
-#ifndef HTMLSURFACECOMMON_H
-#define HTMLSURFACECOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-#define CLIENTHTMLSURFACE_INTERFACE_VERSION "CLIENTHTMLSURFACE_INTERFACE_VERSION_000"
+#include "SteamTypes.h"
 
-#define STEAMHTMLSURFACE_INTERFACE_VERSION001 "STEAMHTMLSURFACE_INTERFACE_VERSION_001"
-#define STEAMHTMLSURFACE_INTERFACE_VERSION002 "STEAMHTMLSURFACE_INTERFACE_VERSION_002"
-#define STEAMHTMLSURFACE_INTERFACE_VERSION003 "STEAMHTMLSURFACE_INTERFACE_VERSION_003"
+using HHTMLBrowser = uint32;
+static constexpr uint32 INVALID_HTTMLBROWSER = 0;
 
-typedef uint32 HHTMLBrowser;
-const uint32 INVALID_HTTMLBROWSER = 0;
-
-enum EHTMLMouseButton
-{
+enum EHTMLMouseButton {
 	eHTMLMouseButton_Left = 0,
 	eHTMLMouseButton_Right = 1,
 	eHTMLMouseButton_Middle = 2,
 };
 
-enum EMouseCursor
-{
+enum EMouseCursor {
 	dc_user = 0,
 	dc_none,
 	dc_arrow,
@@ -83,8 +73,7 @@ enum EMouseCursor
 	dc_last, // custom cursors start from this value and up
 };
 
-enum EHTMLKeyModifiers
-{
+enum EHTMLKeyModifiers {
 	eHTMLKeyModifier_None = 0,
 	eHTMLKeyModifier_AltDown = 1 << 0,
 	eHTMLKeyModifier_CrtlDown = 1 << 1,
@@ -93,15 +82,13 @@ enum EHTMLKeyModifiers
 
 #pragma pack( push, 8 )
 
-struct HTML_BrowserReady_t
-{
+struct HTML_BrowserReady_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 1 };
 
 	HHTMLBrowser m_hBrowser;
 };
 
-struct HTML_NeedsPaint_t
-{
+struct HTML_NeedsPaint_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 2 };
 
 	HHTMLBrowser m_hBrowser;
@@ -118,8 +105,7 @@ struct HTML_NeedsPaint_t
 	uint32 m_pageSerial;
 };
 
-struct HTML_StartRequest_t
-{
+struct HTML_StartRequest_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 3 };
 
 	HHTMLBrowser m_hBrowser;
@@ -129,15 +115,13 @@ struct HTML_StartRequest_t
 	bool m_isRedirect;
 };
 
-struct HTML_CloseBrowser_t
-{
+struct HTML_CloseBrowser_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 4 };
 
 	HHTMLBrowser m_hBrowser;
 };
 
-struct HTML_URLChanged_t
-{
+struct HTML_URLChanged_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 5 };
 
 	HHTMLBrowser m_hBrowser;
@@ -148,8 +132,7 @@ struct HTML_URLChanged_t
 	bool m_newNavigation;
 };
 
-struct HTML_FinishedRequest_t
-{
+struct HTML_FinishedRequest_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 6 };
 
 	HHTMLBrowser m_hBrowser;
@@ -157,24 +140,21 @@ struct HTML_FinishedRequest_t
 	const char *m_pchPageTitle;
 };
 
-struct HTML_OpenLinkInNewTab_t
-{
+struct HTML_OpenLinkInNewTab_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 7 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchUrl;
 };
 
-struct HTML_ChangedTitle_t
-{
+struct HTML_ChangedTitle_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 8 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchPageTitle;
 };
 
-struct HTML_SearchResults_t
-{
+struct HTML_SearchResults_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 9 };
 
 	HHTMLBrowser m_hBrowser;
@@ -182,8 +162,7 @@ struct HTML_SearchResults_t
 	uint32 m_currentMatch;
 };
 
-struct HTML_CanGoBackAndForward_t
-{
+struct HTML_CanGoBackAndForward_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 10 };
 
 	HHTMLBrowser m_hBrowser;
@@ -191,8 +170,7 @@ struct HTML_CanGoBackAndForward_t
 	bool m_canGoForward;
 };
 
-struct HTML_HorizontalScroll_t
-{
+struct HTML_HorizontalScroll_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 11 };
 
 	HHTMLBrowser m_hBrowser;
@@ -203,8 +181,7 @@ struct HTML_HorizontalScroll_t
 	uint32 m_pageSize;
 };
 
-struct HTML_VerticalScroll_t
-{
+struct HTML_VerticalScroll_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 12 };
 
 	HHTMLBrowser m_hBrowser;
@@ -215,8 +192,7 @@ struct HTML_VerticalScroll_t
 	uint32 m_pageSize;
 };
 
-struct HTML_LinkAtPosition_t
-{
+struct HTML_LinkAtPosition_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 13 };
 
 	HHTMLBrowser m_hBrowser;
@@ -227,24 +203,21 @@ struct HTML_LinkAtPosition_t
 	bool m_liveLink;
 };
 
-struct HTML_JSAlert_t
-{
+struct HTML_JSAlert_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 14 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchMessage;
 };
 
-struct HTML_JSConfirm_t
-{
+struct HTML_JSConfirm_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 15 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchMessage;
 };
 
-struct HTML_FileOpenDialog_t
-{
+struct HTML_FileOpenDialog_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 16 };
 
 	HHTMLBrowser m_hBrowser;
@@ -252,8 +225,7 @@ struct HTML_FileOpenDialog_t
 	const char *m_pchInitialFile;
 };
 
-struct HTML_ComboNeedsPaint_t
-{
+struct HTML_ComboNeedsPaint_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 17 };
 
 	HHTMLBrowser m_hBrowser;
@@ -262,22 +234,19 @@ struct HTML_ComboNeedsPaint_t
 	uint32 m_height;
 };
 
-struct HTML_ShowPopup_t
-{
+struct HTML_ShowPopup_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 18 };
 
 	HHTMLBrowser m_hBrowser;
 };
 
-struct HTML_HidePopup_t
-{
+struct HTML_HidePopup_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 19 };
 
 	HHTMLBrowser m_hBrowser;
 };
 
-struct HTML_SizePopup_t
-{
+struct HTML_SizePopup_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 20 };
 
 	HHTMLBrowser m_hBrowser;
@@ -287,8 +256,7 @@ struct HTML_SizePopup_t
 	uint32 m_height;
 };
 
-struct HTML_NewWindow_t
-{
+struct HTML_NewWindow_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 21 };
 
 	HHTMLBrowser m_hBrowser;
@@ -299,47 +267,38 @@ struct HTML_NewWindow_t
 	uint32 m_height;
 };
 
-struct HTML_SetCursor_t
-{
+struct HTML_SetCursor_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 22 };
 
 	HHTMLBrowser m_hBrowser;
 	uint32 m_eCursor;
 };
 
-struct HTML_StatusText_t
-{
+struct HTML_StatusText_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 23 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchStatus;
 };
 
-struct HTML_ShowToolTip_t
-{
+struct HTML_ShowToolTip_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 24 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchMsg;
 };
 
-struct HTML_UpdateToolTip_t
-{
+struct HTML_UpdateToolTip_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 25 };
 
 	HHTMLBrowser m_hBrowser;
 	const char *m_pchMsg;
 };
 
-struct HTML_HideToolTip_t
-{
+struct HTML_HideToolTip_t {
 	enum { k_iCallback = k_iSteamHTMLSurfaceCallbacks + 26 };
 
 	HHTMLBrowser m_hBrowser;
 };
 
-
 #pragma pack( pop )
-
-
-#endif // HTMLSURFACECOMMON_H

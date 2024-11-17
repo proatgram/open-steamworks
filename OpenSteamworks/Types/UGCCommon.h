@@ -14,30 +14,19 @@
 //
 //=============================================================================
 
-#ifndef UGCCOMMON_H
-#define UGCCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-#define CLIENTUGC_INTERFACE_VERSION "CLIENTUGC_INTERFACE_VERSION001"
+#include "SteamTypes.h"
+#include "RemoteStorageCommon.h"
 
-#define STEAMUGC_INTERFACE_VERSION_001 "STEAMUGC_INTERFACE_VERSION001"
-#define STEAMUGC_INTERFACE_VERSION_002 "STEAMUGC_INTERFACE_VERSION002"
-#define STEAMUGC_INTERFACE_VERSION_003 "STEAMUGC_INTERFACE_VERSION003"
-#define STEAMUGC_INTERFACE_VERSION_008 "STEAMUGC_INTERFACE_VERSION008"
-#define STEAMUGC_INTERFACE_VERSION_009 "STEAMUGC_INTERFACE_VERSION009"
-#define STEAMUGC_INTERFACE_VERSION_010 "STEAMUGC_INTERFACE_VERSION010"
+using UGCQueryHandle_t = uint64;
+using UGCUpdateHandle_t = uint64;
 
-typedef uint64 UGCQueryHandle_t;
-typedef uint64 UGCUpdateHandle_t;
-
-const UGCQueryHandle_t k_UGCQueryHandleInvalid = 0xffffffffffffffffull;
-const UGCUpdateHandle_t k_UGCUpdateHandleInvalid = 0xffffffffffffffffull;
+static constexpr UGCQueryHandle_t k_UGCQueryHandleInvalid = 0xffffffffffffffffull;
+static constexpr UGCUpdateHandle_t k_UGCUpdateHandleInvalid = 0xffffffffffffffffull;
 
 // Combination of sorting and filtering for queries across all UGC
-enum EUGCQuery
-{
+enum EUGCQuery {
 	k_EUGCQuery_RankedByVote = 0,
 	k_EUGCQuery_RankedByPublicationDate = 1,
 	k_EUGCQuery_AcceptedForGameRankedByAcceptanceDate = 2,
@@ -55,8 +44,7 @@ enum EUGCQuery
 
 // Different lists of published UGC for a user.
 // If the current logged in user is different than the specified user, then some options may not be allowed.
-enum EUserUGCList
-{
+enum EUserUGCList {
 	k_EUserUGCList_Published,
 	k_EUserUGCList_VotedOn,
 	k_EUserUGCList_VotedUp,
@@ -69,8 +57,7 @@ enum EUserUGCList
 };
 
 // Matching UGC types for queries
-enum EUGCMatchingUGCType
-{
+enum EUGCMatchingUGCType {
 	k_EUGCMatchingUGCType_Items = 0,		// both mtx items and ready-to-use items
 	k_EUGCMatchingUGCType_Items_Mtx = 1,
 	k_EUGCMatchingUGCType_Items_ReadyToUse = 2,
@@ -86,8 +73,7 @@ enum EUGCMatchingUGCType
 };
 
 // Sort order for user published UGC lists (defaults to creation order descending)
-enum EUserUGCListSortOrder
-{
+enum EUserUGCListSortOrder {
 	k_EUserUGCListSortOrder_CreationOrderDesc,
 	k_EUserUGCListSortOrder_CreationOrderAsc,
 	k_EUserUGCListSortOrder_TitleAsc,
@@ -97,8 +83,7 @@ enum EUserUGCListSortOrder
 	k_EUserUGCListSortOrder_ForModeration,
 };
 
-enum EItemUpdateStatus
-{
+enum EItemUpdateStatus {
 	k_EItemUpdateStatusInvalid = 0, // The item update handle was invalid, job might be finished, listen too SubmitItemUpdateResult_t
 	k_EItemUpdateStatusPreparingConfig = 1, // The item update is processing configuration data
 	k_EItemUpdateStatusPreparingContent = 2, // The item update is reading and processing content files
@@ -107,19 +92,16 @@ enum EItemUpdateStatus
 	k_EItemUpdateStatusCommittingChanges = 5  // The item update is committing all changes
 };
 
-enum EItemPreviewType
-{
-	//smth
+enum EItemPreviewType {
+	// TODO: Reverse me
 };
 
-enum EItemStatistic
-{
-	//smth
+enum EItemStatistic {
+	// TODO: Reverse mw
 };
 
 #pragma pack( push, 8 )
 
-// Details for a single published file/UGC
 struct SteamUGCDetails_t {
 	PublishedFileId_t m_nPublishedFileId;
 	EResult m_eResult;												// The result of the operation.
@@ -154,8 +136,7 @@ struct SteamUGCDetails_t {
 //-----------------------------------------------------------------------------
 // Purpose: Callback for querying UGC
 //-----------------------------------------------------------------------------
-struct SteamUGCQueryCompleted_t
-{
+struct SteamUGCQueryCompleted_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 1 };
 	UGCQueryHandle_t m_handle;
 	EResult m_eResult;
@@ -168,8 +149,7 @@ struct SteamUGCQueryCompleted_t
 //-----------------------------------------------------------------------------
 // Purpose: Callback for requesting details on one piece of UGC
 //-----------------------------------------------------------------------------
-struct SteamUGCRequestUGCDetailsResult_t
-{
+struct SteamUGCRequestUGCDetailsResult_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 2 };
 	SteamUGCDetails_t m_details;
 	bool m_bCachedData; // indicates whether this data was retrieved from the local on-disk cache
@@ -179,8 +159,7 @@ struct SteamUGCRequestUGCDetailsResult_t
 //-----------------------------------------------------------------------------
 // Purpose: result for ISteamUGC::CreateItem()
 //-----------------------------------------------------------------------------
-struct CreateItemResult_t
-{
+struct CreateItemResult_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 3 };
 	EResult m_eResult;
 	PublishedFileId_t m_nPublishedFileId; // new item got this UGC PublishFileID
@@ -191,8 +170,7 @@ struct CreateItemResult_t
 //-----------------------------------------------------------------------------
 // Purpose: result for ISteamUGC::SubmitItemUpdate()
 //-----------------------------------------------------------------------------
-struct SubmitItemUpdateResult_t
-{
+struct SubmitItemUpdateResult_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 4 };
 	EResult m_eResult;
 	bool m_bUserNeedsToAcceptWorkshopLegalAgreement;
@@ -202,8 +180,7 @@ struct SubmitItemUpdateResult_t
 //-----------------------------------------------------------------------------
 // Purpose: a new Workshop item has been installed
 //-----------------------------------------------------------------------------
-struct ItemInstalled_t
-{
+struct ItemInstalled_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 5 };
 	AppId_t m_unAppID;
 	PublishedFileId_t m_nPublishedFileId;
@@ -212,8 +189,7 @@ struct ItemInstalled_t
 //-----------------------------------------------------------------------------
 // Purpose: result of DownloadItem(), existing item files can be accessed again
 //-----------------------------------------------------------------------------
-struct DownloadItemResult_t
-{
+struct DownloadItemResult_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 6 };
 	AppId_t m_unAppID;
 	PublishedFileId_t m_nPublishedFileId;
@@ -223,8 +199,7 @@ struct DownloadItemResult_t
 //-----------------------------------------------------------------------------
 // Purpose: result of AddItemToFavorites() or RemoveItemFromFavorites()
 //-----------------------------------------------------------------------------
-struct UserFavoriteItemsListChanged_t
-{
+struct UserFavoriteItemsListChanged_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 7 };
 	PublishedFileId_t m_nPublishedFileId;
 	EResult m_eResult;
@@ -234,8 +209,7 @@ struct UserFavoriteItemsListChanged_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to SetUserItemVote()
 //-----------------------------------------------------------------------------
-struct SetUserItemVoteResult_t
-{
+struct SetUserItemVoteResult_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 8 };
 	PublishedFileId_t m_nPublishedFileId;
 	EResult m_eResult;
@@ -245,8 +219,7 @@ struct SetUserItemVoteResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to GetUserItemVote()
 //-----------------------------------------------------------------------------
-struct GetUserItemVoteResult_t
-{
+struct GetUserItemVoteResult_t {
 	enum { k_iCallback = k_iClientUGCCallbacks + 9 };
 	PublishedFileId_t m_nPublishedFileId;
 	EResult m_eResult;
@@ -256,5 +229,3 @@ struct GetUserItemVoteResult_t
 };
 
 #pragma pack( pop )
-
-#endif // UGCCOMMON_H

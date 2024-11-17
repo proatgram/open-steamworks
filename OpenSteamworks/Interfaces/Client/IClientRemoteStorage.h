@@ -22,6 +22,7 @@
 
 #include "Types/SteamTypes.h"
 #include "Types/RemoteStorageCommon.h"
+#include "Types/UtilsCommon.h"
 
 abstract_class UNSAFE_INTERFACE IClientRemoteStorage
 {

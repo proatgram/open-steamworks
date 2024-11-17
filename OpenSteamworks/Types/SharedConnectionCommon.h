@@ -14,21 +14,14 @@
 //
 //=============================================================================
 
-#ifndef SHAREDCONNECTIONCOMMON_H
-#define SHAREDCONNECTIONCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-#define CLIENTSHAREDCONNECTION_INTERFACE_VERSION "CLIENTSHAREDCONNECTION_INTERFACE_VERSION001"
+#include "SteamTypes.h"
 
-typedef uint32 HSharedConnection;
+using HSharedConnection = uint32;
 
-struct SharedConnectionMessageReady_t
-{
+struct SharedConnectionMessageReady_t {
 	enum { k_iCallback = k_iClientSharedConnectionCallbacks + 1 };
 
 	uint32 m_hResult;
 };
-
-#endif //SHAREDCONNECTIONCOMMON_H

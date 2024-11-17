@@ -14,24 +14,12 @@
 //
 //=============================================================================
 
-#ifndef BILLINGCOMMON_H
-#define BILLINGCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define CLIENTBILLING_INTERFACE_VERSION "CLIENTBILLING_INTERFACE_VERSION001"
-
-#define STEAMBILLING_INTERFACE_VERSION_001 "SteamBilling001"
-#define STEAMBILLING_INTERFACE_VERSION_002 "SteamBilling002"
-
-
+#include "SteamTypes.h"
 
 // Flags for licenses - BITS
-typedef enum ELicenseFlags
-{
+typedef enum ELicenseFlags {
 	k_ELicenseFlagNone = 0,
 	k_ELicenseFlagRenew = 0x01,				// Renew this license next period
 	k_ELicenseFlagRenewalFailed = 0x02,		// Auto-renew failed
@@ -43,8 +31,7 @@ typedef enum ELicenseFlags
 	k_ELicenseFlagImportedFromSteam2 = 0x80,
 } ELicenseFlags;
 
-typedef enum EPaymentMethod
-{
+typedef enum EPaymentMethod {
 	k_EPaymentMethodNone, // None
 	k_EPaymentMethodCDKey, // CD Key
 	k_EPaymentMethodCreditCard, // Credit Card
@@ -188,8 +175,7 @@ typedef enum EPaymentMethod
 } EPaymentMethod;
 
 
-typedef enum EPurchaseResultDetail
-{
+typedef enum EPurchaseResultDetail {
 	k_EPurchaseResultNoDetail = 0,
 	k_EPurchaseResultAVSFailure = 1,
 	k_EPurchaseResultInsufficientFunds = 2,
@@ -233,8 +219,7 @@ typedef enum EPurchaseResultDetail
 	k_EPurchaseResultCannotShipToPOBox = 37,
 } EPurchaseResultDetail;
 
-typedef enum EPurchaseStatus
-{
+typedef enum EPurchaseStatus {
 	k_EPurchasePending = 0,
 	k_EPurchaseSucceeded = 1,
 	k_EPurchaseFailed = 2,
@@ -247,8 +232,7 @@ typedef enum EPurchaseStatus
 	k_EPurchaseRefundToWallet = 9,
 } EPurchaseStatus;
 
-typedef enum ECreditCardType
-{
+typedef enum ECreditCardType {
 	k_ECreditCardTypeUnknown = 0,
 	k_ECreditCardTypeVisa = 1,
 	k_ECreditCardTypeMaster = 2,
@@ -263,8 +247,7 @@ typedef enum ECreditCardType
 	k_ECreditCardTypeLaser = 11,
 } ECreditCardType;
 
-enum ELicenseType
-{
+enum ELicenseType {
 	k_ENoLicense = 0,
 	k_ESinglePurchase = 1,
 	k_ESinglePurchaseLimitedUse = 2,
@@ -273,13 +256,11 @@ enum ELicenseType
 	k_ERecurringChargeLimitedUseWithOverages = 5,
 };
 
-
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when this client has received a finalprice message from a Billing
 //-----------------------------------------------------------------------------
-struct OBSOLETE_CALLBACK FinalPriceMsg_t
-{
+struct OBSOLETE_CALLBACK FinalPriceMsg_t {
 		enum { k_iCallback = k_iSteamBillingCallbacks + 1 };
 
 		uint32 m_bSuccess;
@@ -289,8 +270,7 @@ struct OBSOLETE_CALLBACK FinalPriceMsg_t
 		uint32 m_nShippingCost;
 };
 
-struct OBSOLETE_CALLBACK PurchaseMsg_t
-{
+struct OBSOLETE_CALLBACK PurchaseMsg_t {
 		enum { k_iCallback = k_iSteamBillingCallbacks + 2 };
 
 		uint32 m_bSuccess;
@@ -298,8 +278,7 @@ struct OBSOLETE_CALLBACK PurchaseMsg_t
 };
 
 // Sent in response to PurchaseWithActivationCode
-struct PurchaseResponse_t
-{
+struct PurchaseResponse_t {
 	enum { k_iCallback = k_iSteamBillingCallbacks + 4 };
 	
 	EResult m_EResult;
@@ -307,23 +286,20 @@ struct PurchaseResponse_t
 	int32 m_iReceiptIndex;
 };
 
-struct CancelLicenseMsg_t
-{
+struct CancelLicenseMsg_t {
 	enum { k_iCallback = k_iSteamBillingCallbacks + 9 };
 
 	enum EResult m_EResult;
 };
 
-struct RequestFreeLicenseResponse_t
-{
+struct RequestFreeLicenseResponse_t {
 	enum { k_iCallback = k_iSteamBillingCallbacks + 12 };
 
 	EResult m_EResult;
 	AppId_t m_uAppId;
 };
 
-struct OEMTicketActivationResponse_t
-{
+struct OEMTicketActivationResponse_t {
 	enum { k_iCallback = k_iSteamBillingCallbacks + 14 };
 
 	EResult m_EResult;
@@ -331,7 +307,5 @@ struct OEMTicketActivationResponse_t
 	PackageId_t m_nPackageID;
 	int m_iReceiptIndex;
 };
+
 #pragma pack( pop )
-
-
-#endif // BILLINGCOMMON_H

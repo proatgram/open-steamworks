@@ -14,17 +14,14 @@
 //
 //=============================================================================
 
-#ifndef FRIENDGAMEINFO_H
-#define FRIENDGAMEINFO_H
-#ifndef _WIN32
 #pragma once
-#endif
+
+#include "CGameID.h"
 
 #pragma pack( push, 8 )
 
 // friend game played information
-struct FriendGameInfo_t
-{
+struct FriendGameInfo_t {
 	CGameID m_gameID;
 	uint32 m_unGameIP;
 	uint16 m_usGamePort;
@@ -33,6 +30,3 @@ struct FriendGameInfo_t
 };
 
 #pragma pack( pop )
-
-
-#endif // FRIENDGAMEINFO_H

@@ -14,42 +14,45 @@
 //
 //=============================================================================
 
-#include "Steamworks.h"
 #include "Interface_OSW.h"
 #include "CCallbackMgr.h"
 
 CSteamAPILoader g_ClientLoader;
 
-CreateInterfaceFn g_pClientCreateInterface = nullptr;
-SteamBGetCallbackFn g_pSteamBGetCallback = nullptr;
-SteamFreeLastCallbackFn g_pSteamFreeLastCallback = nullptr;
-SteamGetAPICallResultFn g_pSteamGetAPICallResult = nullptr;
-SteamReleaseThreadLocalMemoryFn g_pSteamReleaseThreadLocalMemory = nullptr;
+CreateInterfaceFn* g_pClientCreateInterface = nullptr;
+SteamBGetCallbackFn* g_pSteamBGetCallback = nullptr;
+SteamFreeLastCallbackFn* g_pSteamFreeLastCallback = nullptr;
+SteamGetAPICallResultFn* g_pSteamGetAPICallResult = nullptr;
+SteamReleaseThreadLocalMemoryFn* g_pSteamReleaseThreadLocalMemory = nullptr;
 
 
-bool LoadClientLibrary() {
+bool LoadClientLibrary(const char *pcCustomSteamPath = nullptr) {
+    if (pcCustomSteamPath) {
+        g_ClientLoader = CSteamAPILoader(CSteamAPILoader::k_ESearchOrderTryCustomLocation, pcCustomSteamPath);
+    }
+
 	if (g_ClientLoader.Load()) {
-		g_pClientCreateInterface = (CreateInterfaceFn)g_ClientLoader.GetSteamClientModule()->GetSymbol("CreateInterface");
+		g_pClientCreateInterface = reinterpret_cast<CreateInterfaceFn*>(g_ClientLoader.GetSteamClientModule()->GetSymbol("CreateInterface"));
 		if (!g_pClientCreateInterface) {
 			return false;
         }
 
-		g_pSteamBGetCallback = (SteamBGetCallbackFn)g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_BGetCallback");
+		g_pSteamBGetCallback = reinterpret_cast<SteamBGetCallbackFn*>(g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_BGetCallback"));
 		if (!g_pSteamBGetCallback) {
 			return false;
         }
 
-		g_pSteamFreeLastCallback = (SteamFreeLastCallbackFn)g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_FreeLastCallback");
+		g_pSteamFreeLastCallback = reinterpret_cast<SteamFreeLastCallbackFn*>(g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_FreeLastCallback"));
 		if (!g_pSteamFreeLastCallback) {
 			return false;
         }
 
-		g_pSteamGetAPICallResult = (SteamGetAPICallResultFn)g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_GetAPICallResult");
+		g_pSteamGetAPICallResult = reinterpret_cast<SteamGetAPICallResultFn*>(g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_GetAPICallResult"));
 		if (!g_pSteamGetAPICallResult) {
 			return false;
         }
 
-		g_pSteamReleaseThreadLocalMemory = (SteamReleaseThreadLocalMemoryFn)g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_ReleaseThreadLocalMemory");
+		g_pSteamReleaseThreadLocalMemory = reinterpret_cast<SteamReleaseThreadLocalMemoryFn*>(g_ClientLoader.GetSteamClientModule()->GetSymbol("Steam_ReleaseThreadLocalMemory"));
 
 		return true;
 	}
@@ -57,8 +60,8 @@ bool LoadClientLibrary() {
 	return false;
 }
 
-S_API bool STEAM_CALL OpenAPI_LoadLibrary() {
-	if (LoadClientLibrary()) {
+S_API bool STEAM_CALL OpenAPI_LoadLibrary(const char *pcCustomSteamPath = nullptr) {
+	if (LoadClientLibrary(pcCustomSteamPath)) {
 		GCallbackMgr().Init();
 		return true;
 	}
@@ -83,7 +86,7 @@ S_API void STEAM_CALL SteamAPI_UnregisterCallResult(CCallbackBase *pCallback, St
 }
 
 S_API void* STEAM_CALL SteamInternal_CreateInterface(const char *pName) {
-	return g_pClientCreateInterface(pName, NULL);
+	return g_pClientCreateInterface(pName, nullptr);
 }
 
 S_API bool STEAM_CALL Steam_BGetCallback(HSteamPipe hSteamPipe, CallbackMsg_t *pCallbackMsg) {

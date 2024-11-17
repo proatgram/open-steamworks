@@ -14,16 +14,10 @@
 //
 //=============================================================================
 
-#ifndef ERESULT_H
-#define ERESULT_H
-#ifdef _WIN32
 #pragma once
-#endif
-
 
 // General result codes
-typedef enum EResult
-{
+typedef enum EResult {
 	k_EResultOK	= 1,										// success
 	k_EResultFail = 2,										// generic failure 
 	k_EResultNoConnection = 3,								// no/failed network connection
@@ -148,5 +142,3 @@ typedef enum EResult
 	k_EResultSteamRealmMismatch,							// The current Steam realm does not match the requested resource
 	k_EResultSignatureCheckFailed,
 } EResult;
-
-#endif // ERESULT_H

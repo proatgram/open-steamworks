@@ -14,64 +14,8 @@
 //
 //=============================================================================
 
-#ifndef CLIENTCOMMON_H
-#define CLIENTCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-// interface predec
-class ISteamClient;
-class ISteamUser;
-class ISteamGameServer;
-class ISteamFriends;
-class ISteamUtils;
-class ISteamMatchmaking;
-class ISteamContentServer;
-class ISteamMasterServerUpdater;
-class ISteamMatchmakingServers;
-class ISteam2Bridge;
-class ISteamUserStats;
-class ISteamApps;
-class ISteamBilling;
-class IVAC;
-class ISteamNetworking;
-class ISteamRemoteStorage;
-class ISteamGameServerItems;
-class ISteamGameServerStats;
-class ISteamHTTP;
-class ISteamScreenshots;
-class ISteamUnifiedMessages;
-class ISteamController;
-class ISteamUGC;
-class ISteamAppList;
-class ISteamMusic;
-class ISteamMusicRemote;
-class ISteamHTMLSurface;
-class ISteamInventory;
-class ISteamVideo;
-class ISteamParentalSettings;
-class ISteamInput;
-class ISteamParties;
-class ISteamGameSearch;
-class ISteamRemotePlay;
+#include <string_view>
 
-#define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION005"
-
-
-#define STEAMCLIENT_INTERFACE_VERSION_006		"SteamClient006"
-#define STEAMCLIENT_INTERFACE_VERSION_007		"SteamClient007"
-#define STEAMCLIENT_INTERFACE_VERSION_008		"SteamClient008"
-#define STEAMCLIENT_INTERFACE_VERSION_009		"SteamClient009"
-#define STEAMCLIENT_INTERFACE_VERSION_010		"SteamClient010"
-#define STEAMCLIENT_INTERFACE_VERSION_011		"SteamClient011"
-#define STEAMCLIENT_INTERFACE_VERSION_012		"SteamClient012"
-#define STEAMCLIENT_INTERFACE_VERSION_013		"SteamClient013"
-#define STEAMCLIENT_INTERFACE_VERSION_014		"SteamClient014"
-#define STEAMCLIENT_INTERFACE_VERSION_015		"SteamClient015"
-#define STEAMCLIENT_INTERFACE_VERSION_016		"SteamClient016"
-#define STEAMCLIENT_INTERFACE_VERSION_017		"SteamClient017"
-#define STEAMCLIENT_INTERFACE_VERSION_018		"SteamClient018"
-#define STEAMCLIENT_INTERFACE_VERSION_019		"SteamClient019"
-
-#endif
+static constexpr std::string_view CLIENTENGINE_INTERFACE_VERSION = "CLIENTENGINE_INTERFACE_VERSION005";

@@ -14,26 +14,9 @@
 //
 //=============================================================================
 
-#ifndef GAMESERVERCOMMON_H
-#define GAMESERVERCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define STEAMGAMESERVER_INTERFACE_VERSION_002 "SteamGameServer002"
-#define STEAMGAMESERVER_INTERFACE_VERSION_003 "SteamGameServer003"
-#define STEAMGAMESERVER_INTERFACE_VERSION_004 "SteamGameServer004"
-#define STEAMGAMESERVER_INTERFACE_VERSION_005 "SteamGameServer005"
-#define STEAMGAMESERVER_INTERFACE_VERSION_006 "SteamGameServer006"
-#define STEAMGAMESERVER_INTERFACE_VERSION_007 "SteamGameServer007"
-#define STEAMGAMESERVER_INTERFACE_VERSION_008 "SteamGameServer008"
-#define STEAMGAMESERVER_INTERFACE_VERSION_009 "SteamGameServer009"
-#define STEAMGAMESERVER_INTERFACE_VERSION_010 "SteamGameServer010"
-#define STEAMGAMESERVER_INTERFACE_VERSION_011 "SteamGameServer011"
-#define STEAMGAMESERVER_INTERFACE_VERSION_012 "SteamGameServer012"
-
+#include "SteamTypes.h"
 
 // Result codes to GSHandleClientDeny/Kick
 enum EDenyReason
@@ -58,9 +41,9 @@ enum EDenyReason
 
 
 #pragma pack( push, 8 )
+
 // client has been approved to connect to this game server
-struct GSClientApprove_t
-{
+struct GSClientApprove_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 1 };
 
 	CSteamID m_SteamID;
@@ -68,8 +51,7 @@ struct GSClientApprove_t
 
 
 // client has been denied to connection to this game server
-struct GSClientDeny_t
-{
+struct GSClientDeny_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 2 };
 
 	CSteamID m_SteamID;
@@ -80,8 +62,7 @@ struct GSClientDeny_t
 
 
 // request the game server should kick the user
-struct GSClientKick_t
-{
+struct GSClientKick_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 3 };
 
 	CSteamID m_SteamID;
@@ -89,8 +70,7 @@ struct GSClientKick_t
 };
 
 // client has been denied to connect to this game server because of a Steam2 auth failure
-struct GSClientSteam2Deny_t
-{
+struct GSClientSteam2Deny_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 4 };
 
 	uint32 m_UserID;
@@ -98,8 +78,7 @@ struct GSClientSteam2Deny_t
 };
 
 // client has been accepted by Steam2 to connect to this game server
-struct GSClientSteam2Accept_t
-{
+struct GSClientSteam2Accept_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 5 };
 
 	uint32 m_UserID;
@@ -107,8 +86,7 @@ struct GSClientSteam2Accept_t
 };
 
 // client achievement info
-struct GSClientAchievementStatus_t
-{
+struct GSClientAchievementStatus_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 6 };
 
 	CSteamID m_SteamID;
@@ -118,8 +96,7 @@ struct GSClientAchievementStatus_t
 };
 
 // GS gameplay stats info
-struct GSGameplayStats_t
-{
+struct GSGameplayStats_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 7 };
 
 	EResult m_eResult;					// Result of the call
@@ -131,8 +108,7 @@ struct GSGameplayStats_t
 
 
 // send as a reply to RequestUserGroupStatus()
-struct GSClientGroupStatus_t
-{
+struct GSClientGroupStatus_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 8 };
 
 	CSteamID m_SteamIDUser;
@@ -143,8 +119,7 @@ struct GSClientGroupStatus_t
 };
 
 // Sent as a reply to GetServerReputation()
-struct GSReputation_t
-{
+struct GSReputation_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 9 };
 
 	EResult	m_eResult;				// Result of the call;
@@ -164,16 +139,14 @@ struct GSReputation_t
 };
 
 // Sent as a reply to AssociateWithClan()
-struct AssociateWithClanResult_t
-{
+struct AssociateWithClanResult_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 10 };
 
 	EResult	m_eResult;				// Result of the call;
 };
 
 // Sent as a reply to ComputeNewPlayerCompatibility()
-struct ComputeNewPlayerCompatibilityResult_t
-{
+struct ComputeNewPlayerCompatibilityResult_t {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 11 };
 
 	EResult	m_eResult;				// Result of the call;
@@ -183,18 +156,12 @@ struct ComputeNewPlayerCompatibilityResult_t
 	CSteamID m_SteamIDCandidate;
 };
 
-
-
 // received when the game server requests to be displayed as secure (VAC protected)
 // m_bSecure is true if the game server should display itself as secure to users, false otherwise
-struct GSPolicyResponse_t
-{
+struct GSPolicyResponse_t {
 	enum { k_iCallback = k_iSteamUserCallbacks + 15 };
 
 	uint8 m_bSecure;
 };
+
 #pragma pack( pop )
-
-
-
-#endif // GAMESERVERCOMMON_H

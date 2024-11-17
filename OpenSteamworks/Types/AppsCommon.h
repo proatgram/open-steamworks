@@ -14,34 +14,11 @@
 //
 //=============================================================================
 
-#ifndef APPSCOMMON_H
-#define APPSCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
+#include "SteamTypes.h"
 
-
-#define CLIENTAPPS_INTERFACE_VERSION "CLIENTAPPS_INTERFACE_VERSION001"
-#define CLIENTAPPMANAGER_INTERFACE_VERSION "CLIENTAPPMANAGER_INTERFACE_VERSION001"
-
-#define CLIENTAPPDISABLEUPDATE_INTERFACE_VERSION "ClientAppDisableUpdate001"
-
-#define STEAMAPPS_INTERFACE_VERSION_001 "STEAMAPPS_INTERFACE_VERSION001"
-#define STEAMAPPS_INTERFACE_VERSION_002 "STEAMAPPS_INTERFACE_VERSION002"
-#define STEAMAPPS_INTERFACE_VERSION_003 "STEAMAPPS_INTERFACE_VERSION003"
-#define STEAMAPPS_INTERFACE_VERSION_004 "STEAMAPPS_INTERFACE_VERSION004"
-#define STEAMAPPS_INTERFACE_VERSION_005 "STEAMAPPS_INTERFACE_VERSION005"
-#define STEAMAPPS_INTERFACE_VERSION_006 "STEAMAPPS_INTERFACE_VERSION006"
-#define STEAMAPPS_INTERFACE_VERSION_007 "STEAMAPPS_INTERFACE_VERSION007"
-#define STEAMAPPS_INTERFACE_VERSION_008 "STEAMAPPS_INTERFACE_VERSION008"
-
-#define STEAMAPPLIST_INTERFACE_VERSION_001 "STEAMAPPLIST_INTERFACE_VERSION001"
-
-#define STEAMAPPDISABLEUPDATE_INTERFACE_VERSION_001 "SteamAppDisableUpdate001"
-
-enum EAppState
-{
+enum EAppState {
 	k_EAppStateInvalid			= 0,
 	k_EAppStateUninstalled		= 1 << 0,
 	k_EAppStateUpdateRequired	= 1 << 1,
@@ -63,8 +40,7 @@ enum EAppState
 	k_EAppStatePrefetchingInfo	= 1 << 17,
 };
 
-enum EAppUpdateState
-{
+enum EAppUpdateState {
 	k_EAppUpdateStateNone			= 0,
 	k_EAppUpdateStateRunning		= 1 << 0,
 	k_EAppUpdateStateReconfiguring	= 1 << 1,
@@ -78,13 +54,11 @@ enum EAppUpdateState
 	k_EAppUpdateStateStopping		= 1 << 9,
 };
 
-enum EAppEvent
-{
+enum EAppEvent {
 	k_EAppEventDownloadComplete = 2,
 };
 
-enum EAppInfoSection
-{
+enum EAppInfoSection {
 	k_EAppInfoSectionUnknown = 0,
 	k_EAppInfoSectionAll,
 	k_EAppInfoSectionCommon,
@@ -108,8 +82,7 @@ enum EAppInfoSection
 	k_EAppInfoSectionAlbummetadata,
 };
 
-enum EAppType
-{
+enum EAppType {
 	k_EAppTypeInvalid		= 0,
 	k_EAppTypeGame			= 1 << 0,
 	k_EAppTypeApplication	= 1 << 1,
@@ -133,8 +106,7 @@ enum EAppType
 };
 
 #pragma pack( push, 1 )
-struct AppUpdateInfo_s
-{
+struct AppUpdateInfo_s {
 	RTime32 m_timeUpdateStart;
 	uint32 m_uUnk1; // Update state?
 	uint64 m_unBytesToDownload;
@@ -144,17 +116,16 @@ struct AppUpdateInfo_s
 	int32 m_unEstimatedSecondsRemaining;
 	char m_cUnk[28];
 };
+
 #pragma pack( pop )
 
-struct DownloadStats_s
-{
+struct DownloadStats_s {
 	uint32 m_unCurrentConnections;
 	uint32 m_unBandwidthUsage;
 	uint64 m_unTotalBytesDownload;
 };
 
-enum EAppDownloadPriority
-{
+enum EAppDownloadPriority {
 	k_EAppDownloadPriorityNone = 0,
 	k_EAppDownloadPriorityFirst = 1,
 	k_EAppDownloadPriorityUp = 2,
@@ -163,8 +134,7 @@ enum EAppDownloadPriority
 	k_EAppDownloadPriorityPaused = 5,
 };
 
-enum EAppUpdateError
-{
+enum EAppUpdateError {
 	k_EAppUpdateErrorNoError, // No Error
 	k_EAppUpdateErrorUnspecifiedError, // Unspecified Error
 	k_EAppUpdateErrorPaused, // Paused
@@ -223,8 +193,7 @@ enum EAppUpdateError
 //-----------------------------------------------------------------------------
 // Purpose: possible results when registering an activation code
 //-----------------------------------------------------------------------------
-enum ERegisterActivactionCodeResult
-{
+enum ERegisterActivactionCodeResult {
 	k_ERegisterActivactionCodeResultOK = 0,
 	k_ERegisterActivactionCodeResultFail = 1,
 	k_ERegisterActivactionCodeResultAlreadyRegistered = 2,
@@ -232,8 +201,7 @@ enum ERegisterActivactionCodeResult
 	k_ERegisterActivactionCodeAlreadyOwned = 4
 };
 
-enum EAppOwnershipFlags
-{
+enum EAppOwnershipFlags {
 	k_EAppOwnershipFlagsNone				= 0,
 	k_EAppOwnershipFlagsOwnsLicense			= 1 << 0,
 	k_EAppOwnershipFlagsFreeLicense			= 1 << 1,
@@ -259,8 +227,7 @@ enum EAppOwnershipFlags
 	k_EAppOwnershipFlagsTimedTrial			= 1 << 21
 };
 
-enum EAppReleaseState
-{
+enum EAppReleaseState {
 	k_EAppReleaseStateUnknown = 0,
 	k_EAppReleaseStateUnavailable,
 	k_EAppReleaseStatePrerelease,
@@ -268,20 +235,17 @@ enum EAppReleaseState
 	k_EAppReleaseStateReleased,
 };
 
-enum EAppAutoUpdateBehavior
-{
+enum EAppAutoUpdateBehavior {
 	k_EAppAutoUpdateBehaviorDefault = 0,
 	k_EAppAutoUpdateBehaviorDisabled,
 	k_EAppAutoUpdateBehaviorHighPriority,
 };
 
-enum EAppAllowDownloadsWhileRunningBehavior
-{
+enum EAppAllowDownloadsWhileRunningBehavior {
 	// TODO: Reverse this enum
 };
 
-enum EAppDownloadQueuePlacement
-{
+enum EAppDownloadQueuePlacement {
 	k_EAppDownloadQueuePlacementNone = 0,
 	k_EAppDownloadQueuePlacementFirst,
 	k_EAppDownloadQueuePlacementUserInitiated,
@@ -291,8 +255,7 @@ enum EAppDownloadQueuePlacement
 	k_EAppDownloadQueuePlacementPaused,
 };
 
-enum EContentCorruptionType
-{
+enum EContentCorruptionType {
 	k_EContentCorruptionTypeUnknown, // unknown
 	k_EContentCorruptionTypeUnexpected_size, // unexpected_size
 	k_EContentCorruptionTypeCrc_header_mismatch, // crc_header_mismatch
@@ -302,13 +265,11 @@ enum EContentCorruptionType
 	k_EContentCorruptionTypeParsing_failed, // parsing_failed
 };
 
-enum ELanguage
-{
+enum ELanguage {
 	// TODO: Reverse this enum
 };
 
-struct SHADigestWrapper_t
-{
+struct SHADigestWrapper_t {
 	uint32 A;
 	uint32 B;
 	uint32 C;
@@ -316,26 +277,23 @@ struct SHADigestWrapper_t
 	uint32 E;
 };
 
-const int k_cubAppProofOfPurchaseKeyMax = 64;			// max bytes of a legacy cd key we support
+static constexpr int k_cubAppProofOfPurchaseKeyMax = 64;			// max bytes of a legacy cd key we support
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when new information about an app has arrived
 //-----------------------------------------------------------------------------
-struct AppInfoChanged_t
-{
+struct AppInfoChanged_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 1 };
 
 	AppId_t m_nAppID;
 };
 
-struct RequestAppCallbacksComplete_t
-{
+struct RequestAppCallbacksComplete_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 2 };
 };
 
-struct AppInfoUpdateComplete_t
-{
+struct AppInfoUpdateComplete_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 3 };
 
 	EResult m_EResult;
@@ -343,8 +301,7 @@ struct AppInfoUpdateComplete_t
 	uint32 m_cPackagesUpdated;
 };
 
-struct AppEventTriggered_t
-{
+struct AppEventTriggered_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 4 };
 
 	AppId_t m_nAppID;
@@ -354,15 +311,13 @@ struct AppEventTriggered_t
 //-----------------------------------------------------------------------------
 // Purpose: posted after the user gains ownership of DLC & that DLC is installed
 //-----------------------------------------------------------------------------
-struct DlcInstalled_t
-{
+struct DlcInstalled_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 5 };
 
 	AppId_t m_nAppID;		// AppID of the DLC
 };
 
-struct AppEventStateChange_t
-{
+struct AppEventStateChange_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 6 };
 
 	AppId_t m_nAppID;
@@ -371,8 +326,7 @@ struct AppEventStateChange_t
 	EAppUpdateError m_eAppError;
 };
 
-struct AppValidationComplete_t
-{
+struct AppValidationComplete_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 7 };
 
 	AppId_t m_nAppID;
@@ -388,16 +342,14 @@ struct AppValidationComplete_t
 //-----------------------------------------------------------------------------
 // Purpose: response to RegisterActivationCode()
 //-----------------------------------------------------------------------------
-struct RegisterActivationCodeResponse_t
-{
+struct RegisterActivationCodeResponse_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 8 };
 
 	ERegisterActivactionCodeResult m_eResult;
 	uint32 m_unPackageRegistered;						// package that was registered. Only set on success
 };
 
-struct DownloadScheduleChanged_t
-{
+struct DownloadScheduleChanged_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 9 };
 
 	bool m_bDownloadEnabled;
@@ -405,8 +357,7 @@ struct DownloadScheduleChanged_t
 	unsigned int m_rgunAppSchedule[32];
 };
 
-struct AppUpdateStateChange_t
-{
+struct AppUpdateStateChange_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 10 };
 
 	AppId_t m_nAppID;
@@ -414,8 +365,7 @@ struct AppUpdateStateChange_t
 	uint32 m_eNewState;
 };
 
-struct AppLaunchTenFootOverlay_t
-{
+struct AppLaunchTenFootOverlay_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 11 };
 
 	CGameID m_GameID;
@@ -423,8 +373,7 @@ struct AppLaunchTenFootOverlay_t
 	bool m_bCanShareSurfaces;
 };
 
-struct AppBackupStatus_t
-{
+struct AppBackupStatus_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 12 };
 
 	AppId_t m_nAppID;
@@ -436,8 +385,7 @@ struct AppBackupStatus_t
 	uint64 m_unBytesFailed;
 };
 
-struct RequestAppProofOfPurchaseKeyResponse_t
-{
+struct RequestAppProofOfPurchaseKeyResponse_t {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 13 };
 
 	EResult m_eResult;
@@ -445,16 +393,14 @@ struct RequestAppProofOfPurchaseKeyResponse_t
 	char m_rgchKey[ k_cubAppProofOfPurchaseKeyMax ];	
 };
 
-struct AppAutoUpdateBehaviorChanged_t
-{
+struct AppAutoUpdateBehaviorChanged_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 16 };
 
 	AppId_t m_nAppID;
 	EAppAutoUpdateBehavior m_eNewBehavior;
 };
 
-struct AppInfoUpdateProgress_t
-{
+struct AppInfoUpdateProgress_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 17 };
 
 	uint32 m_cAppsRequested;
@@ -463,23 +409,20 @@ struct AppInfoUpdateProgress_t
 	uint32 m_cPackagesUpdated;
 };
 
-struct AppUpdateStopped_t
-{
+struct AppUpdateStopped_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 18 };
 
 	AppId_t m_nAppID;
 	AppUpdateInfo_s m_UpdateState;
 };
 
-struct AppConfigChanged_t
-{
+struct AppConfigChanged_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 19 };
 
 	AppId_t m_nAppID;
 };
 
-struct CheckAppBetaPasswordResponse_t
-{
+struct CheckAppBetaPasswordResponse_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 20 };
 
 	AppId_t m_nAppID;
@@ -487,15 +430,13 @@ struct CheckAppBetaPasswordResponse_t
 	char m_szBetaName[64];
 };
 
-struct AppUpdateProgress_t
-{
+struct AppUpdateProgress_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 25 };
 
 	AppId_t m_nAppID;
 };
 
-struct AppLaunchResult_t
-{
+struct AppLaunchResult_t {
 	enum { k_iCallback = k_iClientAppsCallbacks + 27 };
 
 	CGameID m_GameID;
@@ -503,11 +444,8 @@ struct AppLaunchResult_t
 	char m_szErrorDetail[512];
 };
 
-struct AppStateInfo_s
-{
-	// reverse me
+struct AppStateInfo_s {
+	// TODO: Reverse this enum
 };
 
 #pragma pack( pop )
-
-#endif // APPSCOMMON_H

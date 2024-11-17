@@ -14,20 +14,9 @@
 //
 //=============================================================================
 
-#ifndef PARENTALSETTINGSCOMMON_H
-#define PARENTALSETTINGSCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-// versions
-#define CLIENTPARENTALSETTINGS_INTERFACE_VERSION "CLIENTPARENTALSETTINGS_INTERFACE_VERSION001"
-#define STEAMPARENTALSETTINGS_INTERFACE_VERSION_001 "STEAMPARENTALSETTINGS_INTERFACE_VERSION001"
-
-
-enum EParentalFeature 
-{
+enum EParentalFeature  {
 	k_EParentalFeatureInvalid,
 	k_EParentalFeatureStore,
 	k_EParentalFeatureCommunity,
@@ -50,6 +39,3 @@ enum EParentalFeature
 
 
 #pragma pack( pop )
-
-
-#endif // PARENTALSETTINGSCOMMON_H

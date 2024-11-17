@@ -14,73 +14,66 @@
 //
 //=============================================================================
 
-#ifndef SERVERNETADR_H
-#define SERVERNETADR_H
-#ifdef _WIN32
 #pragma once
-#endif
 
+#include "SteamTypes.h"
 
 // servernetadr_t is all the addressing info the serverbrowser needs to know about a game server,
 // namely: its IP, its connection port, and its query port.
-class servernetadr_t 
-{
-public:
+class servernetadr_t  {
+    public:
 
-	void	Init( unsigned int ip, uint16 usQueryPort, uint16 usConnectionPort );
+        auto Init( unsigned int ip, uint16 usQueryPort, uint16 usConnectionPort ) -> void;
 #ifdef NETADR_H
-	void	Init( const netadr_t &ipAndQueryPort, uint16 usConnectionPort );
-	netadr_t& GetIPAndQueryPort();
+        auto Init( const netadr_t &ipAndQueryPort, uint16 usConnectionPort ) -> void;
+        auto GetIPAndQueryPort() -> netadr_t&;
 #endif
 
-	// Access the query port.
-	uint16	GetQueryPort() const;
-	void	SetQueryPort( uint16 usPort );
+        // Access the query port.
+        auto GetQueryPort() const -> uint16;
+        auto SetQueryPort( uint16 usPort ) -> void;
 
-	// Access the connection port.
-	uint16	GetConnectionPort() const;
-	void	SetConnectionPort( uint16 usPort );
+        // Access the connection port.
+        auto GetConnectionPort() const -> uint16;
+        auto SetConnectionPort( uint16 usPort ) -> void;
 
-	// Access the IP
-	uint32 GetIP() const;
-	void SetIP( uint32 );
+        // Access the IP
+        auto GetIP() const -> uint32;
+        auto SetIP( uint32 ) -> void;
 
-	// This gets the 'a.b.c.d:port' string with the connection port (instead of the query port).
-	const char *GetConnectionAddressString() const;
-	const char *GetQueryAddressString() const;
+        // This gets the 'a.b.c.d:port' string with the connection port (instead of the query port).
+        const char *GetConnectionAddressString() const;
+        const char *GetQueryAddressString() const;
 
-	// Comparison operators and functions.
-	bool	operator<(const servernetadr_t &netadr) const;
-	void operator=( const servernetadr_t &that )
-	{
-		m_usConnectionPort = that.m_usConnectionPort;
-		m_usQueryPort = that.m_usQueryPort;
-		m_unIP = that.m_unIP;
-	}
+        // Comparison operators and functions.
+        bool	operator<(const servernetadr_t &netadr) const;
+        void operator=( const servernetadr_t &that )
+        {
+            m_usConnectionPort = that.m_usConnectionPort;
+            m_usQueryPort = that.m_usQueryPort;
+            m_unIP = that.m_unIP;
+        }
 
-private:
-	const char *ToString( uint32 unIP, uint16 usPort ) const;
-	uint16	m_usConnectionPort;	// (in HOST byte order)
-	uint16	m_usQueryPort;
-	uint32  m_unIP;
+    private:
+        auto ToString( uint32 unIP, uint16 usPort ) const -> const char*;
+        uint16	m_usConnectionPort;	// (in HOST byte order)
+        uint16	m_usQueryPort;
+        uint32  m_unIP;
 };
 
 
-inline void	servernetadr_t::Init( unsigned int ip, uint16 usQueryPort, uint16 usConnectionPort )
-{
+inline auto servernetadr_t::Init( unsigned int ip, uint16 usQueryPort, uint16 usConnectionPort ) -> void {
 	m_unIP = ip;
 	m_usQueryPort = usQueryPort;
 	m_usConnectionPort = usConnectionPort;
 }
 
 #ifdef NETADR_H
-inline void	servernetadr_t::Init( const netadr_t &ipAndQueryPort, uint16 usConnectionPort )
-{
+inline auto	servernetadr_t::Init( const netadr_t &ipAndQueryPort, uint16 usConnectionPort ) -> void {
 	Init( ipAndQueryPort.GetIP(), ipAndQueryPort.GetPort(), usConnectionPort );
 }
 
-inline netadr_t& servernetadr_t::GetIPAndQueryPort()
-{
+inline auto servernetadr_t::GetIPAndQueryPort() -> netadr_t& {
 	static netadr_t netAdr;
 	netAdr.SetIP( m_unIP );
 	netAdr.SetPort( m_usQueryPort );
@@ -88,33 +81,27 @@ inline netadr_t& servernetadr_t::GetIPAndQueryPort()
 }
 #endif
 
-inline uint16 servernetadr_t::GetQueryPort() const
-{
+inline auto servernetadr_t::GetQueryPort() const -> uint16 {
 	return m_usQueryPort;
 }
 
-inline void	servernetadr_t::SetQueryPort( uint16 usPort )
-{
+inline auto	servernetadr_t::SetQueryPort( uint16 usPort ) -> void {
 	m_usQueryPort = usPort;
 }
 
-inline uint16 servernetadr_t::GetConnectionPort() const
-{
+inline auto servernetadr_t::GetConnectionPort() const -> uint16 {
 	return m_usConnectionPort;
 }
 
-inline void	servernetadr_t::SetConnectionPort( uint16 usPort )
-{
+inline auto	servernetadr_t::SetConnectionPort( uint16 usPort ) -> void {
 	m_usConnectionPort = usPort;
 }
 
-inline uint32 servernetadr_t::GetIP() const
-{
+inline auto servernetadr_t::GetIP() const -> uint32 {
 	return m_unIP;
 }
 
-inline void	servernetadr_t::SetIP( uint32 unIP )
-{
+inline auto	servernetadr_t::SetIP( uint32 unIP ) -> void {
 	m_unIP = unIP;
 }
 
@@ -128,8 +115,7 @@ inline void	servernetadr_t::SetIP( uint32 unIP )
 	#endif	
 #endif
 
-inline const char *servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const
-{
+inline auto servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const -> const char*{
 	static char s[4][64];
 	static int nBuf = 0;
 	unsigned char *ipByte = (unsigned char *)&unIP;
@@ -146,19 +132,14 @@ inline const char *servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const
 #endif
 
 
-inline const char* servernetadr_t::GetConnectionAddressString() const
-{
+inline auto servernetadr_t::GetConnectionAddressString() const -> const char* {
 	return ToString( m_unIP, m_usConnectionPort );
 }
 
-inline const char* servernetadr_t::GetQueryAddressString() const
-{
+inline auto servernetadr_t::GetQueryAddressString() const -> const char* {
 	return ToString( m_unIP, m_usQueryPort );	
 }
 
-inline bool servernetadr_t::operator<(const servernetadr_t &netadr) const
-{
+inline auto servernetadr_t::operator<(const servernetadr_t &netadr) const -> bool {
 	return ( m_unIP < netadr.m_unIP ) || ( m_unIP == netadr.m_unIP && m_usQueryPort < netadr.m_usQueryPort );
 }
-
-#endif // SERVERNETADR_H

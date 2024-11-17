@@ -14,15 +14,9 @@
 //
 //=============================================================================
 
-#ifndef ECURRENCYCODE_H
-#define ECURRENCYCODE_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-typedef enum ECurrencyCode
-{
+typedef enum ECurrencyCode {
 	k_ECurrencyCodeInvalid = 0,
 	k_ECurrencyCodeUSD = 1,
 	k_ECurrencyCodeGBP = 2,
@@ -72,5 +66,3 @@ typedef enum ECurrencyCode
 	k_ECurrencyCodeHUF = 46,
 	k_ECurrencyCodeRON = 47,
 } ECurrencyCode;
-
-#endif // ECURRENCYCODE_H

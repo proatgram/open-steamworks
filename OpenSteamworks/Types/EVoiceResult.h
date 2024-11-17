@@ -14,16 +14,10 @@
 //
 //=============================================================================
 
-#ifndef EVOICERESULT_H
-#define EVOICERESULT_H
-#ifdef _WIN32
 #pragma once
-#endif
-
 
 // Error codes for use with the voice functions
-typedef enum EVoiceResult
-{
+typedef enum EVoiceResult {
 	k_EVoiceResultOK = 0,
 	k_EVoiceResultNotInitialized = 1,
 	k_EVoiceResultNotRecording = 2,
@@ -33,5 +27,3 @@ typedef enum EVoiceResult
 	k_EVoiceResultRestricted = 6,
 	k_EVoiceResultUnsupportedCodec = 7,
 } EVoiceResult;
-
-#endif // EVOICERESULT_H

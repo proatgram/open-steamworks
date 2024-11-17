@@ -24,6 +24,7 @@
 #include "Types/UserCommon.h"
 #include "Types/ContentServerCommon.h"
 #include "Types/ParentalSettingsCommon.h"
+#include "Types/UtilsCommon.h"
 
 // Protobuf'ed class
 class ClientAppInfo

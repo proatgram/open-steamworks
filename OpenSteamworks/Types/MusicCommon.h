@@ -14,30 +14,21 @@
 //
 //=============================================================================
 
-#ifndef MUSICCOMMON_H
-#define MUSICCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-#define k_SteamMusicNameMaxLength	= 255;
-#define k_SteamMusicPNGMaxLength	= 65535;
+#include "SteamTypes.h"
 
-#define CLIENTMUSIC_INTERFACE_VERSION "CLIENTMUSIC_INTERFACE_VERSION001"
+static constexpr uint8 k_SteamMusicNameMaxLength	= 255;
+static constexpr uint16 k_SteamMusicPNGMaxLength	= 65535;
 
-#define STEAMMUSIC_INTERFACE_VERSION_001 "STEAMMUSIC_INTERFACE_VERSION001"
-#define STEAMMUSICREMOTE_INTERFACE_VERSION "STEAMMUSICREMOTE_INTERFACE_VERSION001"
-
-enum AudioPlayback_Status
-{
+enum AudioPlayback_Status {
 	AudioPlayback_Undefined = 0,
 	AudioPlayback_Playing = 1,
 	AudioPlayback_Paused = 2,
 	AudioPlayback_Idle = 3
 };
 
-enum PlayingRepeat_Status 
-{
+enum PlayingRepeat_Status  {
 	PlayingRepeat_None,
 	PlayingRepeat_Repeat,
 	PlayingRepeat_RepeatOnce,
@@ -55,14 +46,12 @@ enum ETrackQueueOrigin {
 
 // music
 
-struct PlaybackStatusHasChanged_t
-{
+struct PlaybackStatusHasChanged_t {
 	enum { k_iCallback = k_iSteamMusicCallbacks + 1 };
 
 };
 
-struct VolumeHasChanged_t
-{
+struct VolumeHasChanged_t {
 	enum { k_iCallback = k_iSteamMusicCallbacks + 2 };
 
 	float m_flNewVolume;
@@ -71,82 +60,66 @@ struct VolumeHasChanged_t
 
 // music remote callbacks
 
-struct MusicPlayerRemoteWillActivate_t
-{
+struct MusicPlayerRemoteWillActivate_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 1 };
 };
 
-struct MusicPlayerRemoteWillDeactivate_t
-{
+struct MusicPlayerRemoteWillDeactivate_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 2 };
 };
 
-struct MusicPlayerRemoteToFront_t
-{
+struct MusicPlayerRemoteToFront_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 3 };
 };
 
-struct MusicPlayerWillQuit_t
-{
+struct MusicPlayerWillQuit_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 4 };
 };
 
-struct MusicPlayerWantsPlay_t
-{
+struct MusicPlayerWantsPlay_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 5 };
 };
 
-struct MusicPlayerWantsPause_t
-{
+struct MusicPlayerWantsPause_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 6 };
 };
 
-struct MusicPlayerWantsPlayPrevious_t
-{
+struct MusicPlayerWantsPlayPrevious_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 7 };
 };
 
-struct MusicPlayerWantsPlayNext_t
-{
+struct MusicPlayerWantsPlayNext_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 8 };
 };
 
-struct MusicPlayerWantsShuffled_t
-{
+struct MusicPlayerWantsShuffled_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 9 };
 
 	bool m_bShuffled;
 };
 
-struct MusicPlayerWantsLooped_t
-{
+struct MusicPlayerWantsLooped_t {
 	enum { k_iCallback = k_iSteamMusicRemoteCallbacks + 10 };
 
 	bool m_bLooped;
 };
 
-struct MusicPlayerWantsVolume_t
-{
+struct MusicPlayerWantsVolume_t {
 	enum { k_iCallback = k_iSteamMusicCallbacks + 11 };
 
 	float m_flNewVolume;
 };
 
-struct MusicPlayerSelectsQueueEntry_t
-{
+struct MusicPlayerSelectsQueueEntry_t {
 	enum { k_iCallback = k_iSteamMusicCallbacks + 12 };
 
 	int32 nID;
 };
 
-struct MusicPlayerSelectsPlaylistEntry_t
-{
+struct MusicPlayerSelectsPlaylistEntry_t {
 	enum { k_iCallback = k_iSteamMusicCallbacks + 13 };
 
 	int32 nID;
 };
 
-
 #pragma pack( pop )
-
-#endif // MUSICCOMMON_H

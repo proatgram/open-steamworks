@@ -14,10 +14,9 @@
 //
 //=============================================================================
 
-#ifndef REMOTECLIENTCOMMON_H
-#define REMOTECLIENTCOMMON_H
+#pragma once
 
-#define STEAMREMOTEPLAY_INTERFACE_VERSION "STEAMREMOTEPLAY_INTERFACE_VERSION001"
+#include "SteamTypes.h"
 
 enum ESteamDeviceFormFactor
 {
@@ -28,13 +27,11 @@ enum ESteamDeviceFormFactor
     k_ESteamDeviceFormFactorTV          // The device is a TV.
 };
 
-enum ERemoteClientStreamEnv
-{
+enum ERemoteClientStreamEnv {
 
 };
 
-enum ERemoteClientLaunchResult
-{
+enum ERemoteClientLaunchResult {
     k_ERemoteClientLaunchResultOK = 1,
     k_ERemoteClientLaunchResultFail = 2,
     k_ERemoteClientLaunchResultRequiresUI = 3,
@@ -65,8 +62,7 @@ enum ERemoteClientLaunchResult
     k_ERemoteClientLaunchResultRestrictedCountry = 28
 };
 
-enum EClientUsedInputType
-{
+enum EClientUsedInputType {
     k_EClientUsedInputTypeKeyboard,
     k_EClientUsedInputTypeMouse,
     k_EClientUsedInputTypeController,
@@ -75,8 +71,7 @@ enum EClientUsedInputType
 
 #pragma pack( push, 1 )
 
-struct RemotePlayPlayer_t
-{
+struct RemotePlayPlayer_t {
     CSteamID m_playerID;
     uint64 m_guestID;
     uint64 m_ullUnk1;
@@ -88,20 +83,17 @@ struct RemotePlayPlayer_t
 
 #pragma pack( push, 8 )
 
-struct RemoteClientReservedGamepad_t
-{
-
+struct RemoteClientReservedGamepad_t {
+    // TODO: reverse me
 };
 
-struct RemoteClientInputSettings_t
-{
-
+struct RemoteClientInputSettings_t {
+    // TODO: reverse me
 };
 
 // k_iClientRemoteClientManager Callbacks
 
-struct RemoteClientStartStreamSession_t
-{
+struct RemoteClientStartStreamSession_t {
     enum { k_iCallback = k_iClientRemoteClientManagerCallbacks + 11 };
 
     uint32 m_unStreamingSessionID;
@@ -129,16 +121,14 @@ struct RemoteClientStartStreamSession_t
     char m_szRelayServer[128];
 };
 
-struct RemoteClientStopStreamSession_t
-{
+struct RemoteClientStopStreamSession_t {
     enum { k_iCallback = k_iClientRemoteClientManagerCallbacks + 12 };
 
     uint32 m_unStreamingSessionID;
     RemotePlayPlayer_t m_player;
 };
 
-struct RemotePlayInviteResult_t
-{
+struct RemotePlayInviteResult_t {
     enum { k_iCallback = k_iClientRemoteClientManagerCallbacks + 28 };
 
     RemotePlayPlayer_t m_player;
@@ -148,5 +138,3 @@ struct RemotePlayInviteResult_t
 };
 
 #pragma pack( pop )
-
-#endif // REMOTECLIENTCOMMON_H

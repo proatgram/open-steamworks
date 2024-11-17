@@ -14,49 +14,26 @@
 //
 //=============================================================================
 
-#ifndef REMOTESTORAGECOMMON_H
-#define REMOTESTORAGECOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_001 "STEAMREMOTESTORAGE_INTERFACE_VERSION001"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_002 "STEAMREMOTESTORAGE_INTERFACE_VERSION002"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_003 "STEAMREMOTESTORAGE_INTERFACE_VERSION003"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_004 "STEAMREMOTESTORAGE_INTERFACE_VERSION004"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_005 "STEAMREMOTESTORAGE_INTERFACE_VERSION005"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_006 "STEAMREMOTESTORAGE_INTERFACE_VERSION006"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_007 "STEAMREMOTESTORAGE_INTERFACE_VERSION007"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_008 "STEAMREMOTESTORAGE_INTERFACE_VERSION008"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_009 "STEAMREMOTESTORAGE_INTERFACE_VERSION009"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_010 "STEAMREMOTESTORAGE_INTERFACE_VERSION010"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_011 "STEAMREMOTESTORAGE_INTERFACE_VERSION011"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_012 "STEAMREMOTESTORAGE_INTERFACE_VERSION012"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_013 "STEAMREMOTESTORAGE_INTERFACE_VERSION013"
-#define STEAMREMOTESTORAGE_INTERFACE_VERSION_014 "STEAMREMOTESTORAGE_INTERFACE_VERSION014"
-
-#define CLIENTREMOTESTORAGE_INTERFACE_VERSION "CLIENTREMOTESTORAGE_INTERFACE_VERSION001"
-
+#include "SteamTypes.h"
 
 // A handle to a piece of user generated content
-typedef uint64 UGCHandle_t;
-typedef uint64 PublishedFileUpdateHandle_t;
-typedef uint64 PublishedFileId_t;
-const UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
-const PublishedFileUpdateHandle_t k_PublishedFileUpdateHandleInvalid = 0xffffffffffffffffull;
+using UGCHandle_t = uint64;
+using PublishedFileUpdateHandle_t = uint64;
+using PublishedFileId_t = uint64;
+static constexpr UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
+static constexpr PublishedFileUpdateHandle_t k_PublishedFileUpdateHandleInvalid = 0xffffffffffffffffull;
 
-const uint32 k_cchPublishedDocumentTitleMax = 128 + 1;
-const uint32 k_cchPublishedDocumentDescriptionMax = 8000;
-const uint32 k_cchPublishedDocumentChangeDescriptionMax = 256;
-const uint32 k_unEnumeratePublishedFilesMaxResults = 50;
-const uint32 k_cchTagListMax = 1024 + 1;
-const uint32 k_cchFilenameMax = 260;
-const uint32 k_cchPublishedFileURLMax = 256;
+static constexpr uint32 k_cchPublishedDocumentTitleMax = 128 + 1;
+static constexpr uint32 k_cchPublishedDocumentDescriptionMax = 8000;
+static constexpr uint32 k_cchPublishedDocumentChangeDescriptionMax = 256;
+static constexpr uint32 k_unEnumeratePublishedFilesMaxResults = 50;
+static constexpr uint32 k_cchTagListMax = 1024 + 1;
+static constexpr uint32 k_cchFilenameMax = 260;
+static constexpr uint32 k_cchPublishedFileURLMax = 256;
 
-enum ERemoteStorageFileRoot
-{
+enum ERemoteStorageFileRoot {
     k_ERemoteStorageFileRootInvalid = -1, // Invalid
     k_ERemoteStorageFileRootDefault, // Default
     k_ERemoteStorageFileRootGameInstall, // GameInstall
@@ -78,8 +55,7 @@ enum ERemoteStorageFileRoot
     k_ERemoteStorageFileRootAndroidSteamPackageRoot, // AndroidSteamPackageRoot
 };
 
-enum ERemoteStorageSyncState
-{
+enum ERemoteStorageSyncState {
 	k_ERemoteSyncStateDisabled = 0,
 	k_ERemoteSyncStateUnknown = 1,
 	k_ERemoteSyncStateSynchronized = 2,
@@ -90,13 +66,11 @@ enum ERemoteStorageSyncState
 	k_ERemoteSyncStateConflictingChanges = 7,
 };
 
-enum EFileRemoteStorageSyncState
-{
+enum EFileRemoteStorageSyncState {
 	// TODO: Reverse this enum
 };
 
-enum EUCMFilePrivacyState
-{
+enum EUCMFilePrivacyState {
 	k_EUCMFilePrivacyStateInvalid = -1,
 
 	k_EUCMFilePrivacyStateUnpublished = 0,
@@ -108,8 +82,7 @@ enum EUCMFilePrivacyState
 	k_EUCMFilePrivacyStateAll = 14,
 };
 
-enum ERemoteStoragePlatform
-{
+enum ERemoteStoragePlatform {
 	k_ERemoteStoragePlatformNone		= 0,
 	k_ERemoteStoragePlatformWindows		= (1 << 0),
 	k_ERemoteStoragePlatformOSX			= (1 << 1),
@@ -118,30 +91,26 @@ enum ERemoteStoragePlatform
 	k_ERemoteStoragePlatformSwitch		= (1 << 4),
 	k_ERemoteStoragePlatformAndroid		= (1 << 5),
 	k_ERemoteStoragePlatformIPhoneOS	= (1 << 6),
-	k_ERemoteStoragePlatformAll = 0xffffffff
+	k_ERemoteStoragePlatformAll         = 0xffffffff
 };
 
 // Ways to handle a synchronization conflict
-enum EResolveConflict
-{
+enum EResolveConflict {
 	k_EResolveConflictKeepClient = 1,		// The local version of each file will be used to overwrite the server version
 	k_EResolveConflictKeepServer = 2,		// The server version of each file will be used to overwrite the local version
 };
 
-enum ERemoteStoragePublishedFileVisibility
-{
+enum ERemoteStoragePublishedFileVisibility {
 	k_ERemoteStoragePublishedFileVisibilityPublic = 0,
 	k_ERemoteStoragePublishedFileVisibilityFriendsOnly = 1,
 	k_ERemoteStoragePublishedFileVisibilityPrivate = 2,
 };
 
-enum ERemoteStoragePublishedFileSortOrder
-{
+enum ERemoteStoragePublishedFileSortOrder {
 	// TODO: Reverse this enum
 };
 
-enum EWorkshopFileType
-{
+enum EWorkshopFileType {
 	k_EWorkshopFileTypeFirst = 0,
 
 	k_EWorkshopFileTypeCommunity			  = 0,
@@ -165,27 +134,23 @@ enum EWorkshopFileType
 	
 };
 
-enum EWorkshopVote
-{
+enum EWorkshopVote {
 	k_EWorkshopVoteUnvoted = 0,
 	k_EWorkshopVoteFor = 1,
 	k_EWorkshopVoteAgainst = 2,
 };
 
-enum EWorkshopVideoProvider
-{
+enum EWorkshopVideoProvider {
 	// TODO: Reverse this enum
 };
 
-enum EWorkshopFileAction
-{
+enum EWorkshopFileAction {
 	k_EWorkshopFileActionPlayed = 0,
 	k_EWorkshopFileActionCompleted = 1,
 };
 
 
-enum EWorkshopEnumerationType
-{
+enum EWorkshopEnumerationType {
 	k_EWorkshopEnumerationTypeRankedByVote = 0,
 	k_EWorkshopEnumerationTypeRecent = 1,
 	k_EWorkshopEnumerationTypeTrending = 2,
@@ -195,13 +160,11 @@ enum EWorkshopEnumerationType
 	k_EWorkshopEnumerationTypeRecentFromFollowedUsers = 6,
 };
 
-enum EPublishedFileInfoMatchingFileType
-{
+enum EPublishedFileInfoMatchingFileType {
 	// TODO: Reverse this enum
 };
 
-enum EUGCReadAction
-{
+enum EUGCReadAction {
 	// Keeps the file handle open unless the last byte is read.  You can use this when reading large files (over 100MB) in sequential chunks.
 	// If the last byte is read, this will behave the same as k_EUGCRead_Close.  Otherwise, it behaves the same as k_EUGCRead_ContinueReading.
 	// This value maintains the same behavior as before the EUGCReadAction parameter was introduced.
@@ -219,15 +182,13 @@ enum EUGCReadAction
 
 #pragma pack( push, 8 )
 
-struct SteamParamStringArray_t
-{
-	SteamParamStringArray_t()
-	{
-		m_ppStrings = NULL;
+struct SteamParamStringArray_t {
+	SteamParamStringArray_t() {
+		m_ppStrings = nullptr;
 		m_nNumStrings = 0;
 	}
 
-	const char ** m_ppStrings;
+	const char **m_ppStrings;
 	int32 m_nNumStrings;
 };
 
@@ -235,108 +196,98 @@ struct SteamParamStringArray_t
 // Purpose: helper structure for making updates to published files.
 //	make sure to update serialization/deserialization in interfacemap.cpp if new properties are added
 //-----------------------------------------------------------------------------
-struct RemoteStorageUpdatePublishedFileRequest_t
-{
-public:
-	RemoteStorageUpdatePublishedFileRequest_t()
-	{
-		Initialize( k_GIDNil );
-	}
+struct RemoteStorageUpdatePublishedFileRequest_t {
+    public:
+        RemoteStorageUpdatePublishedFileRequest_t() {
+            Initialize( k_GIDNil );
+        }
 
-	RemoteStorageUpdatePublishedFileRequest_t( PublishedFileId_t unPublishedFileId )
-	{
-		Initialize( unPublishedFileId );
-	}
+        RemoteStorageUpdatePublishedFileRequest_t( PublishedFileId_t unPublishedFileId ) {
+            Initialize( unPublishedFileId );
+        }
 
-	PublishedFileId_t GetPublishedFileId() { return m_unPublishedFileId; }
+        PublishedFileId_t GetPublishedFileId() { return m_unPublishedFileId; }
 
-	void SetFile( const char *pchFile )
-	{
-		m_pchFile = pchFile;
-		m_bUpdateFile = true;
-	}
+        inline auto SetFile( const char *pchFile ) -> void {
+            m_pchFile = pchFile;
+            m_bUpdateFile = true;
+        }
 
-	const char *GetFile() { return m_pchFile; }
-	bool BUpdateFile() { return m_bUpdateFile; }
+        inline auto GetFile() -> const char* { return m_pchFile; }
+        inline auto BUpdateFile() -> bool { return m_bUpdateFile; }
 
-	void SetPreviewFile( const char *pchPreviewFile )
-	{
-		m_pchPreviewFile = pchPreviewFile;
-		m_bUpdatePreviewFile = true;
-	}
+        inline auto SetPreviewFile( const char *pchPreviewFile ) -> void {
+            m_pchPreviewFile = pchPreviewFile;
+            m_bUpdatePreviewFile = true;
+        }
 
-	const char *GetPreviewFile() { return m_pchPreviewFile; }
-	bool BUpdatePreviewFile() { return m_bUpdatePreviewFile; }
+        inline auto GetPreviewFile() -> const char* { return m_pchPreviewFile; }
+        inline auto BUpdatePreviewFile() -> bool { return m_bUpdatePreviewFile; }
 
-	void SetTitle( const char *pchTitle )
-	{
-		m_pchTitle = pchTitle;
-		m_bUpdateTitle = true;
-	}
+        inline auto SetTitle( const char *pchTitle ) -> void {
+            m_pchTitle = pchTitle;
+            m_bUpdateTitle = true;
+        }
 
-	const char *GetTitle() { return m_pchTitle; }
-	bool BUpdateTitle() { return m_bUpdateTitle; }
+        inline auto GetTitle() -> const char* { return m_pchTitle; }
+        inline auto BUpdateTitle() -> bool { return m_bUpdateTitle; }
 
-	void SetDescription( const char *pchDescription )
-	{
-		m_pchDescription = pchDescription;
-		m_bUpdateDescription = true;
-	}
+        inline auto SetDescription( const char *pchDescription ) -> void {
+            m_pchDescription = pchDescription;
+            m_bUpdateDescription = true;
+        }
 
-	const char *GetDescription() { return m_pchDescription; }
-	bool BUpdateDescription() { return m_bUpdateDescription; }
+        inline auto GetDescription() -> const char* { return m_pchDescription; }
+        inline auto BUpdateDescription() -> bool { return m_bUpdateDescription; }
 
-	void SetVisibility( ERemoteStoragePublishedFileVisibility eVisibility )
-	{
-		m_eVisibility = eVisibility;
-		m_bUpdateVisibility = true;
-	}
+        inline auto SetVisibility( ERemoteStoragePublishedFileVisibility eVisibility ) -> void {
+            m_eVisibility = eVisibility;
+            m_bUpdateVisibility = true;
+        }
 
-	ERemoteStoragePublishedFileVisibility GetVisibility() { return m_eVisibility; }
-	bool BUpdateVisibility() { return m_bUpdateVisibility; }
+        inline auto GetVisibility() -> ERemoteStoragePublishedFileVisibility { return m_eVisibility; }
+        inline auto BUpdateVisibility() -> bool { return m_bUpdateVisibility; }
 
-	void SetTags( SteamParamStringArray_t *pTags )
-	{
-		m_pTags = pTags;
-		m_bUpdateTags = true;
-	}
+        inline auto SetTags( SteamParamStringArray_t *pTags ) -> void {
+            m_pTags = pTags;
+            m_bUpdateTags = true;
+        }
 
-	SteamParamStringArray_t *GetTags() { return m_pTags; }
-	bool BUpdateTags() { return m_bUpdateTags; }
-	SteamParamStringArray_t **GetTagsPointer() { return &m_pTags; }
+        inline auto GetTags() -> SteamParamStringArray_t* { return m_pTags; }
+        inline auto BUpdateTags() -> bool { return m_bUpdateTags; }
+        inline auto GetTagsPointer() -> SteamParamStringArray_t** { return &m_pTags; }
 
-	void Initialize( PublishedFileId_t unPublishedFileId )
-	{
-		m_unPublishedFileId = unPublishedFileId;
-		m_pchFile = 0;
-		m_pchPreviewFile = 0;
-		m_pchTitle = 0;
-		m_pchDescription = 0;
-		m_pTags = 0;
+        inline auto Initialize( PublishedFileId_t unPublishedFileId ) -> void {
+            m_unPublishedFileId = unPublishedFileId;
+            m_pchFile = 0;
+            m_pchPreviewFile = 0;
+            m_pchTitle = 0;
+            m_pchDescription = 0;
+            m_pTags = 0;
 
-		m_bUpdateFile = false;
-		m_bUpdatePreviewFile = false;
-		m_bUpdateTitle = false;
-		m_bUpdateDescription = false;
-		m_bUpdateTags = false;
-		m_bUpdateVisibility = false;
-	}
+            m_bUpdateFile = false;
+            m_bUpdatePreviewFile = false;
+            m_bUpdateTitle = false;
+            m_bUpdateDescription = false;
+            m_bUpdateTags = false;
+            m_bUpdateVisibility = false;
+        }
 
-private:
-	PublishedFileId_t m_unPublishedFileId;
-	const char *m_pchFile;
-	const char *m_pchPreviewFile;
-	const char *m_pchTitle;
-	const char *m_pchDescription;
-	ERemoteStoragePublishedFileVisibility m_eVisibility;
-	SteamParamStringArray_t *m_pTags;
+    private:
+        PublishedFileId_t m_unPublishedFileId;
+        const char *m_pchFile;
+        const char *m_pchPreviewFile;
+        const char *m_pchTitle;
+        const char *m_pchDescription;
+        ERemoteStoragePublishedFileVisibility m_eVisibility;
+        SteamParamStringArray_t *m_pTags;
 
-	bool m_bUpdateFile;
-	bool m_bUpdatePreviewFile;
-	bool m_bUpdateTitle;
-	bool m_bUpdateDescription;
-	bool m_bUpdateVisibility;
-	bool m_bUpdateTags;
+        bool m_bUpdateFile;
+        bool m_bUpdatePreviewFile;
+        bool m_bUpdateTitle;
+        bool m_bUpdateDescription;
+        bool m_bUpdateVisibility;
+        bool m_bUpdateTags;
 };
 
 
@@ -345,8 +296,7 @@ private:
 // Purpose: sent when the local file cache is fully synced with the server for an app
 //	      That means that an application can be started and has all latest files
 //-----------------------------------------------------------------------------
-struct RemoteStorageAppSyncedClient_t
-{
+struct RemoteStorageAppSyncedClient_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 1 };
 
 	AppId_t m_nAppID;
@@ -358,8 +308,7 @@ struct RemoteStorageAppSyncedClient_t
 // Purpose: sent when the server is fully synced with the local file cache for an app
 //          That means that we can shutdown Steam and our data is stored on the server
 //-----------------------------------------------------------------------------
-struct RemoteStorageAppSyncedServer_t
-{
+struct RemoteStorageAppSyncedServer_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 2 };
 
 	AppId_t m_nAppID;
@@ -371,8 +320,7 @@ struct RemoteStorageAppSyncedServer_t
 // Purpose: Status of up and downloads during a sync session
 //       
 //-----------------------------------------------------------------------------
-struct RemoteStorageAppSyncProgress_t
-{
+struct RemoteStorageAppSyncProgress_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 3 };
 
 	char m_rgchCurrentFile[260];				// Current file being transferred
@@ -382,8 +330,7 @@ struct RemoteStorageAppSyncProgress_t
 	bool m_bUploading;							// if false, downloading
 };
 
-struct RemoteStorageAppInfoLoaded_t
-{
+struct RemoteStorageAppInfoLoaded_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 4 };
 
 	AppId_t m_nAppID;
@@ -394,8 +341,7 @@ struct RemoteStorageAppInfoLoaded_t
 // Purpose: Sent after we've determined the list of files that are out of sync
 //          with the server.
 //-----------------------------------------------------------------------------
-struct RemoteStorageAppSyncStatusCheck_t
-{
+struct RemoteStorageAppSyncStatusCheck_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 5 };
 
 	AppId_t m_nAppID;
@@ -405,8 +351,7 @@ struct RemoteStorageAppSyncStatusCheck_t
 //-----------------------------------------------------------------------------
 // Purpose: Sent after a conflict resolution attempt.
 //-----------------------------------------------------------------------------
-struct RemoteStorageConflictResolution_t
-{
+struct RemoteStorageConflictResolution_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 6 };
 
 	AppId_t m_nAppID;
@@ -416,8 +361,7 @@ struct RemoteStorageConflictResolution_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to FileShare()
 //-----------------------------------------------------------------------------
-struct RemoteStorageFileShareResult_t
-{
+struct RemoteStorageFileShareResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 7 };
 
 	EResult m_eResult;			// The result of the operation
@@ -427,8 +371,7 @@ struct RemoteStorageFileShareResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UGCDownload()
 //-----------------------------------------------------------------------------
-struct _Deprecated_RemoteStorageDownloadUGCResult_t
-{
+struct _Deprecated_RemoteStorageDownloadUGCResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 8 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -443,8 +386,7 @@ struct _Deprecated_RemoteStorageDownloadUGCResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to PublishFile()
 //-----------------------------------------------------------------------------
-struct RemoteStoragePublishFileResult_t
-{
+struct RemoteStoragePublishFileResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 9 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -454,8 +396,7 @@ struct RemoteStoragePublishFileResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to GetPublishedFileDetails()
 //-----------------------------------------------------------------------------
-struct _Deprecated_RemoteStorageGetPublishedFileDetailsResult_t
-{
+struct _Deprecated_RemoteStorageGetPublishedFileDetailsResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 10 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -480,8 +421,7 @@ struct _Deprecated_RemoteStorageGetPublishedFileDetailsResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to DeletePublishedFile()
 //-----------------------------------------------------------------------------
-struct RemoteStorageDeletePublishedFileResult_t
-{
+struct RemoteStorageDeletePublishedFileResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 11 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -491,8 +431,7 @@ struct RemoteStorageDeletePublishedFileResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to EnumerateUserPublishedFiles()
 //-----------------------------------------------------------------------------
-struct RemoteStorageEnumerateUserPublishedFilesResult_t
-{
+struct RemoteStorageEnumerateUserPublishedFilesResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 12 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -504,8 +443,7 @@ struct RemoteStorageEnumerateUserPublishedFilesResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to SubscribePublishedFile()
 //-----------------------------------------------------------------------------
-struct RemoteStorageSubscribePublishedFileResult_t
-{
+struct RemoteStorageSubscribePublishedFileResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 13 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -514,8 +452,7 @@ struct RemoteStorageSubscribePublishedFileResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to EnumerateSubscribePublishedFiles()
 //-----------------------------------------------------------------------------
-struct RemoteStorageEnumerateUserSubscribedFilesResult_t
-{
+struct RemoteStorageEnumerateUserSubscribedFilesResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 14 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -528,8 +465,7 @@ struct RemoteStorageEnumerateUserSubscribedFilesResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UnsubscribePublishedFile()
 //-----------------------------------------------------------------------------
-struct RemoteStorageUnsubscribePublishedFileResult_t
-{
+struct RemoteStorageUnsubscribePublishedFileResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 15 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -538,8 +474,7 @@ struct RemoteStorageUnsubscribePublishedFileResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UpdatePublishedFile()
 //-----------------------------------------------------------------------------
-struct RemoteStorageUpdatePublishedFileResult_t
-{
+struct RemoteStorageUpdatePublishedFileResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 16 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -549,8 +484,7 @@ struct RemoteStorageUpdatePublishedFileResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UGCDownload()
 //-----------------------------------------------------------------------------
-struct RemoteStorageDownloadUGCResult_t
-{
+struct RemoteStorageDownloadUGCResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 17 };
 
 	EResult m_eResult;				// The result of the operation.
@@ -564,8 +498,7 @@ struct RemoteStorageDownloadUGCResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to GetPublishedFileDetails()
 //-----------------------------------------------------------------------------
-struct RemoteStorageGetPublishedFileDetailsResult_t
-{
+struct RemoteStorageGetPublishedFileDetailsResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 18 };
 
 	EResult m_eResult;						// The result of the operation.
@@ -591,8 +524,7 @@ struct RemoteStorageGetPublishedFileDetailsResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to EnumeratePublishedWorkshopFiles()
 //-----------------------------------------------------------------------------
-struct RemoteStorageEnumerateWorkshopFilesResult_t
-{
+struct RemoteStorageEnumerateWorkshopFilesResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 19 };
 
 	EResult m_eResult;
@@ -605,8 +537,7 @@ struct RemoteStorageEnumerateWorkshopFilesResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of GetPublishedItemVoteDetails
 //-----------------------------------------------------------------------------
-struct RemoteStorageGetPublishedItemVoteDetailsResult_t
-{
+struct RemoteStorageGetPublishedItemVoteDetailsResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 20 };
 
 	EResult m_eResult;
@@ -617,24 +548,21 @@ struct RemoteStorageGetPublishedItemVoteDetailsResult_t
 	float m_fScore; // [0-1.0]
 };
 
-struct RemoteStoragePublishedFileSubscribed_t
-{
+struct RemoteStoragePublishedFileSubscribed_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 21 };
 
 	PublishedFileId_t m_unPublishedFileId;
 	AppId_t m_nAppID;
 };
 
-struct RemoteStoragePublishedFileUnsubscribed_t
-{
+struct RemoteStoragePublishedFileUnsubscribed_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 22 };
 
 	PublishedFileId_t m_unPublishedFileId;
 	AppId_t m_nAppID;
 };
 
-struct RemoteStoragePublishedFileDeleted_t
-{
+struct RemoteStoragePublishedFileDeleted_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 23 };
 
 	PublishedFileId_t m_unPublishedFileId;
@@ -644,8 +572,7 @@ struct RemoteStoragePublishedFileDeleted_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UpdateUserPublishedItemVote()
 //-----------------------------------------------------------------------------
-struct RemoteStorageUpdateUserPublishedItemVoteResult_t
-{
+struct RemoteStorageUpdateUserPublishedItemVoteResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 24 };
 
 	EResult m_eResult;
@@ -655,8 +582,7 @@ struct RemoteStorageUpdateUserPublishedItemVoteResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to GetUserPublishedItemVoteDetails()
 //-----------------------------------------------------------------------------
-struct RemoteStorageUserVoteDetails_t
-{
+struct RemoteStorageUserVoteDetails_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 25 };
 
 	EResult m_eResult;
@@ -667,8 +593,7 @@ struct RemoteStorageUserVoteDetails_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to EnumerateUserSharedWorkshopFiles()
 //-----------------------------------------------------------------------------
-struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
-{
+struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 26 };
 	
 	EResult m_eResult;
@@ -680,8 +605,7 @@ struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to SetUserPublishedFileAction()
 //-----------------------------------------------------------------------------
-struct RemoteStorageSetUserPublishedFileActionResult_t
-{
+struct RemoteStorageSetUserPublishedFileActionResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 27 };
 
 	EResult m_eResult;
@@ -691,8 +615,7 @@ struct RemoteStorageSetUserPublishedFileActionResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to EnumeratePublishedFilesByUserAction()
 //-----------------------------------------------------------------------------
-struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t
-{
+struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 28 };
 	
 	EResult m_eResult;
@@ -704,7 +627,3 @@ struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t
 };
 
 #pragma pack( pop )
-
-
-
-#endif // REMOTESTORAGECOMMON_H

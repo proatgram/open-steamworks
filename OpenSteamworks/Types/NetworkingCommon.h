@@ -14,26 +14,13 @@
 //
 //=============================================================================
 
-#ifndef NETWORKINGCOMMON_H
-#define NETWORKINGCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define STEAMNETWORKING_INTERFACE_VERSION_001 "SteamNetworking001"
-#define STEAMNETWORKING_INTERFACE_VERSION_002 "SteamNetworking002"
-#define STEAMNETWORKING_INTERFACE_VERSION_003 "SteamNetworking003"
-#define STEAMNETWORKING_INTERFACE_VERSION_004 "SteamNetworking004"
-#define STEAMNETWORKING_INTERFACE_VERSION_005 "SteamNetworking005"
-
-#define CLIENTNETWORKING_INTERFACE_VERSION "ClientNetworking001"
+#include "SteamTypes.h"
 
 // SendP2PPacket() send types
 // Typically k_EP2PSendUnreliable is what you want for UDP-like packets, k_EP2PSendReliable for TCP-like packets
-enum EP2PSend
-{
+enum EP2PSend {
 	// Basic UDP send. Packets can't be bigger than 1200 bytes (your typical MTU size). Can be lost, or arrive out of order (rare).
 	// The sending API does have some knowledge of the underlying connection, so if there is no NAT-traversal accomplished or
 	// there is a recognized adjustment happening on the connection, the packet will be batched until the connection is open again.
@@ -59,8 +46,7 @@ enum EP2PSend
 
 // list of possible errors returned by SendP2PPacket() API
 // these will be posted in the P2PSessionConnectFail_t callback
-enum EP2PSessionError
-{
+enum EP2PSessionError {
 	k_EP2PSessionErrorNone = 0,
 	k_EP2PSessionErrorNotRunningApp = 1,			// target is not running the same game
 	k_EP2PSessionErrorNoRightsToApp = 2,			// local user doesn't own the app that is running
@@ -72,16 +58,14 @@ enum EP2PSessionError
 };
 
 // describes how the socket is currently connected
-enum ESNetSocketConnectionType
-{
+enum ESNetSocketConnectionType {
 	k_ESNetSocketConnectionTypeNotConnected = 0,
 	k_ESNetSocketConnectionTypeUDP = 1,
 	k_ESNetSocketConnectionTypeUDPRelay = 2,
 };
 
 // connection progress indicators
-enum ESNetSocketState
-{
+enum ESNetSocketState {
 	k_ESNetSocketStateInvalid = 0,						
 
 	// communication is valid
@@ -108,16 +92,14 @@ enum ESNetSocketState
 
 
 // handle to a socket
-typedef uint32 SNetSocket_t;		// CreateP2PConnectionSocket()
-typedef uint32 SNetListenSocket_t;	// CreateListenSocket()
-
+using SNetSocket_t = uint32;		// CreateP2PConnectionSocket()
+using SNetListenSocket_t = uint32;	// CreateListenSocket()
 
 #pragma pack( push, 8 )
 
 // connection state to a specified user, returned by GetP2PSessionState()
 // this is under-the-hood info about what's going on with a SendP2PPacket(), shouldn't be needed except for debuggin
-struct P2PSessionState_t
-{
+struct P2PSessionState_t {
 	uint8 m_bConnectionActive;		// true if we've got an active open connection
 	uint8 m_bConnecting;			// true if we're currently trying to establish a connection
 	uint8 m_eP2PSessionError;		// last error recorded (see enum above)
@@ -131,8 +113,7 @@ struct P2PSessionState_t
 
 // callback notification - status of a socket has changed
 // used as part of the CreateListenSocket() / CreateP2PConnectionSocket() 
-struct SocketStatusCallback_t
-{ 
+struct SocketStatusCallback_t {
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 1 };
 
 	SNetSocket_t m_hSocket;				// the socket used to send/receive data to the remote host
@@ -144,8 +125,7 @@ struct SocketStatusCallback_t
 
 // callback notification - a user wants to talk to us over the P2P channel via the SendP2PPacket() API
 // in response, a call to AcceptP2PPacketsFromUser() needs to be made, if you want to talk with them
-struct P2PSessionRequest_t
-{ 
+struct P2PSessionRequest_t {
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 2 };
 
 	CSteamID m_steamIDRemote;			// user who wants to talk to us
@@ -155,13 +135,11 @@ struct P2PSessionRequest_t
 // callback notification - packets can't get through to the specified user via the SendP2PPacket() API
 // all packets queued packets unsent at this point will be dropped
 // further attempts to send will retry making the connection (but will be dropped if we fail again)
-struct P2PSessionConnectFail_t
-{ 
+struct P2PSessionConnectFail_t {
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 3 };
 
 	CSteamID m_steamIDRemote;			// user we were sending packets to
 	uint8 m_eP2PSessionError;			// EP2PSessionError indicating why we're having trouble
 };
-#pragma pack( pop )
 
-#endif // NETWORKINGCOMMON_H
+#pragma pack( pop )

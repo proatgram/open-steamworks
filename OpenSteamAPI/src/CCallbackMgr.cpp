@@ -15,6 +15,7 @@
 //=============================================================================
 
 #include "CCallbackMgr.h"
+#include "Steamclient.h"
 
 CCallbackMgr::CCallbackMgr(): 
 	m_bRunning(false),

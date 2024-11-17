@@ -14,14 +14,9 @@
 //
 //=============================================================================
 
-#ifndef STEAMTYPES_H
-#define STEAMTYPES_H
-#ifdef _WIN32
 #pragma once
-#endif
 
 // Compiler checks
-
 #if defined(_MSC_VER)
 
 	#if _MSC_VER < 1400
@@ -86,11 +81,11 @@
 
 #ifdef __GNUC__
 
-	typedef int errno_t;
+	using errno_t = int;
 	
 	#ifdef _S4N_
-		typedef unsigned int size_t;
-		#define NULL 0
+		using size_t = unsigned int;
+		using NULL = 0;
 	#endif
 #endif
 
@@ -104,51 +99,56 @@
 	#define X64BITS
 #endif
 
-typedef unsigned char uint8;
-typedef signed char int8;
+using uint8 = unsigned char;
+using int8 = signed char;
 
 #if defined( _MSV_VER )
 
-	typedef __int16 int16;
-	typedef unsigned __int16 uint16;
-	typedef __int32 int32;
-	typedef unsigned __int32 uint32;
-	typedef __int64 int64;
-	typedef unsigned __int64 uint64;
+	using int16 = __int16;
+    using uint16 = unsigned __int16;
+    using int32 = __int32;
+    using uint32 = unsigned __int32;
+    using int64 = __int64;
+    using uint64 = unsigned __int64;
 
 	#ifdef X64BITS
-		typedef __int64 intp;				// intp is an integer that can accomodate a pointer
-		typedef unsigned __int64 uintp;		// (ie, sizeof(intp) >= sizeof(int) && sizeof(intp) >= sizeof(void *)
+        using intp = __int64;
+        using uintp = unsigned __int64;     // (ie, sizeof(intp) >= sizeof(int) && sizeof(intp) >= sizeof(void *)
 	#else
-		typedef __int32 intp;
-		typedef unsigned __int32 uintp;
+        using intp = __int32;
+        using uintp = unsigned __int32;
 	#endif
 
 #else // _MSV_VER
 
-	typedef short int16;
-	typedef unsigned short uint16;
-	typedef int int32;
-	typedef unsigned int uint32;
-	typedef long long int64;
-	typedef unsigned long long uint64;
+    using int16 = short;
+    using uint16 = unsigned short;
+    using int32 = int;
+    using uint32 = unsigned int;
+    using int64 = long long;
+    using uint64 = unsigned long long;
+    
 	#ifdef X64BITS
 		typedef long long intp;
 		typedef unsigned long long uintp;
 	#else
-		typedef int intp;
-		typedef unsigned int uintp;
+        using intp = int;
+        using uintp = unsigned int;
 	#endif
 
 #endif // else _MSV_VER
 
 
-#ifndef abstract_class
+#ifndef osw_abstract_class
 	#ifdef _MSC_VER
-		#define abstract_class class __declspec( novtable )
+		#define osw_abstract_class class __declspec( novtable )
 	#else
-		#define abstract_class class
+		#define osw_abstract_class class
 	#endif
+#endif
+
+#ifndef abstract_class
+    #define abstract_class osw_abstract_class // For legacy opensteamworks compatability. Remove once transitioned
 #endif
 
 
@@ -186,6 +186,18 @@ typedef signed char int8;
 	#define UNSAFE_INTERFACE STEAMWORKS_DEPRECATE("IClient interfaces are unversioned and potentially unsafe. Class definition can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning.")
 #else
 	#define UNSAFE_INTERFACE
+#endif
+
+#ifndef STEAMWORKS_UNSAFE_FUNCTIONS
+    #define OSW_UNSAFE_FUNCTION STEAMWORKS_DEPRECATE("The functions argc does not match the previous dump. Use this function at your own risk. Use of mismatched functions can lead to unintended consequences. #define STEAMWORKS_UNSAFE_FUNCTIONS to supress this warning. ")
+#else
+    #define OSW_UNSSAFE_FUNCTIONS
+#endif
+
+#ifndef STEAMWORKS_NOTFOUND_WARNINGS
+    #define OSW_NOTFOUND_WARNING STEAMWORKS_DEPRECATE("This function is not found in the new dump. This could be a depricated or removed function, or the dump did not sucessfully find it. Use this function at your own risk. Use of not found functions can lead to unintended consequences. Define #STEAMWORKS_NOTFOUND_WARNINGS to supress this warning.")
+#else
+    #define STEAMWORKS_NOTFOUND_WARNINGS
 #endif
 
 #ifndef STEAM_API_NON_VERSIONED_INTERFACES
@@ -250,12 +262,10 @@ typedef signed char int8;
 
 // steamclient/api
 
-#include "Types/EResult.h"
-
+#include "EResult.h"
 
 // lobby type description
-enum ELobbyType
-{
+enum ELobbyType {
 	k_ELobbyTypePrivate = 0,		// only way to join the lobby is to invite to someone else
 	k_ELobbyTypeFriendsOnly = 1,	// shows for friends or invitees, but not in lobby list
 	k_ELobbyTypePublic = 2,			// visible for friends and in lobby list
@@ -267,8 +277,7 @@ enum ELobbyType
 //-----------------------------------------------------------------------------
 // Purpose: Possible positions to tell the overlay to show notifications in
 //-----------------------------------------------------------------------------
-enum ENotificationPosition
-{
+enum ENotificationPosition {
 	k_EPositionTopLeft = 0,
 	k_EPositionTopRight = 1,
 	k_EPositionBottomLeft = 2,
@@ -278,8 +287,7 @@ enum ENotificationPosition
 //-----------------------------------------------------------------------------
 // Purpose: Used in ChatInfo messages - fields specific to a chat member - must fit in a uint32
 //-----------------------------------------------------------------------------
-enum EChatMemberStateChange
-{
+enum EChatMemberStateChange {
 	// Specific to joining / leaving the chatroom
 	k_EChatMemberStateChangeEntered			= 0x0001,		// This user has joined or is joining the chat room
 	k_EChatMemberStateChangeLeft			= 0x0002,		// This user has left or is leaving the chat room
@@ -289,8 +297,7 @@ enum EChatMemberStateChange
 };
 
 
-enum EServerMode
-{
+enum EServerMode {
 	eServerModeInvalid = 0, // DO NOT USE		
 	eServerModeNoAuthentication = 1, // Don't authenticate user logins and don't list on the server list
 	eServerModeAuthentication = 2, // Authenticate users, list on the server list, don't run VAC on clients that connect
@@ -298,8 +305,7 @@ enum EServerMode
 };
 
 // Steam universes.  Each universe is a self-contained Steam instance.
-enum EUniverse
-{
+enum EUniverse {
 	k_EUniverseInvalid = 0,
 	k_EUniversePublic = 1,
 	k_EUniverseBeta = 2,
@@ -313,64 +319,52 @@ enum EUniverse
 
 
 // these is outside NO_STEAM because external things use it
-#include "Types/ESteamError.h"
-#include "Types/ESteamNotify.h"
+#include "ESteamError.h"
+#include "ESteamNotify.h"
 
-#ifndef NO_STEAM
-// steam
-#include "Types/ESteamSeekMethod.h"
-#include "Types/ESteamBufferMethod.h"
-#include "Types/ESteamFindFilter.h"
-#include "Types/ESteamSubscriptionBillingInfoType.h"
-#include "Types/ESteamPaymentCardType.h"
-#include "Types/ESteamAppUpdateStatsQueryType.h"
-#include "Types/ESteamSubscriptionStatus.h"
-#include "Types/ESteamServerType.h"
-#endif // NO_STEAM
+using CreateInterfaceFn = STEAM_CALL void* ( const char *pName, int *pReturnCode );
+using FactoryFn = STEAM_CALL void* ( const char *pName );
+using InstantiateInterfaceFn = STEAM_CALL void* ( void );
 
+using SteamAPIWarningMessageHook_t = void ( int hPipe, const char *message );
+using KeyValueIteratorCallback_t = void ( const char *key, const char *value, void *kV );
 
-typedef void* (STEAM_CALL *CreateInterfaceFn)( const char *pName, int *pReturnCode );
-typedef void* (STEAM_CALL *FactoryFn)( const char *pName );
-typedef void* (STEAM_CALL *InstantiateInterfaceFn)( void );
+using SteamNotificationCallback_t = void ( ESteamNotify eEvent, unsigned int nData );
 
-typedef void  (*SteamAPIWarningMessageHook_t)(int hpipe, const char *message);
-typedef void (*KeyValueIteratorCallback_t)(const char* key, const char* value, void* kv);
+using SteamBGetCallbackFn = STEAM_CALL bool ( int hPipe, void *pCallbackMsg );
+using SteamFreeLastCallbackFn = STEAM_CALL void ( int hPipe );
+using SteamGetAPICallResultFn = STEAM_CALL bool ( int hPipe, uint64 hSteamAPICall, void *pCallback, int cubCallback, int iCallbackExpected, bool *pbFailed );
 
-typedef void (*SteamNotificationCallback_t)(ESteamNotify eEvent, unsigned int nData);
-
-typedef bool (STEAM_CALL *SteamBGetCallbackFn)( int hpipe, void *pCallbackMsg );
-typedef void (STEAM_CALL *SteamFreeLastCallbackFn)( int hpipe );
-typedef bool (STEAM_CALL *SteamGetAPICallResultFn)( int hpipe, uint64 hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed );
-typedef void (STEAM_CALL *SteamReleaseThreadLocalMemoryFn)( bool );
+using SteamReleaseThreadLocalMemoryFn = STEAM_CALL void ( bool );
 
 //-----------------------------------------------------------------------------
 // Purpose: Passed as argument to SteamAPI_UseBreakpadCrashHandler to enable optional callback
 //  just before minidump file is captured after a crash has occurred.  (Allows app to append additional comment data to the dump, etc.)
 //-----------------------------------------------------------------------------
-typedef void (*PFNPreMinidumpCallback)(void *context);
+using PFNPreMinidumpCallback = void ( void *context );
 
 //-----------------------------------------------------------------------------
 // Purpose: Used by ICrashHandler interfaces to reference particular installed crash handlers
 //-----------------------------------------------------------------------------
-typedef void *BREAKPAD_HANDLE;
+using BREAKPAD_HANDLE = void *;
 #define BREAKPAD_INVALID_HANDLE (BREAKPAD_HANDLE)0 
 
-const int k_cubDigestSize = 20;							// CryptoPP::SHA::DIGESTSIZE
-const int k_cubSaltSize   = 8;
+static constexpr int k_cubDigestSize = 20;							// CryptoPP::SHA::DIGESTSIZE
+static constexpr int k_cubSaltSize   = 8;
 
-const int k_cchGameExtraInfoMax = 64;
+static constexpr int k_cchGameExtraInfoMax = 64;
 
 // Max number of credit cards stored for one account
-const int k_nMaxNumCardsPerAccount = 1;
+static constexpr int k_nMaxNumCardsPerAccount = 1;
 
 // game server flags
-const uint32 k_unServerFlagNone			= 0x00;
-const uint32 k_unServerFlagActive		= 0x01;		// server has users playing
-const uint32 k_unServerFlagSecure		= 0x02;		// server wants to be secure
-const uint32 k_unServerFlagDedicated	= 0x04;		// server is dedicated
-const uint32 k_unServerFlagLinux		= 0x08;		// linux build
-const uint32 k_unServerFlagPassworded	= 0x10;		// password protected
-const uint32 k_unServerFlagPrivate		= 0x20;		// server shouldn't list on master server and
+static constexpr uint32 k_unServerFlagNone			= 0x00;
+static constexpr uint32 k_unServerFlagActive		= 0x01;		// server has users playing
+static constexpr uint32 k_unServerFlagSecure		= 0x02;		// server wants to be secure
+static constexpr uint32 k_unServerFlagDedicated	    = 0x04;		// server is dedicated
+static constexpr uint32 k_unServerFlagLinux		    = 0x08;		// linux build
+static constexpr uint32 k_unServerFlagPassworded	= 0x10;		// password protected
+static constexpr uint32 k_unServerFlagPrivate		= 0x20;		// server shouldn't list on master server and
 													// won't enforce authentication of users that connect to the server.
 													// Useful when you run a server where the clients may not
 													// be connected to the internet but you want them to play (i.e LANs)
@@ -382,8 +376,7 @@ const uint32 k_unServerFlagPrivate		= 0x20;		// server shouldn't list on master 
 #define QUERY_PORT_ERROR				0xFFFE	// We were unable to get the query port for this server.
 
 
-typedef	uint8 SHADigest_t[ k_cubDigestSize ];
-typedef	uint8 Salt_t[ k_cubSaltSize ];
+using SHADigest_t = uint8[ k_cubDigestSize ];
 
 //-----------------------------------------------------------------------------
 // GID (GlobalID) stuff
@@ -391,203 +384,202 @@ typedef	uint8 Salt_t[ k_cubSaltSize ];
 // racks and servers for as long as a given universe persists.
 //-----------------------------------------------------------------------------
 // NOTE: for GID parsing/rendering and other utils, see gid.h
-typedef uint64 GID_t;
+using GID_t = uint64;
 
-const GID_t k_GIDNil = 0xffffffffffffffffull;
+static constexpr GID_t k_GIDNil = 0xffffffffffffffffull;
 
 // For convenience, we define a number of types that are just new names for GIDs
-typedef GID_t JobID_t;			// Each Job has a unique ID
-typedef GID_t TxnID_t;			// Each financial transaction has a unique ID
+using JobID_t = GID_t;          // Each Job has a unique ID
+using TxnID_t = GID_t;          // Each financial transaction has a unique ID
 
-const GID_t k_TxnIDNil = k_GIDNil;
-const GID_t k_TxnIDUnknown = 0;
+static constexpr GID_t k_TxnIDNil = k_GIDNil;
+static constexpr GID_t k_TxnIDUnknown = 0;
 
-
-// this is baked into client messages and interfaces as an int, 
-// make sure we never break this.
-typedef uint32 PackageId_t;
-const PackageId_t k_uPackageIdFreeSub = 0x0;
-const PackageId_t k_uPackageIdInvalid = 0xFFFFFFFF;
-const PackageId_t k_uPackageIdWallet = -2;
-const PackageId_t k_uPackageIdMicroTxn = -3;
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.
-typedef uint32 AppId_t;
-const AppId_t k_uAppIdInvalid = 0x0;
-const AppId_t k_nGameIDNotepad = 65535;
-const AppId_t k_nGameIDCSSTestApp = 65534;
-const AppId_t k_nGameIDDRMTestApp_Static = 6710;
-const AppId_t k_nGameIDDRMTestApp_Blob = 6711;
-const AppId_t k_nGameIDDRMTestApp_Dynamic = 6712;
-const AppId_t k_nGameIDDRMTestApp_SDK = 6713;
-const AppId_t k_nGameIDWinUI = 7;
-const AppId_t k_nGameIDWinUI2 = 8;
-const AppId_t k_nGameIDCS = 10;
-const AppId_t k_nGameIDTFC = 20;
-const AppId_t k_nGameIDDOD = 30;
-const AppId_t k_nGameIDDMC = 40;
-const AppId_t k_nGameIDOpFor = 50;
-const AppId_t k_nGameIDRicochet = 60;
-const AppId_t k_nGameIDHL1 = 70;
-const AppId_t k_nGameIDCZero = 80;
-const AppId_t k_nGameIDCSBeta = 150;
-const AppId_t k_nGameIDMacVAC = 160;
-const AppId_t k_nGameIDWinVAC = 202;
-const AppId_t k_nGameIDScreenshots = 760;
-const AppId_t k_nGameDRMTest = 199;
-const AppId_t k_nGameIDBaseSourceSDK = 215;
-const AppId_t k_nGameIDHL2 = 220;
-const AppId_t k_nDepotHL2Buka = 235;
-const AppId_t k_nGameIDCSS = 240;
-const AppId_t k_nGameIDCSSBeta = 260;
-const AppId_t k_nGameHL1SRC = 280;
-const AppId_t k_nGameIDDODSRC = 300;
-const AppId_t k_nGameIDHL2DM = 320;
-const AppId_t k_nGameIDPortal = 400;
-const AppId_t k_nGameIDHL2EP2 = 420;
-const AppId_t k_nGameIDTF2 = 440;
-const AppId_t k_nGameIDL4D = 500;
-const AppId_t k_nGameIDL4DDemo = 530;
-const AppId_t k_nGameIDL4D2 = 550;
-const AppId_t k_nGameIDASW = 630;
-const AppId_t k_nGameIDTF2Staging = 810;
-const AppId_t k_nGameIDPortal2Main = 852;
-const AppId_t k_nGameIDPortal2 = 620;
-const AppId_t k_nGameIDASWMain = 877;
-const AppId_t k_nGameIDDOTA = 882;
-const AppId_t k_nGameIDASWStaging = 886;
-const AppId_t k_nGameIDRedOrchestra = 1200;
-const AppId_t k_nGameIDRedOrchestraBeta = 1210;
-const AppId_t k_nGameIDKillingFloor = 1250;
-const AppId_t k_nGameIDSin1 = 1309;
-const AppId_t k_nGameIDEarth2160 = 1900;
-const AppId_t k_nGameIDTheShip = 2400;
-const AppId_t k_nGameIDTheShipBeta = 2410;
-const AppId_t k_nGameIDDarkMessiahSP = 2100;
-const AppId_t k_nGameIDDarkMessiahMPBeta = 2110;
-const AppId_t k_nGameIDDarkMessiahMP = 2115;
-const AppId_t k_nGameIDDarkMessiahSPDemo = 2120;
-const AppId_t k_nGameIDDarkMessiahFix = 2130;
-const AppId_t k_nGameRaceWTCC = 4230;
-const AppId_t k_nGameIDLostPlanetOld = 6500;
-const AppId_t k_nGameIDLostPlanet = 6510;
-const AppId_t k_nGameIDNBA2K9 = 7740;
-const AppId_t k_nGameIDCallofDuty4 = 7940;
-const AppId_t k_nMLBFrontOfficeManager = 7780;
-const AppId_t k_nGameIDMW2SP = 10180;
-const AppId_t k_nGameIDMW2MP = 10190;
-const AppId_t k_nGameIDIW5SP = 42680;
-const AppId_t k_nGameIDIW5MP = 42690;
-const AppId_t k_nGameIDCODBLOPSSP = 42700;
-const AppId_t k_nGameIDCODBLOPSMP = 42710;
-const AppId_t k_nGameIDEmpireTotalWar = 10500;
-const AppId_t k_nGameCSSOnline = 11600;
-const AppId_t k_nGameIDFirstSource = 200;
-const AppId_t k_nGameIDLastSource = 999;
-const AppId_t k_nGameIDFirstGoldSource = 10;
-const AppId_t k_nGameIDLastGoldSource = 199;
-const AppId_t k_nGameIDFirstNonSource = 1000;
-const AppId_t k_nGameIDMax = 2147483647;
-const AppId_t k_nGameIDStress = 30020;
-const AppId_t k_nGameIDGCTest = 30100;
-const AppId_t k_nAppATIDriver_Vista7_32 = 61800;
-const AppId_t k_nAppATIDriver_Vista7_64 = 61810;
-const AppId_t k_nAppATIDriver_XP_32 = 61820;
-const AppId_t k_nAppATIDriver_XP_64 = 61830;
+using PackageId_t = uint32;
+static constexpr PackageId_t k_uPackageIdFreeSub = 0x0;
+static constexpr PackageId_t k_uPackageIdInvalid = 0xFFFFFFFF;
+static constexpr PackageId_t k_uPackageIdWallet = -2;
+static constexpr PackageId_t k_uPackageIdMicroTxn = -3;
 
-typedef enum ShareType_t
-{
+// this is baked into client messages and interfaces as an int, 
+// make sure we never break this.
+using AppId_t = uint32;
+static constexpr AppId_t k_uAppIdInvalid = 0x0;
+static constexpr AppId_t k_nGameIDNotepad = 65535;
+static constexpr AppId_t k_nGameIDCSSTestApp = 65534;
+static constexpr AppId_t k_nGameIDDRMTestApp_Static = 6710;
+static constexpr AppId_t k_nGameIDDRMTestApp_Blob = 6711;
+static constexpr AppId_t k_nGameIDDRMTestApp_Dynamic = 6712;
+static constexpr AppId_t k_nGameIDDRMTestApp_SDK = 6713;
+static constexpr AppId_t k_nGameIDWinUI = 7;
+static constexpr AppId_t k_nGameIDWinUI2 = 8;
+static constexpr AppId_t k_nGameIDCS = 10;
+static constexpr AppId_t k_nGameIDTFC = 20;
+static constexpr AppId_t k_nGameIDDOD = 30;
+static constexpr AppId_t k_nGameIDDMC = 40;
+static constexpr AppId_t k_nGameIDOpFor = 50;
+static constexpr AppId_t k_nGameIDRicochet = 60;
+static constexpr AppId_t k_nGameIDHL1 = 70;
+static constexpr AppId_t k_nGameIDCZero = 80;
+static constexpr AppId_t k_nGameIDCSBeta = 150;
+static constexpr AppId_t k_nGameIDMacVAC = 160;
+static constexpr AppId_t k_nGameIDWinVAC = 202;
+static constexpr AppId_t k_nGameIDScreenshots = 760;
+static constexpr AppId_t k_nGameDRMTest = 199;
+static constexpr AppId_t k_nGameIDBaseSourceSDK = 215;
+static constexpr AppId_t k_nGameIDHL2 = 220;
+static constexpr AppId_t k_nDepotHL2Buka = 235;
+static constexpr AppId_t k_nGameIDCSS = 240;
+static constexpr AppId_t k_nGameIDCSSBeta = 260;
+static constexpr AppId_t k_nGameHL1SRC = 280;
+static constexpr AppId_t k_nGameIDDODSRC = 300;
+static constexpr AppId_t k_nGameIDHL2DM = 320;
+static constexpr AppId_t k_nGameIDPortal = 400;
+static constexpr AppId_t k_nGameIDHL2EP2 = 420;
+static constexpr AppId_t k_nGameIDTF2 = 440;
+static constexpr AppId_t k_nGameIDL4D = 500;
+static constexpr AppId_t k_nGameIDL4DDemo = 530;
+static constexpr AppId_t k_nGameIDL4D2 = 550;
+static constexpr AppId_t k_nGameIDASW = 630;
+static constexpr AppId_t k_nGameIDTF2Staging = 810;
+static constexpr AppId_t k_nGameIDPortal2Main = 852;
+static constexpr AppId_t k_nGameIDPortal2 = 620;
+static constexpr AppId_t k_nGameIDASWMain = 877;
+static constexpr AppId_t k_nGameIDDOTA = 882;
+static constexpr AppId_t k_nGameIDASWStaging = 886;
+static constexpr AppId_t k_nGameIDRedOrchestra = 1200;
+static constexpr AppId_t k_nGameIDRedOrchestraBeta = 1210;
+static constexpr AppId_t k_nGameIDKillingFloor = 1250;
+static constexpr AppId_t k_nGameIDSin1 = 1309;
+static constexpr AppId_t k_nGameIDEarth2160 = 1900;
+static constexpr AppId_t k_nGameIDTheShip = 2400;
+static constexpr AppId_t k_nGameIDTheShipBeta = 2410;
+static constexpr AppId_t k_nGameIDDarkMessiahSP = 2100;
+static constexpr AppId_t k_nGameIDDarkMessiahMPBeta = 2110;
+static constexpr AppId_t k_nGameIDDarkMessiahMP = 2115;
+static constexpr AppId_t k_nGameIDDarkMessiahSPDemo = 2120;
+static constexpr AppId_t k_nGameIDDarkMessiahFix = 2130;
+static constexpr AppId_t k_nGameRaceWTCC = 4230;
+static constexpr AppId_t k_nGameIDLostPlanetOld = 6500;
+static constexpr AppId_t k_nGameIDLostPlanet = 6510;
+static constexpr AppId_t k_nGameIDNBA2K9 = 7740;
+static constexpr AppId_t k_nGameIDCallofDuty4 = 7940;
+static constexpr AppId_t k_nMLBFrontOfficeManager = 7780;
+static constexpr AppId_t k_nGameIDMW2SP = 10180;
+static constexpr AppId_t k_nGameIDMW2MP = 10190;
+static constexpr AppId_t k_nGameIDIW5SP = 42680;
+static constexpr AppId_t k_nGameIDIW5MP = 42690;
+static constexpr AppId_t k_nGameIDCODBLOPSSP = 42700;
+static constexpr AppId_t k_nGameIDCODBLOPSMP = 42710;
+static constexpr AppId_t k_nGameIDEmpireTotalWar = 10500;
+static constexpr AppId_t k_nGameCSSOnline = 11600;
+static constexpr AppId_t k_nGameIDFirstSource = 200;
+static constexpr AppId_t k_nGameIDLastSource = 999;
+static constexpr AppId_t k_nGameIDFirstGoldSource = 10;
+static constexpr AppId_t k_nGameIDLastGoldSource = 199;
+static constexpr AppId_t k_nGameIDFirstNonSource = 1000;
+static constexpr AppId_t k_nGameIDMax = 2147483647;
+static constexpr AppId_t k_nGameIDStress = 30020;
+static constexpr AppId_t k_nGameIDGCTest = 30100;
+static constexpr AppId_t k_nAppATIDriver_Vista7_32 = 61800;
+static constexpr AppId_t k_nAppATIDriver_Vista7_64 = 61810;
+static constexpr AppId_t k_nAppATIDriver_XP_32 = 61820;
+static constexpr AppId_t k_nAppATIDriver_XP_64 = 61830;
+
+typedef enum ShareType_t {
 	SHARE_STOPIMMEDIATELY = 0,
 	SHARE_RATIO = 1,
 	SHARE_MANUAL = 2,
 } ShareType_t;
 
-typedef uint64 AssetClassId_t;
-const AssetClassId_t k_ulAssetClassIdInvalid = 0x0;
+using AssetClassId_t = uint64;
+static constexpr AssetClassId_t k_ulAssetClassIdInvalid = 0x0;
 
-typedef uint32 PhysicalItemId_t;
-const PhysicalItemId_t k_uPhysicalItemIdInvalid = 0x0;
+using PhysicalItemId_t = uint32;
+static constexpr PhysicalItemId_t k_uPhysicalItemIdInvalid = 0x0;
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.  AppIds and DepotIDs also presently
 // share the same namespace, but since we'd like to change that in the future
 // I've defined it seperately here.
-typedef uint32 DepotId_t;
-const DepotId_t k_uDepotIdInvalid = 0x0;
+using DepotId_t = uint32;
+static constexpr DepotId_t k_uDepotIdInvalid = 0x0;
 
-typedef int HVoiceCall;
+using HVoiceCall = int;
 
 
 // RTime32
 // We use this 32 bit time representing real world time.
 // It offers 1 second resolution beginning on January 1, 1970 (Unix time)
-typedef uint32 RTime32;
-const RTime32 k_RTime32Nil = 0;
-const RTime32 k_RTime32MinValid = 10;
-const RTime32 k_RTime32Infinite = 2147483647;
+using RTime32 = uint32;
+static constexpr RTime32 k_RTime32Nil = 0;
+static constexpr RTime32 k_RTime32MinValid = 10;
+static constexpr RTime32 k_RTime32Infinite = 2147483647;
 
-typedef uint32 CellID_t;
-const CellID_t k_uCellIDInvalid = 0xFFFFFFFF;
+using CellID_t = uint32;
+static constexpr CellID_t k_uCellIDInvalid = 0xFFFFFFFF;
 
 // handle to a Steam API call
-typedef uint64 SteamAPICall_t;
-const SteamAPICall_t k_uAPICallInvalid = 0x0;
+using SteamAPICall_t = uint64;
+static constexpr SteamAPICall_t k_uAPICallInvalid = 0x0;
 
-typedef uint32 AccountID_t;
+using AccountID_t = uint32;
 
-typedef uint16 FriendsGroupID_t;
+using FriendsGroupID_t = uint16;
 
 // handle to a communication pipe to the Steam client
-typedef int32 HSteamPipe;
+using HSteamPipe = int32;
 // handle to single instance of a steam user
-typedef int32 HSteamUser;
+using HSteamUser = int32;
 // reference to a steam call, to filter results by
-typedef int32 HSteamCall;
+using HSteamCall = int32;
 
 // unified message handle
-typedef uint64 ClientUnifiedMessageHandle_t;
+using ClientUnifiedMessageHandle_t = uint64;
 
 // controller handles
-typedef uint64 ControllerHandle_t;
-typedef uint64 ControllerActionSetHandle_t;
-typedef uint64 ControllerDigitalActionHandle_t;
-typedef uint64 ControllerAnalogActionHandle_t;
+using ControllerHandle_t = uint64;
+using ControllerActionSetHandle_t = uint64;
+using ControllerDigitalActionHandle_t = uint64;
+using ControllerAnalogActionHandle_t = uint64;
 
 
 //-----------------------------------------------------------------------------
 // Typedef for handle type you will receive when requesting server list.
 //-----------------------------------------------------------------------------
-typedef void* HServerListRequest;
+using HServerListRequest = void *;
 
 // return type of GetAuthSessionTicket
-typedef uint32 HAuthTicket;
-const HAuthTicket k_HAuthTicketInvalid = 0;
+using HAuthTicket = uint32;
+static constexpr HAuthTicket k_HAuthTicketInvalid = 0;
 
-typedef int HNewItemRequest;
-typedef uint64 ItemID;
+using HNewItemRequest = int;
+using ItemID = uint64;
 
-typedef uint32 HTTPRequestHandle;
+using HTTPRequestHandle = uint32;
 
-typedef int unknown_ret; // unknown return value
+using osw_unknown_return = int;
+using unknown_ret = osw_unknown_return; // for legacy opensteamworks, remove once fully migrated
 
-// returns true of the flags indicate that a user has been removed from the chat
+// returns true if the flags indicate that a user has been removed from the chat
 #define BChatMemberStateChangeRemoved( rgfChatMemberStateChangeFlags ) ( rgfChatMemberStateChangeFlags & ( k_EChatMemberStateChangeDisconnected | k_EChatMemberStateChangeLeft | k_EChatMemberStateChangeKicked | k_EChatMemberStateChangeBanned ) )
 
-typedef void (*PFNLegacyKeyRegistration)( const char *pchCDKey, const char *pchInstallPath );
-typedef bool (*PFNLegacyKeyInstalled)();
+using PFNLegacyKeyRegistration = void ( const char *pchCDKey, const char *pchInstallPath );
+using PFNLegacyKeyInstalled = bool ( void );
 
-const unsigned int k_unSteamAccountIDMask = 0xFFFFFFFF;
-const unsigned int k_unSteamAccountInstanceMask = 0x000FFFFF;
+static constexpr unsigned int k_unSteamAccountIDMask = 0xFFFFFFFF;
+static constexpr unsigned int k_unSteamAccountInstanceMask = 0x000FFFFF;
 // we allow 3 simultaneous user account instances right now, 1= desktop, 2 = console, 4 = web, 0 = all
-const unsigned int k_unSteamUserDesktopInstance = 1;	 
-const unsigned int k_unSteamUserConsoleInstance = 2;
-const unsigned int k_unSteamUserWebInstance		= 4;
+static constexpr unsigned int k_unSteamUserDesktopInstance = 1;	 
+static constexpr unsigned int k_unSteamUserConsoleInstance = 2;
+static constexpr unsigned int k_unSteamUserWebInstance		= 4;
 
 // Special flags for Chat accounts - they go in the top 8 bits
 // of the steam ID's "instance", leaving 12 for the actual instances
-enum EChatSteamIDInstanceFlags
-{
+enum EChatSteamIDInstanceFlags {
 	k_EChatAccountInstanceMask = 0x00000FFF, // top 8 bits are flags
 
 	k_EChatInstanceFlagClan = ( k_unSteamAccountInstanceMask + 1 ) >> 1,	// top bit
@@ -631,37 +623,25 @@ enum EChatSteamIDInstanceFlags
 
 #define IS_STEAM_ERROR(e) (e.eSteamError != eSteamErrorNone)
 
-typedef unsigned int SteamHandle_t;
+using SteamHandle_t = unsigned int;
 
-typedef void * SteamUserIDTicketValidationHandle_t;
+using SteamUserIDTicketValidationHandle_t = void *;
 
-typedef unsigned int SteamCallHandle_t;
+using SteamCallHandle_t = unsigned int;
 
 #if defined(_MSC_VER)
-	typedef __int64				SteamSigned64_t;
-	typedef unsigned __int64	SteamUnsigned64_t;
+    using SteamSigned64_t = __int64;
+    using SteamUnsigned64_t = __int64;
 #else
-	typedef long long			SteamSigned64_t;
-	typedef unsigned long long	SteamUnsigned64_t;
+    using SteamSigned64_t = long long;
+    using SteamUnsigned64_t = unsigned long long;
 #endif
 
 
-#ifdef __cplusplus
-
-const SteamHandle_t										STEAM_INVALID_HANDLE = 0;
-const SteamCallHandle_t									STEAM_INVALID_CALL_HANDLE = 0;
-const SteamUserIDTicketValidationHandle_t				STEAM_INACTIVE_USERIDTICKET_VALIDATION_HANDLE = 0;
-const unsigned int										STEAM_USE_LATEST_VERSION = 0xFFFFFFFF;
-
-#else
-
-#define STEAM_INVALID_HANDLE							((SteamHandle_t)(0))
-#define STEAM_INVALID_CALL_HANDLE						((SteamCallHandle_t)(0))
-#define	STEAM_INACTIVE_USERIDTICKET_VALIDATION_HANDLE	((SteamUserIDTicketValidationHandle_t)(0))
-#define STEAM_USE_LATEST_VERSION						(0xFFFFFFFFu);
-
-#endif
-
+static constexpr SteamHandle_t										STEAM_INVALID_HANDLE = 0;
+static constexpr SteamCallHandle_t									STEAM_INVALID_CALL_HANDLE = 0;
+static constexpr SteamUserIDTicketValidationHandle_t				STEAM_INACTIVE_USERIDTICKET_VALIDATION_HANDLE = 0;
+static constexpr unsigned int										STEAM_USE_LATEST_VERSION = 0xFFFFFFFF;
 
 // Each Steam instance (licensed Steam Service Provider) has a unique SteamInstanceID_t.
 //
@@ -669,24 +649,23 @@ const unsigned int										STEAM_USE_LATEST_VERSION = 0xFFFFFFFF;
 // Each user in the DB has a unique SteamLocalUserID_t (a serial number, with possible 
 // rare gaps in the sequence).
 
-typedef	unsigned short		SteamInstanceID_t;		// MUST be 16 bits
+using SteamInstanceID_t = unsigned short;           // MUST be 16 bits
 
 #if defined (_MSC_VER)
-	typedef	unsigned __int64	SteamLocalUserID_t;	// MUST be 64 bits
+    using SteamLocalUserID_t = unsigned __int64;    // MUST be 64 buts
 #else
-	typedef	unsigned long long	SteamLocalUserID_t;	// MUST be 64 bits
+    using SteamLocalUserID_t = unsigned long long;  // MUST be 64 bits
 #endif
 
 
-typedef char SteamPersonalQuestion_t[ STEAM_QUESTION_MAXLEN + 1 ];
+using SteamPersonalQuestion_t = char[ STEAM_QUESTION_MAXLEN + 1 ];
 
 
 //-----------------------------------------------------------------------------
 // Purpose: Base values for callback identifiers, each callback must
 //			have a unique ID.
 //-----------------------------------------------------------------------------
-enum ECallbackType
-{
+enum ECallbackType {
 	k_iSteamUserCallbacks = 100,
 	k_iSteamGameServerCallbacks = 200,
 	k_iSteamFriendsCallbacks = 300,
@@ -741,57 +720,21 @@ enum ECallbackType
 	k_iClientShaderCallbacks = 5100,
 };
 
-
-#ifndef NO_STEAM
-// steam structs, etc
-#include "Types/TSteamElemInfo.h"
-#include "Types/TSteamError.h"
-#include "Types/TSteamProgress.h"
-#include "Types/TSteamAppStats.h"
-#include "Types/TSteamUpdateStats.h"
-#include "Types/TSteamPaymentCardInfo.h"
-#include "Types/TSteamPrepurchaseInfo.h"
-#include "Types/TSteamExternalBillingInfo.h"
-#include "Types/TSteamSubscriptionBillingInfo.h"
-#include "Types/TSteamSubscriptionStats.h"
-#include "Types/TSteamSubscription.h"
-#include "Types/TSteamApp.h"
-#include "Types/TSteamAppLaunchOption.h"
-#include "Types/TSteamAppVersion.h"
-#include "Types/TSteamSplitLocalUserID.h"
-#include "Types/TSteamGlobalUserID.h"
-#include "Types/TSteamAppDependencyInfo.h"
-#include "Types/TSteamOfflineStatus.h"
-#include "Types/TSteamPaymentCardReceiptInfo.h"
-#include "Types/TSteamPrepurchaseReceiptInfo.h"
-#include "Types/TSteamSubscriptionReceipt.h"
-#include "Types/TSteamSubscriptionDiscount.h"
-#include "Types/TSteamDiscountQualifier.h"
-#include "Types/SteamSalt.h"
-#endif // NO_STEAM
-
-
 // steamclient/api
-#include "Types/CSteamID.h"
-#include "Types/CGameID.h"
+#include "CSteamID.h"
+#include "CGameID.h"
 
-#include "Types/MatchMakingKeyValuePair.h"
-#include "Types/servernetadr.h"
-#include "Types/gameserveritem.h"
-#include "Types/FriendGameInfo.h"
-#include "Types/EVoiceResult.h"
-#include "Types/ECurrencyCode.h"
+#include "MatchMakingKeyValuePair.h"
+#include "servernetadr.h"
+#include "gameserveritem.h"
+#include "FriendGameInfo.h"
+#include "EVoiceResult.h"
+#include "ECurrencyCode.h"
 
 // structure that contains client callback data
-struct CallbackMsg_t
-{
+struct CallbackMsg_t {
 	HSteamUser m_hSteamUser;
 	int m_iCallback;
 	uint8 *m_pubParam;
 	int m_cubParam;
 };
-
-
-
-#endif // STEAMTYPES_H
-

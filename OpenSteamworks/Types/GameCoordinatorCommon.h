@@ -14,22 +14,12 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMGAMECOORDINATORCOMMON_H
-#define ISTEAMGAMECOORDINATORCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define CLIENTGAMECOORDINATOR_INTERFACE_VERSION "CLIENTGAMECOORDINATOR_INTERFACE_VERSION001"
-
-#define STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 "SteamGameCoordinator001"
-
+#include "SteamTypes.h"
 
 // list of possible return values from the ISteamGameCoordinator API
-enum EGCResults
-{
+enum EGCResults {
 	k_EGCResultOK = 0,
 	k_EGCResultNoMessage = 1,			// There is no message in the queue
 	k_EGCResultBufferTooSmall = 2,		// The buffer is too small for the requested message
@@ -40,12 +30,12 @@ enum EGCResults
 /**
  * Valve moved a lot of messages to the protobuf format.
  * This means that the structs below should no longer be trusted to be correct.
+ * Furthermore, these values don't seem to be in the dumped protobufs.
  * A protobuf message can be detected with:
  *  (uMsgType & 0x80000000) == 0x80000000
  */
 
-typedef enum EGCMessages
-{
+typedef enum EGCMessages {
 	k_EGCMsgGenericReply = 10,
 
 	k_ESOMsg_Create = 21,
@@ -252,8 +242,7 @@ typedef enum EGCMessages
 } EGCMessages;
 
 
-typedef enum ETFInitTradeResult
-{
+typedef enum ETFInitTradeResult {
 	k_ETFInitTradeResultOk,
 	k_ETFInitTradeResultDeclined, // The other player has declined the trade request.
 	k_ETFInitTradeResultVACBanned, // You do not have trading privileges.
@@ -266,8 +255,7 @@ typedef enum ETFInitTradeResult
 	
 } ETFInitTradeResult;
 
-typedef enum ETFTradeResult
-{
+typedef enum ETFTradeResult {
 	k_ETFTradeResultOk,
 	k_ETFTradeResultCanceled, // The trading session has been canceled.
 	k_ETFTradeResultStaleInventory, // The trade was cancelled, because some items do not belong to you or the other player.
@@ -279,32 +267,28 @@ typedef enum ETFTradeResult
 
 #pragma pack( push, 8 )
 // callback notification - A new message is available for reading from the message queue
-struct GCMessageAvailable_t
-{
+struct GCMessageAvailable_t {
 	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
 
 	uint32 m_nMessageSize;
 };
 
 // callback notification - A message failed to make it to the GC. It may be down temporarily
-struct GCMessageFailed_t
-{
+struct GCMessageFailed_t {
 	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 2 };
 };
+
 #pragma pack( pop )
 
 #pragma pack(push, 1)
 
-struct GCMsgHeader_t
-{
+struct GCMsgHeader_t {
 	uint16 headerVersion;
 	uint64 targetJobID;
 	uint64 sourceJobID;
 };
 
-
-struct SOMsgCacheSubscribed_t
-{
+struct SOMsgCacheSubscribed_t {
 	enum { k_iMessage = k_ESOMsg_CacheSubscribed };
 	GCMsgHeader_t header;
 	
@@ -313,16 +297,14 @@ struct SOMsgCacheSubscribed_t
 	// [SOMsgCacheSubscribed_*s_t] * numberOfTypes; SOMsgCacheSubscribed_Items_t is first, and the only one currently documented.
 };
 
-struct SOMsgCacheSubscribed_Items_t
-{
+struct SOMsgCacheSubscribed_Items_t {
 	uint16 idOfType; // Check this is 1
 	uint16 itemcount;
 	// Variable length data:
 	// [SOMsgCacheSubscribed_Item_t] * itemcount
 };
 
-struct SOMsgCacheSubscribed_Item_t
-{
+struct SOMsgCacheSubscribed_Item_t {
 	uint64 itemid;
 	uint32 accountid;
 	uint16 itemdefindex;
@@ -343,22 +325,19 @@ struct SOMsgCacheSubscribed_Item_t
 	// uint64 containedItem; // If this is set, there is a whole other item after.
 };
 
-struct SOMsgCacheSubscribed_Item_Attrib_t
-{
+struct SOMsgCacheSubscribed_Item_Attrib_t {
 	uint16 attribindex;
 	float value;
 };
 
-struct SOMsgCacheUnsubscribed_t
-{
+struct SOMsgCacheUnsubscribed_t {
 	enum { k_iMessage = k_ESOMsg_CacheUnsubscribed };
 	GCMsgHeader_t header;
 	
 	CSteamID steamid;
 };
 
-struct SOMsgCreate_t
-{
+struct SOMsgCreate_t {
 	enum { k_iMessage = k_ESOMsg_Create };
 	GCMsgHeader_t header;
 	
@@ -371,8 +350,7 @@ struct SOMsgCreate_t
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 76f0da0200000000 0105 0f000080
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 21ccd90200000000 0105 10000080
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 d069ea0200000000 0105 20000080
-struct SOMsgUpdate_t
-{
+struct SOMsgUpdate_t {
 	enum { k_iMessage = k_ESOMsg_Update };
 	GCMsgHeader_t header;
 	
@@ -389,8 +367,7 @@ struct SOMsgUpdate_t
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 bdbc1c0200000000
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 8885210200000000
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 e582e30100000000
-struct SOMsgDeleted_t
-{
+struct SOMsgDeleted_t {
 	enum { k_iMessage = k_ESOMsg_Destroy };
 	GCMsgHeader_t header;
 	
@@ -404,8 +381,7 @@ struct SOMsgDeleted_t
 // 0100 ffffffffffffffffffffffffffffffff 21ccd90200000000 10000080 00000000
 // 0100 ffffffffffffffffffffffffffffffff cff9ea0200000000 42000080 00000000
 // 0100 ffffffffffffffffffffffffffffffff d069ea0200000000 20000080 00000000
-struct GCSetItemPosition_t
-{
+struct GCSetItemPosition_t {
 	enum { k_iMessage = k_EMsgGCSetItemPosition };
 	GCMsgHeader_t header;
 	
@@ -417,8 +393,7 @@ struct GCSetItemPosition_t
 
 // This one is 4 natasha
 // 0100 ffffffffffffffffffffffffffffffff 0700 0400 5a77020200000000 bdbc1c0200000000 8885210200000000 e582e30100000000
-struct GCCraft_t
-{
+struct GCCraft_t {
 	enum { k_iMessage = k_EMsgGCCraft };
 	GCMsgHeader_t header;
 	
@@ -430,8 +405,7 @@ struct GCCraft_t
 
 
 // 0100 ffffffffffffffffffffffffffffffff 0700 0000000000000100 d069ea0200000000
-struct GCCraftResponse_t
-{
+struct GCCraftResponse_t {
 	enum { k_iMessage = k_EMsgGCCraftResponse };
 	GCMsgHeader_t header;
 	
@@ -443,8 +417,7 @@ struct GCCraftResponse_t
 
 
 // 0100 ffffffffffffffffffffffffffffffff 7f7e1b0200000000
-struct GCDelete_t
-{
+struct GCDelete_t {
 	enum { k_iMessage = k_EMsgGCDelete };
 	GCMsgHeader_t header;
 	
@@ -453,8 +426,7 @@ struct GCDelete_t
 
 
 // 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001
-struct GCVerifyCacheSubscription_t
-{
+struct GCVerifyCacheSubscription_t {
 	enum { k_iMessage = k_EMsgGCVerifyCacheSubscription };
 	GCMsgHeader_t header;
 	
@@ -470,8 +442,7 @@ struct GCVerifyCacheSubscription_t
 // 0100 ffffffffffffffffffffffffffffffff 2d000000 416e6164757200
 // 0100 ffffffffffffffffffffffffffffffff 2e000000 54686520436f726e62616c6c657200
 // 0100 ffffffffffffffffffffffffffffffff 2f000000 69736c6100
-struct GCGoldenWrenchBroadcast_t
-{
+struct GCGoldenWrenchBroadcast_t {
 	enum { k_iMessage = k_EMsgGCGoldenWrenchBroadcast };
 	GCMsgHeader_t header;
 	
@@ -485,8 +456,7 @@ struct GCGoldenWrenchBroadcast_t
 // 0100 ffffffffffffffffffffffffffffffff 00000000 02000000 
 // 0100 ffffffffffffffffffffffffffffffff 329d2d4c 02000000 
 // 0100 ffffffffffffffffffffffffffffffff e6c74e4c 02000000 
-struct GCMOTDRequest_t
-{
+struct GCMOTDRequest_t {
 	enum { k_iMessage = k_EMsgGCMOTDRequest };
 	GCMsgHeader_t header;
 	
@@ -497,8 +467,7 @@ struct GCMOTDRequest_t
 
 // 0100 ffffffffffffffffffffffffffffffff 0000
 // 0100 ffffffffffffffffffffffffffffffff 0200 3100 30930e4c 436865636b6564206f75742074686520626c6f673f00 496620796f7520686176656e2774207265616420746865206f6666696369616c2054463220626c6f672c20697427732066756c6c206f6620696e73696768747320696e746f206f757220646576656c6f706d656e742070726f636573732c206c696e6b7320746f206e6f7461626c6520636f6d6d756e6974792070726f64756374696f6e732c20616e642072616e646f6d2073746f726965732061626f7574206f7572206c6f7665206f6620686174732e204869742074686520627574746f6e2062656c6f7720746f2074616b652061206c6f6f6b2100 687474703a5c5c7777772e7465616d666f7274726573732e636f6d5c00 3200 b0e52c4c 4f6666696369616c2057696b69206f70656e732100 576527766520726563656e746c79206f70656e65642074686520646f6f7273206f6e20746865204f6666696369616c205446322077696b692e20546865726520796f752063616e2066696e64206f75742065766572797468696e67205446322072656c617465642c2066726f6d20746865206e756d65726963616c206e75747320616e6420626f6c7473206f6620657665727920776561706f6e20746f2074686520656173746572206567677320696e7369646520746865204d65657420746865205465616d206d6f766965732e205468657927726520616c77617973206c6f6f6b696e6720666f72206d6f726520636f6e7472696275746f72732c20736f20776879206e6f742068656164206f76657220616e642068656c70207468656d3f00 687474703a5c5c77696b692e7465616d666f7274726573732e636f6d5c00
-struct GCMOTDRequestResponse_t
-{
+struct GCMOTDRequestResponse_t {
 	enum { k_iMessage = k_EMsgGCMOTDRequestResponse };
 	GCMsgHeader_t header;
 	
@@ -507,8 +476,7 @@ struct GCMOTDRequestResponse_t
 	// [GCMOTDRequestResponse_News_t] * NumberOfNews
 };
 
-struct GCMOTDRequestResponse_News_t
-{
+struct GCMOTDRequestResponse_News_t {
 	// Variable length data:
 	// char id[];
 	// uint32 timestamp;
@@ -524,8 +492,7 @@ struct GCMOTDRequestResponse_News_t
 // accountID is set to the value of the tf_server_identity_account_id convar.
 // hash is set to the result of the md5 hash of the value of the tf_server_identity_token convar prepended to the salt recieved in the challenge.
 // For example, if tf_server_identity_token was set to "Derp" and 4203408982 was the salt from the challenge, hash would be the md5 hash of "Derp4203408982"
-struct GC_GameServer_AuthChallenge_t
-{
+struct GC_GameServer_AuthChallenge_t {
 	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallenge };
 	GCMsgHeader_t header;
 	
@@ -534,8 +501,7 @@ struct GC_GameServer_AuthChallenge_t
 	// char salt[];
 };
 
-struct GC_GameServer_AuthChallengeResponse_t
-{
+struct GC_GameServer_AuthChallengeResponse_t {
 	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallengeResponse };
 	GCMsgHeader_t header;
 	
@@ -545,8 +511,7 @@ struct GC_GameServer_AuthChallengeResponse_t
 };
 
 
-struct GC_GameServer_LevelInfo_t
-{
+struct GC_GameServer_LevelInfo_t {
 	enum { k_iMessage = k_EMsgGC_GameServer_LevelInfo };
 	GCMsgHeader_t header;
 	
@@ -555,8 +520,7 @@ struct GC_GameServer_LevelInfo_t
 	// char mapName[];
 };
 
-struct GCTrading_InitiateTradeRequest_t
-{
+struct GCTrading_InitiateTradeRequest_t {
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeRequest };
 	GCMsgHeader_t header;
 	
@@ -566,8 +530,7 @@ struct GCTrading_InitiateTradeRequest_t
 	// char playerName[]; // Only present on incoming requests.
 };
 
-struct GCTrading_InitiateTradeResponse_t
-{
+struct GCTrading_InitiateTradeResponse_t {
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeResponse };
 	GCMsgHeader_t header;
 	
@@ -575,8 +538,7 @@ struct GCTrading_InitiateTradeResponse_t
 	uint32 challenge; // When sending this message as a response, make sure to set this as the same value from the request.
 };
 
-struct GCTrading_TradeChatMsg_t
-{
+struct GCTrading_TradeChatMsg_t {
 	enum { k_iMessage = k_EMsgGCTrading_TradeChatMsg };
 	GCMsgHeader_t header;
 	
@@ -585,14 +547,12 @@ struct GCTrading_TradeChatMsg_t
 	// char chatMsg[];
 };
 
-struct GCTrading_TradeTypingChatMsg_t
-{
+struct GCTrading_TradeTypingChatMsg_t {
 	enum { k_iMessage = k_EMsgGCTrading_TradeTypingChatMsg };
 	GCMsgHeader_t header;
 };
 
-struct GCTrading_StartSession_t
-{
+struct GCTrading_StartSession_t {
 	enum { k_iMessage = k_EMsgGCTrading_StartSession };
 	GCMsgHeader_t header;
 	
@@ -603,8 +563,7 @@ struct GCTrading_StartSession_t
 	// char player2Name[];
 };
 
-struct GCTrading_SetItem_t
-{
+struct GCTrading_SetItem_t {
 	enum { k_iMessage = k_EMsgGCTrading_SetItem };
 	GCMsgHeader_t header;
 	
@@ -613,16 +572,14 @@ struct GCTrading_SetItem_t
 	uint8 slot; // Trade 'slot' it goes in, see below.
 };
 
-struct GCTrading_RemoveItem_t
-{
+struct GCTrading_RemoveItem_t {
 	enum { k_iMessage = k_EMsgGCTrading_RemoveItem };
 	GCMsgHeader_t header;
 	
 	uint64 itemID;
 };
 
-struct GCTrading_UpdateTradeInfo_t
-{
+struct GCTrading_UpdateTradeInfo_t {
 	enum { k_iMessage = k_EMsgGCTrading_UpdateTradeInfo };
 	GCMsgHeader_t header;
 	
@@ -652,8 +609,7 @@ struct GCTrading_UpdateTradeInfo_t
 };
 
 // All 4 need to be true
-struct GCTrading_ReadinessResponse_t
-{
+struct GCTrading_ReadinessResponse_t {
 	enum { k_iMessage = k_EMsgGCTrading_ReadinessResponse };
 	GCMsgHeader_t header;
 	
@@ -664,8 +620,7 @@ struct GCTrading_ReadinessResponse_t
 	uint8 player2confirmed;
 };
 
-struct GCTrading_SetReadiness_t
-{
+struct GCTrading_SetReadiness_t {
 	enum { k_iMessage = k_EMsgGCTrading_SetReadiness };
 	GCMsgHeader_t header;
 	
@@ -673,16 +628,14 @@ struct GCTrading_SetReadiness_t
 	uint8 response;
 };
 
-struct GCTrading_ConfirmOffer_t
-{
+struct GCTrading_ConfirmOffer_t {
 	enum { k_iMessage = k_EMsgGCTrading_ConfirmOffer };
 	GCMsgHeader_t header;
 	
 	uint32 version;
 };
 
-struct GCTrading_SessionClosed_t
-{
+struct GCTrading_SessionClosed_t {
 	enum { k_iMessage = k_EMsgGCTrading_SessionClosed };
 	GCMsgHeader_t header;
 	
@@ -690,8 +643,7 @@ struct GCTrading_SessionClosed_t
 	uint32 result;
 };
 
-struct GCRespawnPostLoadoutChange_t
-{
+struct GCRespawnPostLoadoutChange_t {
 	enum { k_iMessage = k_EMsgGCRespawnPostLoadoutChange };
 	GCMsgHeader_t header;
 	
@@ -700,5 +652,3 @@ struct GCRespawnPostLoadoutChange_t
 
 
 #pragma pack(pop)
-
-#endif // ISTEAMGAMECOORDINATORCOMMON_H

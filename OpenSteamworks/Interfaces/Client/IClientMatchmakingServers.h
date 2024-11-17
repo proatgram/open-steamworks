@@ -22,6 +22,7 @@
 
 #include "Types/SteamTypes.h"
 #include "Types/MatchmakingServersCommon.h"
+#include "Types/MatchmakingCommon.h"
 
 
 abstract_class IClientMatchmakingServers

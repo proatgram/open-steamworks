@@ -5,6 +5,7 @@ set(CMAKE_C_FLAGS "-m32")
 set(CMAKE_CXX_FLAGS "-m32")
 set(FIND_LIBRARY_USE_LIB64_PATHS False CACHE BOOL "Disables 64bit libraries from being found with find_package" FORCE)
 set(FIND_LIBRARY_USE_LIB32_PATHS True CACHE BOOL "Enables 32bit libraries being found with find_packahe" FORCE)
+set(FETCHCONTENT_QUIET FALSE)
 
 project(OpenSteamworks
     # TODO: Set version to Client Manifest Version
@@ -13,9 +14,11 @@ project(OpenSteamworks
     HOMEPAGE_URL "https://github.com/proatgram/open-steamworks"
 )
 
+set(CMAKE_CXX_STANDARD 17)
+
 option(BUILD_TEST_PLATFORM "Build the optional Test Platform" OFF)
 
-
+add_subdirectory("OpenSteamworks")
 add_subdirectory("OpenSteamAPI/src")
 
 if(BUILD_TEST_PLATFORM)

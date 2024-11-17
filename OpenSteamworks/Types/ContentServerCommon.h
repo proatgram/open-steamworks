@@ -14,23 +14,12 @@
 //
 //=============================================================================
 
-#ifndef CONTENTSERVERCOMMON_H
-#define CONTENTSERVERCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
+#include "GameServerCommon.h"
+#include "SteamTypes.h"
 
-
-#define CLIENTCONTENTSERVER_INTERFACE_VERSION "CLIENTCONTENTSERVER_INTERFACE_VERSION001"
-
-#define STEAMCONTENTSERVER_INTERFACE_VERSION_001 "SteamContentServer001"
-#define STEAMCONTENTSERVER_INTERFACE_VERSION_002 "SteamContentServer002"
-
-
-
-typedef enum EConnectionPriority
-{
+typedef enum EConnectionPriority {
 	k_EConnectionPriorityLow = 0,
 	k_EConnectionPriorityMedium = 1,
 	k_EConnectionPriorityHigh = 2,
@@ -38,22 +27,20 @@ typedef enum EConnectionPriority
 
 
 #pragma pack( push, 8 )
-struct CSClientApprove_t
-{
+
+struct CSClientApprove_t {
 	enum { k_iCallback = k_iSteamContentServerCallbacks + 1 };
 	
 	CSteamID m_SteamID;
 	uint32 m_uContentID;
 };
 
-struct CSClientDeny_t
-{
+struct CSClientDeny_t {
 	enum { k_iCallback = k_iSteamContentServerCallbacks + 2 };
 
 	CSteamID m_SteamID;
 	uint32 m_uContentID;
 	EDenyReason m_eDenyReason;
 };
-#pragma pack( pop )
 
-#endif // CONTENTSERVERCOMMON_H
+#pragma pack( pop )

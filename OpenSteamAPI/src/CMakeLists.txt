@@ -17,9 +17,9 @@ add_library(OpenSteamAPI
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/OpenSteamAPI/src/Interface_OSW.h>
     ${OpenSteamAPI_NATIVE}
 )
+add_library(OpenSteamworks::OpenSteamAPI ALIAS OpenSteamAPI)
 
-target_include_directories(OpenSteamAPI 
+target_link_libraries(OpenSteamAPI
     PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/OpenSteamworks>
-        $<INSTALL_INTERFACE:include/OpenSteamworks>
+        OpenSteamworks::OpenSteamworks
 )

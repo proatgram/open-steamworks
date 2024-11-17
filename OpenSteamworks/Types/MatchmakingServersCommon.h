@@ -14,28 +14,17 @@
 //
 //=============================================================================
 
-#ifndef MATCHMAKINGSERVERSCOMMON_H
-#define MATCHMAKINGSERVERSCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
+#include "SteamTypes.h"
 
-#define CLIENTMATCHMAKINGSERVERS_INTERFACE_VERSION "CLIENTMATCHMAKINGSERVERS_INTERFACE_VERSION001"
-
-#define STEAMMATCHMAKINGSERVERS_INTERFACE_VERSION_001 "SteamMatchMakingServers001"
-#define STEAMMATCHMAKINGSERVERS_INTERFACE_VERSION_002 "SteamMatchMakingServers002"
-
-
-typedef enum EMatchMakingServerResponse
-{
+typedef enum EMatchMakingServerResponse {
 	eServerResponded = 0,
 	eServerFailedToRespond,
 	eNoServersListedOnMasterServer // for the Internet query type, returned in response callback if no servers of this type match
 } EMatchMakingServerResponse;
 
-typedef enum EMatchMakingType
-{
+typedef enum EMatchMakingType {
 	eInternetServer = 0,
 	eLANServer,
 	eFriendsServer,
@@ -69,34 +58,32 @@ typedef enum EMatchMakingType
 // to cancel any in-progress queries so you don't get a callback into the destructed
 // object and crash.
 //-----------------------------------------------------------------------------
-abstract_class ISteamMatchmakingServerListResponse001
-{
-public:
-	// Server has responded ok with updated data
-	virtual void ServerResponded( int iServer ) = 0; 
+abstract_class ISteamMatchmakingServerListResponse001 {
+    public:
+        // Server has responded ok with updated data
+        virtual auto ServerResponded( int iServer ) -> void = 0; 
 
-	// Server has failed to respond
-	virtual void ServerFailedToRespond( int iServer ) = 0; 
+        // Server has failed to respond
+        virtual auto ServerFailedToRespond( int iServer ) -> void = 0; 
 
-	// A list refresh you had initiated is now 100% completed
-	virtual void RefreshComplete( EMatchMakingServerResponse response ) = 0; 
+        // A list refresh you had initiated is now 100% completed
+        virtual auto RefreshComplete( EMatchMakingServerResponse response ) -> void = 0; 
 };
 
-abstract_class ISteamMatchmakingServerListResponse002
-{
-public:
-	// Server has responded ok with updated data
-	virtual void ServerResponded( HServerListRequest hRequest, int iServer ) = 0; 
+abstract_class ISteamMatchmakingServerListResponse002 {
+    public:
+        // Server has responded ok with updated data
+        virtual auto ServerResponded( HServerListRequest hRequest, int iServer ) -> void = 0; 
 
-	// Server has failed to respond
-	virtual void ServerFailedToRespond( HServerListRequest hRequest, int iServer ) = 0; 
+        // Server has failed to respond
+        virtual auto ServerFailedToRespond( HServerListRequest hRequest, int iServer ) -> void = 0; 
 
-	// A list refresh you had initiated is now 100% completed
-	virtual void RefreshComplete( HServerListRequest hRequest, EMatchMakingServerResponse response ) = 0; 
+        // A list refresh you had initiated is now 100% completed
+        virtual auto RefreshComplete( HServerListRequest hRequest, EMatchMakingServerResponse response ) -> void = 0; 
 };
 
 //Typedef to the lastest version of the interface
-typedef ISteamMatchmakingServerListResponse002 ISteamMatchmakingServerListResponse;
+using ISteamMatchmakingServerListResponse = ISteamMatchmakingServerListResponse002;
 
 //-----------------------------------------------------------------------------
 // Purpose: Callback interface for receiving responses after pinging an individual server 
@@ -108,14 +95,13 @@ typedef ISteamMatchmakingServerListResponse002 ISteamMatchmakingServerListRespon
 // which is in progress.  Failure to cancel in progress queries when destructing
 // a callback handler may result in a crash when a callback later occurs.
 //-----------------------------------------------------------------------------
-abstract_class ISteamMatchmakingPingResponse
-{
-public:
-	// Server has responded successfully and has updated data
-	virtual void ServerResponded( gameserveritem_t &server ) = 0;
+abstract_class ISteamMatchmakingPingResponse {
+    public:
+        // Server has responded successfully and has updated data
+        virtual auto ServerResponded( gameserveritem_t &server ) -> void = 0;
 
-	// Server failed to respond to the ping request
-	virtual void ServerFailedToRespond() = 0;
+        // Server failed to respond to the ping request
+        virtual auto ServerFailedToRespond() -> void = 0;
 };
 
 
@@ -171,5 +157,3 @@ public:
 	// (ie, you won't get anymore RulesResponded callbacks)
 	virtual void RulesRefreshComplete() = 0;
 };
-
-#endif // MATCHMAKINGSERVERSCOMMON_H

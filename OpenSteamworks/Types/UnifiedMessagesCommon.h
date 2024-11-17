@@ -14,16 +14,7 @@
 //
 //=============================================================================
 
-#ifndef UNIFIEDMESSAGESCOMMON_H
-#define UNIFIEDMESSAGESCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
-
-
-// versions
-#define CLIENTUNIFIEDMESSAGES_INTERFACE_VERSION "CLIENTUNIFIEDMESSAGES_INTERFACE_VERSION001"
-#define STEAMUNIFIEDMESSAGES_INTERFACE_VERSION_001 "STEAMUNIFIEDMESSAGES_INTERFACE_VERSION001"
 
 
 // callbacks
@@ -31,6 +22,3 @@
 
 
 #pragma pack( pop )
-
-
-#endif // UNIFIEDMESSAGESCOMMON_H

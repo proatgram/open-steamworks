@@ -23,7 +23,7 @@
 #include "Types/SteamTypes.h"
 #include "Types/GameServerCommon.h"
 #include "Types/UserCommon.h"
-
+#include "Types/UtilsCommon.h"
 
 typedef enum EGameConnectSteamResponse
 {

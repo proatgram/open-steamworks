@@ -17,9 +17,9 @@
 #include "Types/SteamTypes.h"
 #include "Interface_OSW.h"
 
-CSteamAPILoader::CSteamAPILoader(ESearchOrder eSearchOrder) {
+CSteamAPILoader::CSteamAPILoader(ESearchOrder eSearchOrder, const std::string &sCustomLocation) {
 	m_eSearchOrder = eSearchOrder;
-	m_pSteamclient = NULL;
+	m_pSteamclient = nullptr;
 }
 
 CSteamAPILoader::~CSteamAPILoader() {
@@ -35,8 +35,8 @@ bool CSteamAPILoader::Load() {
 	return m_pSteamclient->IsLoaded();
 }
 
-CreateInterfaceFn CSteamAPILoader::GetSteam3Factory() {
-	return (CreateInterfaceFn)m_pSteamclient->GetSymbol("CreateInterface");
+CreateInterfaceFn* CSteamAPILoader::GetSteam3Factory() {
+	return reinterpret_cast<CreateInterfaceFn*>(m_pSteamclient->GetSymbol("CreateInterface"));
 }
 
 std::string CSteamAPILoader::GetSteamDir() {
@@ -113,7 +113,18 @@ void CSteamAPILoader::TryGetSteamDir() {
 }
 
 void CSteamAPILoader::TryLoadLibraries() {
-	if(m_eSearchOrder == k_ESearchOrderLocalFirst) {
+    if (m_eSearchOrder == k_ESearchOrderTryCustomLocation) {
+        m_pSteamclient = new DynamicLibrary(m_szCustomSearchLocation + "/" + k_cszSteam3LibraryName.data());
+
+        if (!m_pSteamclient->IsLoaded()) {
+            delete m_pSteamclient;
+            m_pSteamclient = nullptr;
+        }
+        else {
+            return;
+        }
+    }
+    else if (m_eSearchOrder == k_ESearchOrderLocalFirst) {
 		m_pSteamclient = new DynamicLibrary(k_cszSteam3LibraryName.data());
 
 		if(!m_pSteamclient->IsLoaded()) {

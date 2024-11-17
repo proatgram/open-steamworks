@@ -14,31 +14,12 @@
 //
 //=============================================================================
 
-#ifndef UTILSCOMMON_H
-#define UTILSCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-
-#define CLIENTUTILS_INTERFACE_VERSION "CLIENTUTILS_INTERFACE_VERSION001"
-
-#define STEAMUTILS_INTERFACE_VERSION_001 "SteamUtils001"
-#define STEAMUTILS_INTERFACE_VERSION_003 "SteamUtils003"
-#define STEAMUTILS_INTERFACE_VERSION_002 "SteamUtils002"
-#define STEAMUTILS_INTERFACE_VERSION_004 "SteamUtils004"
-#define STEAMUTILS_INTERFACE_VERSION_005 "SteamUtils005"
-#define STEAMUTILS_INTERFACE_VERSION_006 "SteamUtils006"
-#define STEAMUTILS_INTERFACE_VERSION_007 "SteamUtils007"
-#define STEAMUTILS_INTERFACE_VERSION_008 "SteamUtils008"
-#define STEAMUTILS_INTERFACE_VERSION_009 "SteamUtils009"
-
-
+#include "SteamTypes.h"
 
 // Steam API call failure results
-typedef enum ESteamAPICallFailure
-{
+typedef enum ESteamAPICallFailure {
 	k_ESteamAPICallFailureNone = -1,			// no failure
 	k_ESteamAPICallFailureSteamGone = 0,		// the local Steam process has gone away
 	k_ESteamAPICallFailureNetworkFailure = 1,	// the network connection to Steam has been broken, or was already broken
@@ -48,8 +29,7 @@ typedef enum ESteamAPICallFailure
 	k_ESteamAPICallFailureMismatchedCallback = 3,// GetAPICallResult() was called with the wrong callback type for this API call
 } ESteamAPICallFailure;
 
-typedef enum EConfigStore
-{
+typedef enum EConfigStore {
 	k_EConfigStoreInvalid = 0,
 	k_EConfigStoreInstall = 1,
 	k_EConfigStoreUserRoaming = 2,
@@ -60,8 +40,7 @@ typedef enum EConfigStore
 //-----------------------------------------------------------------------------
 // results for CheckFileSignature
 //-----------------------------------------------------------------------------
-enum ECheckFileSignature
-{
+enum ECheckFileSignature {
 	k_ECheckFileSignatureInvalidSignature = 0,
 	k_ECheckFileSignatureValidSignature = 1,
 	k_ECheckFileSignatureFileNotFound = 2,
@@ -69,8 +48,7 @@ enum ECheckFileSignature
 	k_ECheckFileSignatureNoSignaturesFoundForThisFile = 4,
 };
 
-enum ESpewGroup
-{
+enum ESpewGroup {
 	k_ESpewGroupConsole = 0,
 	k_ESpewGroupPublish = 1,
 	k_ESpewGroupBootstrap = 2,
@@ -107,49 +85,40 @@ enum ESpewGroup
 	k_ESpewGroupHttpserver = 33,
 };
 
-enum EUIMode
-{
+enum EUIMode {
 	k_EUIModeNormal = 0,
 	k_EUIModeTenFoot = 1,
 };
 
-enum EGamepadTextInputMode
-{
+enum EGamepadTextInputMode {
 	// TODO: Reverse this enum
 };
 
-enum EGamepadTextInputLineMode
-{
+enum EGamepadTextInputLineMode {
 	// TODO: Reverse this enum
 };
 
-enum EWindowType
-{
+enum EWindowType {
 	// TODO: Reverse this enum
 };
 
-enum EGameLaunchMethod
-{
+enum EGameLaunchMethod {
 	// TODO: Reverse this enum
 };
 
-enum EClientUINotificationType
-{
+enum EClientUINotificationType {
 	// TODO: Reverse this enum
 };
 
-enum EBrowserType
-{
+enum EBrowserType {
 	// TODO: Reverse this enum
 };
 
-enum ETextFilteringContext
-{
+enum ETextFilteringContext {
 	// TODO: Reverse this enum
 };
 
-enum ESteamIPv6ConnectivityProtocol
-{
+enum ESteamIPv6ConnectivityProtocol {
 	k_ESteamIPv6ConnectivityProtocolInvalid, // invalid
 	k_ESteamIPv6ConnectivityProtocolHttp, // http
 	k_ESteamIPv6ConnectivityProtocolUdp, // udp
@@ -159,8 +128,7 @@ enum ESteamIPv6ConnectivityProtocol
 //-----------------------------------------------------------------------------
 // Purpose: The country of the user changed
 //-----------------------------------------------------------------------------
-struct IPCountry_t
-{
+struct IPCountry_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 1 };
 };
 
@@ -168,8 +136,7 @@ struct IPCountry_t
 //-----------------------------------------------------------------------------
 // Purpose: Fired when running on a laptop and less than 10 minutes of battery is left, fires then every minute
 //-----------------------------------------------------------------------------
-struct LowBatteryPower_t
-{
+struct LowBatteryPower_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 2 };
 
 	uint8 m_nMinutesBatteryLeft;
@@ -178,8 +145,7 @@ struct LowBatteryPower_t
 //-----------------------------------------------------------------------------
 // Purpose: called when a SteamAsyncCall_t has completed (or failed)
 //-----------------------------------------------------------------------------
-struct SteamAPICallCompleted_t
-{
+struct SteamAPICallCompleted_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 3 };
 
 	SteamAPICall_t m_hAsyncCall;
@@ -188,31 +154,27 @@ struct SteamAPICallCompleted_t
 //-----------------------------------------------------------------------------
 // called when Steam wants to shutdown
 //-----------------------------------------------------------------------------
-struct SteamShutdown_t
-{
+struct SteamShutdown_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 4 };
 };
 
 //-----------------------------------------------------------------------------
 // callback for CheckFileSignature
 //-----------------------------------------------------------------------------
-struct CheckFileSignature_t
-{
+struct CheckFileSignature_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 5 };
 
 	ECheckFileSignature m_eCheckFileSignature;
 };
 
-struct SteamConfigStoreChanged_t
-{
+struct SteamConfigStoreChanged_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 11 };
 
 	EConfigStore m_eConfigStore;
 	char m_szRootOfChanges[ 255 ];
 };
 
-struct FocusedSteamWindowChanged_t
-{
+struct FocusedSteamWindowChanged_t {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 15 };
 
 	CGameID m_gameID;
@@ -222,8 +184,7 @@ struct FocusedSteamWindowChanged_t
 
 
 
-struct CellIDChanged_t
-{
+struct CellIDChanged_t {
 	enum { k_iCallback = k_iClientUtilsCallbacks + 3 };
 
 	CellID_t m_nCellID;
@@ -246,5 +207,3 @@ struct OverlayChatBrowserInfo_t
 	int m_iPadding;
 #endif
 };
-
-#endif // UTILSCOMMON_H

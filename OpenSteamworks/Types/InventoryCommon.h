@@ -14,35 +14,27 @@
 //
 //=============================================================================
 
-#ifndef INVENTORYCOMMON_H
-#define INVENTORYCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-#define STEAMINVENTORY_INTERFACE_VERSION_001 "STEAMINVENTORY_INTERFACE_V001"
-#define STEAMINVENTORY_INTERFACE_VERSION_002 "STEAMINVENTORY_INTERFACE_V002"
-#define STEAMINVENTORY_INTERFACE_VERSION_003 "STEAMINVENTORY_INTERFACE_V003"
+#include "SteamTypes.h"
 
 // Every individual instance of an item has a globally-unique ItemInstanceID.
 // This ID is unique to the combination of (player, specific item instance)
 // and will not be transferred to another player or re-used for another item.
-typedef uint64 SteamItemInstanceID_t;
+using SteamItemInstanceID_t = uint64;
 
-typedef uint64 SteamInventoryUpdateHandle_t;
+using SteamInventoryUpdateHandle_t = uint64;
 
-static const SteamItemInstanceID_t k_SteamItemInstanceIDInvalid = ~(SteamItemInstanceID_t)0;
+static constexpr SteamItemInstanceID_t k_SteamItemInstanceIDInvalid = ~(SteamItemInstanceID_t)0;
 
 // Types of items in your game are identified by a 32-bit "item definition number".
 // Valid definition numbers are between 1 and 999999999; numbers less than or equal to
 // zero are invalid, and numbers greater than or equal to one billion (1x10^9) are
 // reserved for internal Steam use.
-typedef int32 SteamItemDef_t;
+using SteamItemDef_t = int32;
 
 
-enum ESteamItemFlags
-{
+enum ESteamItemFlags {
 	// Item status flags - these flags are permenantly attached to specific item instances
 	k_ESteamItemNoTrade = 1 << 0, // This item is account-locked and cannot be traded or given away.
 
@@ -56,23 +48,21 @@ enum ESteamItemFlags
 
 #pragma pack( push, 8 )
 
-struct SteamItemDetails_t
-{
+struct SteamItemDetails_t {
 	SteamItemInstanceID_t m_itemId;
 	SteamItemDef_t m_iDefinition;
 	uint16 m_unQuantity;
 	uint16 m_unFlags; // see ESteamItemFlags
 };
 
-typedef int32 SteamInventoryResult_t;
+using SteamInventoryResult_t = int32;
 
-static const SteamInventoryResult_t k_SteamInventoryResultInvalid = -1;
+static constexpr SteamInventoryResult_t k_SteamInventoryResultInvalid = -1;
 
 // SteamInventoryResultReady_t callbacks are fired whenever asynchronous
 // results transition from "Pending" to "OK" or an error state. There will
 // always be exactly one callback per handle.
-struct SteamInventoryResultReady_t
-{
+struct SteamInventoryResultReady_t {
 	enum { k_iCallback = k_iClientInventoryCallbacks + 0 };
 	SteamInventoryResult_t m_handle;
 	EResult m_result;
@@ -86,8 +76,7 @@ struct SteamInventoryResultReady_t
 // the earlier result is already known to be stale/out-of-date.)
 // The normal ResultReady callback will still be triggered immediately
 // afterwards; this is an additional notification for your convenience.
-struct SteamInventoryFullUpdate_t
-{
+struct SteamInventoryFullUpdate_t {
 	enum { k_iCallback = k_iClientInventoryCallbacks + 1 };
 	SteamInventoryResult_t m_handle;
 };
@@ -97,11 +86,8 @@ struct SteamInventoryFullUpdate_t
 // item definitions have been updated, which could be in response to 
 // LoadItemDefinitions() or any other async request which required
 // a definition update in order to process results from the server.
-struct SteamInventoryDefinitionUpdate_t
-{
+struct SteamInventoryDefinitionUpdate_t {
 	enum { k_iCallback = k_iClientInventoryCallbacks + 2 };
 };
 
 #pragma pack( pop )
-
-#endif // UGCCOMMON_H

@@ -14,36 +14,23 @@
 //
 //=============================================================================
 
-#ifndef SCREENSHOTSCOMMON_H
-#define SCREENSHOTSCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
-
 
 #include "RemoteStorageCommon.h"
 
-
-// versions
-#define CLIENTSCREENSHOTS_INTERFACE_VERSION "CLIENTSCREENSHOTS_INTERFACE_VERSION001"
-#define STEAMSCREENSHOTS_INTERFACE_VERSION_001 "STEAMSCREENSHOTS_INTERFACE_VERSION001"
-#define STEAMSCREENSHOTS_INTERFACE_VERSION_002 "STEAMSCREENSHOTS_INTERFACE_VERSION002"
-#define STEAMSCREENSHOTS_INTERFACE_VERSION_003 "STEAMSCREENSHOTS_INTERFACE_VERSION003"
-
 // Handle is valid for the lifetime of your process and no longer
-typedef uint32 ScreenshotHandle;
-#define INVALID_SCREENSHOT_HANDLE 0
+using ScreenshotHandle = uint32;
+static constexpr uint8 INVALID_SCREENSHOT_HANDLE = 0;
 
-const uint32 k_nScreenshotMaxTaggedUsers = 32;
-const int k_cubUFSTagTypeMax = 255;
-const int k_cubUFSTagValueMax = 255;
+static constexpr uint32 k_nScreenshotMaxTaggedUsers = 32;
+static constexpr int k_cubUFSTagTypeMax = 255;
+static constexpr int k_cubUFSTagValueMax = 255;
 
 // Required with of a thumbnail provided to AddScreenshotToLibrary.  If you do not provide a thumbnail
 // one will be generated.
-const int k_ScreenshotThumbWidth = 200;
+static constexpr int k_ScreenshotThumbWidth = 200;
 
-enum EVRScreenshotType
-{
+enum EVRScreenshotType {
 	VRScreenshotType_None = 0,
 	VRScreenshotType_Mono = 1, // left eye only
 	VRScreenshotType_Stereo = 2,
@@ -60,8 +47,7 @@ enum EVRScreenshotType
 // Purpose: Screenshot successfully written or otherwise added to the library
 // and can now be tagged
 //-----------------------------------------------------------------------------
-struct ScreenshotReady_t
-{
+struct ScreenshotReady_t {
 	enum { k_iCallback = k_iSteamScreenshotsCallbacks + 1 };
 
 	ScreenshotHandle m_hLocal;
@@ -73,8 +59,7 @@ struct ScreenshotReady_t
 // HookScreenshots() has been called, in which case Steam will not take
 // the screenshot itself.
 //-----------------------------------------------------------------------------
-struct ScreenshotRequested_t
-{
+struct ScreenshotRequested_t {
 	enum { k_iCallback = k_iSteamScreenshotsCallbacks + 2 };
 };
 
@@ -84,8 +69,7 @@ struct ScreenshotRequested_t
 
 
 
-struct ScreenshotUploadProgress_t
-{
+struct ScreenshotUploadProgress_t {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 1 };
 
 	double m_dPercentScreenshot;
@@ -93,8 +77,7 @@ struct ScreenshotUploadProgress_t
 	int32 m_nFailed;
 };
 
-struct ScreenshotWritten_t
-{
+struct ScreenshotWritten_t {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 2 };
 
 	ScreenshotHandle m_hLocal;
@@ -104,8 +87,7 @@ struct ScreenshotWritten_t
 	uint32 m_nHeight;
 };
 
-struct ScreenshotUploaded_t
-{
+struct ScreenshotUploaded_t {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 3 };
 
 	ScreenshotHandle m_hLocal;
@@ -119,16 +101,14 @@ struct ScreenshotUploaded_t
 	uint8 pubUnknownData[28];
 };
 
-struct ScreenshotBatchComplete_t
-{
+struct ScreenshotBatchComplete_t {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 4 };
 
 	int m_nAttempted;
 	int m_nResultsOK;
 };
 
-struct ScreenshotDeleted_t
-{
+struct ScreenshotDeleted_t {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 5 };
 
 	EResult m_eResult;
@@ -136,8 +116,7 @@ struct ScreenshotDeleted_t
 	CGameID m_gameID;
 };
 
-struct ScreenshotTriggered_t
-{
+struct ScreenshotTriggered_t {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 6 };
 
 	CGameID m_gameID;
@@ -145,6 +124,3 @@ struct ScreenshotTriggered_t
 
 
 #pragma pack( pop )
-
-
-#endif // SCREENSHOTSCOMMON_H

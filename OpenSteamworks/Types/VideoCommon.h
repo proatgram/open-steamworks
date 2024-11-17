@@ -14,21 +14,13 @@
 //
 //=============================================================================
 
-#ifndef VIDEOCOMMON_H
-#define VIDEOCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-#define CLIENTVIDEO_INTERFACE_VERSION "CLIENTVIDEO_INTERFACE_VERSION001"
+#include "SteamTypes.h"
 
-#define STEAMVIDEO_INTERFACE_VERSION_001 "STEAMVIDEO_INTERFACE_V001"
-#define STEAMVIDEO_INTERFACE_VERSION_002 "STEAMVIDEO_INTERFACE_V002"
+using BroadcastSessionID_t = uint64;
 
-typedef uint64 BroadcastSessionID_t;
-
-enum EBroadcastUploadResult
-{
+enum EBroadcastUploadResult {
 	k_EBroadcastUploadResultNone, // None
 	k_EBroadcastUploadResultOK, // OK
 	k_EBroadcastUploadResultInitFailed, // Init Failed
@@ -55,16 +47,14 @@ enum EBroadcastUploadResult
 	k_EBroadcastUploadResultAudioInitFailed, // Audio Init Failed
 };
 
-enum EBroadcastPermission 
-{
+enum EBroadcastPermission {
 	k_EBroadcastPermissionBroadcastDisabled,
 	k_EBroadcastPermissionByFriendRequest,
 	k_EBroadcastPermissionFriends,
 	k_EBroadcastPermissionAll,
 };
 
-enum EBroadcastChatCorner
-{
+enum EBroadcastChatCorner {
 	k_EBroadcastChatCornerNone,
 	k_EBroadcastChatCornerTopLeft,
 	k_EBroadcastChatCornerTopRight,
@@ -72,8 +62,7 @@ enum EBroadcastChatCorner
 	k_EBroadcastChatCornerBottomLeft,
 };
 
-enum EBroadcastRecorderResult 
-{
+enum EBroadcastRecorderResult {
 	// TODO: Reverse this enum
 };
 
@@ -87,23 +76,20 @@ enum EBroadcastChatMsg {
 
 #pragma pack( push, 8 )
 
-struct BeginBroadcastSessionResult_t
-{
+struct BeginBroadcastSessionResult_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 1 };
 
 	EResult m_eResult;
 	BroadcastSessionID_t m_ulBroadcastID;
 };
 
-struct EndBroadcastSessionResult_t
-{
+struct EndBroadcastSessionResult_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 2 };
 
 	EResult m_eResult;
 };
 
-struct BroadcastUploadStart_t 
-{
+struct BroadcastUploadStart_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 4 };
 };
 
@@ -113,8 +99,7 @@ struct BroadcastUploadStop_t {
 	EBroadcastUploadResult m_eResult;
 };
 
-struct BroadcastViewerState_t 
-{
+struct BroadcastViewerState_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 8 };
 
 	CSteamID m_steamID;
@@ -122,13 +107,11 @@ struct BroadcastViewerState_t
 	EBroadcastPermission m_ePermission;
 };
 
-struct BroadcastSettingsLoaded_t 
-{
+struct BroadcastSettingsLoaded_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 13 };
 };
 
-struct BroadcastStatus_t
-{
+struct BroadcastStatus_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 15 };
 
 	BroadcastSessionID_t m_ulBroadcastID;
@@ -137,8 +120,7 @@ struct BroadcastStatus_t
 	bool m_bIsBroadcasting;
 };
 
-struct BroadcastChatMessage_t
-{
+struct BroadcastChatMessage_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 16 };
 
 	CSteamID m_steamID;
@@ -149,8 +131,7 @@ struct BroadcastChatMessage_t
 	bool m_bInGame;
 };
 
-struct BroadcastUploadStatus_t
-{
+struct BroadcastUploadStatus_t {
 	enum { k_iCallback = k_iClientVideoCallbacks + 17 };
 
 	uint32 m_unTotalBytesSent;
@@ -159,13 +140,10 @@ struct BroadcastUploadStatus_t
 	uint32 m_unVideoSendFPS;
 };
 
-struct UnlockH264Result_t 
-{
+struct UnlockH264Result_t  {
 	enum { k_iCallback = k_iClientVideoCallbacks + 19 };
 
 	EResult m_eResult;
 };
 
 #pragma pack( pop )
-
-#endif // VIDEOCOMMON_H

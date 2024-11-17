@@ -14,19 +14,9 @@
 //
 //=============================================================================
 
-#ifndef STREAMLAUNCHERCOMMON_H
-#define STREAMLAUNCHERCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-
-// versions
-#define CLIENTSTREAMLAUNCHER_INTERFACE_VERSION "CLIENTSTREAMLAUNCHER_INTERFACE_VERSION001"
-#define STEAMSTREAMLAUNCHER_INTERFACE_VERSION_001 "STEAMSTREAMLAUNCHER_INTERFACE_VERSION001"
-
-enum EStreamLauncherResult
-{
+enum EStreamLauncherResult {
 	// TODO: Reverse this enum
 };
 
@@ -35,6 +25,3 @@ enum EStreamLauncherResult
 
 
 #pragma pack( pop )
-
-
-#endif // STREAMLAUNCHERCOMMON_H

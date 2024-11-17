@@ -1,7 +1,6 @@
 #define STEAMWORKS_CLIENT_INTERFACES
 
-#include "Steamworks.h"
-#include <time.h>
+#include <OpenSteamworks.h>
 
 class TestClient
 {
@@ -35,7 +34,7 @@ private:
 
 bool TestClient::Init()
 {
-	m_pClientEngine = (IClientEngine*)SteamInternal_CreateInterface(CLIENTENGINE_INTERFACE_VERSION);
+	m_pClientEngine = reinterpret_cast<IClientEngine*>(SteamInternal_CreateInterface(CLIENTENGINE_INTERFACE_VERSION.data()));
 	if (!m_pClientEngine)
 	{
 		fprintf(stderr, "Unable to get the client engine.\n");

@@ -20,7 +20,10 @@
 
 #include <atomic>
 #include <map>
-#include "Steamworks.h"
+
+#include "Types/SteamTypes.h"
+#include "Types/CCallback.h"
+#include "Types/UtilsCommon.h"
 
 class CCallbackMgr {
     public:

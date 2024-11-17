@@ -14,33 +14,12 @@
 //
 //=============================================================================
 
-#ifndef MATCHMAKINGCOMMON_H
-#define MATCHMAKINGCOMMON_H
-#ifdef _WIN32
 #pragma once
-#endif
 
 #include "FriendsCommon.h"
 
-
-
-#define CLIENTMATCHMAKING_INTERFACE_VERSION "CLIENTMATCHMAKING_INTERFACE_VERSION001"
-
-#define STEAMMATCHMAKING_INTERFACE_VERSION_001 "SteamMatchMaking001"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_002 "SteamMatchMaking002"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_003 "SteamMatchMaking003"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_004 "SteamMatchMaking004"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_005 "SteamMatchMaking005"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_006 "SteamMatchMaking006"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_007 "SteamMatchMaking007"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_008 "SteamMatchMaking008"
-#define STEAMMATCHMAKING_INTERFACE_VERSION_009 "SteamMatchMaking009"
-
-
-
 // lobby search filter tools
-enum ELobbyComparison
-{
+enum ELobbyComparison {
 	k_ELobbyComparisonEqualToOrLessThan = -2,
 	k_ELobbyComparisonLessThan = -1,
 	k_ELobbyComparisonEqual = 0,
@@ -49,10 +28,8 @@ enum ELobbyComparison
 	k_ELobbyComparisonNotEqual = 3,
 };
 
-
 // lobby search distance
-enum ELobbyDistanceFilter
-{
+enum ELobbyDistanceFilter {
 	k_ELobbyDistanceFilterClose,		// only lobbies in the same immediate region will be returned
 	k_ELobbyDistanceFilterDefault,		// only lobbies in the same region or close, but looking further if the current region has infrequent lobby activity (the default)
 	k_ELobbyDistanceFilterFar,			// for games that don't have many latency requirements, will return lobbies about half-way around the globe
@@ -60,15 +37,15 @@ enum ELobbyDistanceFilter
 };
 
 // maximum number of characters a lobby metadata key can be
-#define k_nMaxLobbyKeyLength 255
+static constexpr uint8 k_nMaxLobbyKeyLength             = 255;
 
-typedef int HServerQuery;
-const int HSERVERQUERY_INVALID = 0xffffffff;
+using HServerQuery = int;
+static constexpr int HSERVERQUERY_INVALID               = 0xffffffff;
 
 // game server flags
-const uint32 k_unFavoriteFlagNone			= 0x00;
-const uint32 k_unFavoriteFlagFavorite		= 0x01; // this game favorite entry is for the favorites list
-const uint32 k_unFavoriteFlagHistory		= 0x02; // this game favorite entry is for the history list
+static constexpr uint32 k_unFavoriteFlagNone			= 0x00;
+static constexpr uint32 k_unFavoriteFlagFavorite		= 0x01; // this game favorite entry is for the favorites list
+static constexpr uint32 k_unFavoriteFlagHistory		    = 0x02; // this game favorite entry is for the history list
 
 
 #pragma pack( push, 8 )
@@ -76,16 +53,14 @@ const uint32 k_unFavoriteFlagHistory		= 0x02; // this game favorite entry is for
 //-----------------------------------------------------------------------------
 // Purpose: a server was added/removed from the favorites list, you should refresh now
 //-----------------------------------------------------------------------------
-struct FavoritesListChangedOld_t
-{
+struct FavoritesListChangedOld_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 1 };
 };
 
 //-----------------------------------------------------------------------------
 // Purpose: a server was added/removed from the favorites list, you should refresh now
 //-----------------------------------------------------------------------------
-struct FavoritesListChanged_t
-{
+struct FavoritesListChanged_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 2 };
 
 	uint32 m_nIP; // an IP of 0 means reload the whole list, any other value means just one server
@@ -104,8 +79,7 @@ struct FavoritesListChanged_t
 //			if the user outside a game chooses to join, your game will be launched with the parameter "+connect_lobby <64-bit lobby id>",
 //			or with the callback GameLobbyJoinRequested_t if they're already in-game
 //-----------------------------------------------------------------------------
-struct LobbyInvite_t
-{
+struct LobbyInvite_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 3 };
 
 	CSteamID m_ulSteamIDUser;	// Steam ID of the person making the invite
@@ -119,8 +93,7 @@ struct LobbyInvite_t
 //			m_EChatRoomEnterResponse will be set to k_EChatRoomEnterResponseSuccess on success,
 //			or a higher value on failure (see enum EChatRoomEnterResponse)
 //-----------------------------------------------------------------------------
-struct LobbyEnter_t
-{
+struct LobbyEnter_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 4 };
 
 	CSteamID m_ulSteamIDLobby;							// SteamID of the Lobby you have entered
@@ -135,8 +108,7 @@ struct LobbyEnter_t
 //			if m_ulSteamIDMember is the steamID of a lobby member, use GetLobbyMemberData() to access per-user details
 //			if m_ulSteamIDMember == m_ulSteamIDLobby, use GetLobbyData() to access lobby metadata
 //-----------------------------------------------------------------------------
-struct LobbyDataUpdate_t
-{
+struct LobbyDataUpdate_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 5 };
 
 	CSteamID m_ulSteamIDLobby;		// steamID of the Lobby
@@ -148,8 +120,7 @@ struct LobbyDataUpdate_t
 // Purpose: The lobby chat room state has changed
 //			this is usually sent when a user has joined or left the lobby
 //-----------------------------------------------------------------------------
-struct LobbyChatUpdate_t
-{
+struct LobbyChatUpdate_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 6 };
 
 	CSteamID m_ulSteamIDLobby;			// Lobby ID
@@ -164,8 +135,7 @@ struct LobbyChatUpdate_t
 // Purpose: A chat message for this lobby has been sent
 //			use GetLobbyChatEntry( m_iChatID ) to retrieve the contents of this message
 //-----------------------------------------------------------------------------
-struct LobbyChatMsg_t
-{
+struct LobbyChatMsg_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 7 };
 
 	uint64 m_ulSteamIDLobby;			// the lobby id this is in
@@ -177,8 +147,7 @@ struct LobbyChatMsg_t
 //-----------------------------------------------------------------------------
 // Purpose: There's a change of Admin in this Lobby
 //-----------------------------------------------------------------------------
-struct OBSOLETE_CALLBACK LobbyAdminChange_t
-{
+struct OBSOLETE_CALLBACK LobbyAdminChange_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 8 };
 
 	CSteamID m_ulSteamIDLobby;
@@ -191,8 +160,7 @@ struct OBSOLETE_CALLBACK LobbyAdminChange_t
 //			it's up to the individual clients to take action on this; the usual
 //			game behavior is to leave the lobby and connect to the specified game server
 //-----------------------------------------------------------------------------
-struct LobbyGameCreated_t
-{
+struct LobbyGameCreated_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 9 };
 
 	CSteamID m_ulSteamIDLobby;		// the lobby we were in
@@ -205,8 +173,7 @@ struct LobbyGameCreated_t
 // Purpose: Number of matching lobbies found
 //			iterate the returned lobbies with GetLobbyByIndex(), from values 0 to m_nLobbiesMatching-1
 //-----------------------------------------------------------------------------
-struct LobbyMatchList_t
-{
+struct LobbyMatchList_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 10 };
 
 	uint32 m_nLobbiesMatching;		// Number of lobbies that matched search criteria and we have SteamIDs for
@@ -217,8 +184,7 @@ struct LobbyMatchList_t
 // Purpose: Called when the lobby is being forcefully closed
 //			lobby details functions will no longer be updated
 //-----------------------------------------------------------------------------
-struct LobbyClosing_t
-{
+struct LobbyClosing_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 11 };
 
 	CSteamID m_ulSteamIDLobby;			// Lobby
@@ -229,8 +195,7 @@ struct LobbyClosing_t
 // Purpose: posted if a user is forcefully removed from a lobby
 //			can occur if a user loses connection to Steam
 //-----------------------------------------------------------------------------
-struct LobbyKicked_t
-{
+struct LobbyKicked_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 12 };
 
 	uint64 m_ulSteamIDLobby;			// Lobby
@@ -246,8 +211,7 @@ struct LobbyKicked_t
 //			at this point, the local user may not have finishing joining this lobby;
 //			game code should wait until the subsequent LobbyEnter_t callback is received
 //-----------------------------------------------------------------------------
-struct LobbyCreated_t
-{
+struct LobbyCreated_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 13 };
 	
 	EResult m_eResult;		// k_EResultOK - the lobby was successfully created
@@ -260,8 +224,7 @@ struct LobbyCreated_t
 	uint64 m_ulSteamIDLobby;		// chat room, zero if failed
 };
 
-struct RequestFriendsLobbiesResponse_t
-{
+struct RequestFriendsLobbiesResponse_t {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 14 };
 
 	uint64 m_ulSteamIDFriend;
@@ -270,15 +233,13 @@ struct RequestFriendsLobbiesResponse_t
 	int m_cResultsTotal;
 };
 
-struct GMSQueryResult_t
-{
+struct GMSQueryResult_t {
 	uint32 uServerIP;
 	uint32 uServerPort;
 	int32 nAuthPlayers;
 };
 
-struct PingSample_t
-{
+struct PingSample_t {
 	// TODO: Reverse this struct
 	#ifdef _S4N_
 	int m_iPadding;
@@ -286,7 +247,3 @@ struct PingSample_t
 };
 
 #pragma pack( pop )
-
-
-
-#endif // MATCHMAKINGCOMMON_H

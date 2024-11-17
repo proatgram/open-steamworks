@@ -14,31 +14,24 @@
 //
 //=============================================================================
 
-#ifndef MATCHMAKINGKEYVALUEPAIR_H
-#define MATCHMAKINGKEYVALUEPAIR_H
-#ifdef _WIN32
 #pragma once
-#endif
 
 #ifdef _S4N_
 	#define strncpy(...)
 #else
-	#include <stdio.h>
-	#include <string.h>
+	#include <cstdio>
+	#include <cstring>
 #endif
 
-struct MatchMakingKeyValuePair_t
-{
+struct MatchMakingKeyValuePair_t {
 	MatchMakingKeyValuePair_t() { m_szKey[0] = m_szValue[0] = 0; }
-	
 
 	#ifdef _MSC_VER
 		#pragma warning(push) 
 		#pragma warning(disable: 4996) 
 	#endif
 
-	MatchMakingKeyValuePair_t( const char *pchKey, const char *pchValue )
-	{
+	MatchMakingKeyValuePair_t( const char *pchKey, const char *pchValue ) {
 		strncpy( m_szKey, pchKey, sizeof(m_szKey) ); // this is a public header, use basic c library string funcs only!
 		m_szKey[ sizeof( m_szKey ) - 1 ] = '\0';
 		strncpy( m_szValue, pchValue, sizeof(m_szValue) );
@@ -52,7 +45,3 @@ struct MatchMakingKeyValuePair_t
 	char m_szKey[ 256 ];
 	char m_szValue[ 256 ];
 };
-
-
-
-#endif // MATCHMAKINGKEYVALUEPAIR_H

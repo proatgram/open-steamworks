@@ -221,6 +221,15 @@ using int8 = signed char;
 #endif
 
 #if defined(_WIN32) && defined(__GNUC__) && !defined(_S4N_)
+    #define STEAMWORKS_STRUCT_RETURN(returnType, functionName, ...)         \
+        virtual void functionName( returnType &ret, ##__VA_ARGS__ ) = 0;    \
+        inline returnType functionName(__VA_ARGS__) {                                    \
+            returnType ret;                                                 \
+            this->functionName(ret, ##__VA_ARGS__);                         \
+                return ret;                                                 \
+            }
+
+    // Legacy macros (use variadic for flexibility)
 	#define STEAMWORKS_STRUCT_RETURN_0(returnType, functionName)	\
 		virtual void functionName( returnType& ret ) = 0;			\
 		inline returnType functionName()							\
@@ -254,6 +263,9 @@ using int8 = signed char;
 			return ret;																											\
 		}
 #else
+    #define STEAMWORKS_STRUCT_RETURN(returnType, functionName, ...) virtual returnType functionName(__VA_ARGS__) = 0;
+
+    // Legacy macros (use variadic for flexibility)
 	#define STEAMWORKS_STRUCT_RETURN_0(returnType, functionName) virtual returnType functionName() = 0;
 	#define STEAMWORKS_STRUCT_RETURN_1(returnType, functionName, arg1Type, arg1Name) virtual returnType functionName( arg1Type arg1Name ) = 0;
 	#define STEAMWORKS_STRUCT_RETURN_2(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name) virtual returnType functionName( arg1Type arg1Name, arg2Type arg2Name ) = 0;

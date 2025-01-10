@@ -750,3 +750,5 @@ struct CallbackMsg_t {
 	uint8 *m_pubParam;
 	int m_cubParam;
 };
+
+class StringView;

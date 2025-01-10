@@ -39,6 +39,23 @@ enum EDenyReason
 	k_EDenySteamOwnerLeftGuestUser = 15,
 };
 
+typedef enum EGameConnectSteamResponse {
+	k_EGameConnectSteamResponse_WaitingForResponse = 0,
+	k_EGameConnectSteamResponse_AuthorizedToPlay = 1,
+	k_EGameConnectSteamResponse_Denied = 2,
+	k_EGameConnectSteamResponse_ExceededReasonableTime_StillWaiting = 3,
+} EGameConnectSteamResponse;
+
+struct ConnectedUserInfo_t{
+	int32 m_cubConnectedUserInfo;
+	int32 m_nCountOfGuestUsers;
+	CSteamID m_SteamID;
+	uint32 m_unIPPublic;
+	uint32 m_nFrags;
+	double m_flConnectTime;
+	EGameConnectSteamResponse m_eGameConnectSteamResponse;
+	EDenyReason m_eDenyReason;
+};
 
 #pragma pack( push, 8 )
 

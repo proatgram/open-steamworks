@@ -174,6 +174,11 @@ typedef enum EPaymentMethod {
 	k_EPaymentMethodComplimentary = 1024, // Complimentary
 } EPaymentMethod;
 
+// Located in IClientBilling originally
+enum EPackageStatus {
+    // TODO: Reverse this enum
+};
+
 
 typedef enum EPurchaseResultDetail {
 	k_EPurchaseResultNoDetail = 0,

@@ -21,11 +21,8 @@
 #endif
 
 #include "Types/SteamTypes.h"
-//#include "AudioCommon.h"
+#include "Types/ClientAudioCommon.hpp"
 
-
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
 
 #define CLIENTAUDIO_INTERFACE_VERSION "CLIENTAUDIO_INTERFACE_VERSION001"
 

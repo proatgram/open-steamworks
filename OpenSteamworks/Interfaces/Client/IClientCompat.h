@@ -20,11 +20,10 @@
 #pragma once
 #endif
 
-class CUtlString;
-struct AppWhitelistSetting_t;
-struct AppControllerConfigOverride_t;
-template<typename T1, typename T2> class CUtlVector;
-template<typename T> class CUtlMemory;
+#include "Types/ClientCompatCommon.hpp"
+#include "Types/SteamTypes.h"
+#include "Types/ForwardDeclaredCommon.hpp"
+#include "Types/RemoteStorageCommon.h"
 
 class IClientCompat
 {

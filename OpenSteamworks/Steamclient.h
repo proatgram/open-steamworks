@@ -43,7 +43,7 @@
 #include "Interfaces/Client/IClientGameServerStats.h"
 #include "Interfaces/Client/IClientGameStats.h"
 #include "Interfaces/Client/IClientInventory.h"
-#include "Interfaces/Client/IClientMasterServerUpdater.h"
+#include "Interfaces/Client/IClientMasterServerInternal.h"
 #include "Interfaces/Client/IClientMatchmaking.h"
 #include "Interfaces/Client/IClientMatchmakingServers.h"
 #include "Interfaces/Client/IClientNetworking.h"

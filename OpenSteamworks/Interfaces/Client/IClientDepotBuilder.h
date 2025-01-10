@@ -21,36 +21,12 @@
 #endif
 
 #include "Types/SteamTypes.h"
+#include "Types/DepotBuilderCommon.hpp"
 
 
 #define CLIENTDEPOTBUILDER_INTERFACE_VERSION "CLIENTDEPOTBUILDER_INTERFACE_VERSION001"
 
 
-
-typedef enum EDepotBuildStatus
-{
-	k_EDepotBuildStatusInvalid = 0,
-	k_EDepotBuildStatusProcessingConfig = 1,
-	k_EDepotBuildStatusBuildingFileList = 2,
-	k_EDepotBuildStatusProcessingData = 3,
-	k_EDepotBuildStatusUploadingData = 4,
-	k_EDepotBuildStatusCompleted = 5,
-	k_EDepotBuildStatusFailed = 6,
-}  EDepotBuildStatus;
-
-//-----------------------------------------------------------------------------
-// Purpose: Status of a given depot version, these are stored in the DB, don't renumber
-//-----------------------------------------------------------------------------
-enum EStatusDepotVersion
-{
-	k_EStatusDepotVersionInvalid = 0,			
-	k_EStatusDepotVersionDisabled = 1,			// version was disabled, no manifest & content available
-	k_EStatusDepotVersionAvailable = 2,			// manifest & content is available, but not current
-	k_EStatusDepotVersionCurrent = 3,			// current depot version. The can be multiple, one for public and one for each beta key
-};
-
-
-typedef uint32 HDEPOTBUILD;
 
 
 abstract_class IClientDepotBuilder

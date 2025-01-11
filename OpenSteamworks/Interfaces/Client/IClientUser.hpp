@@ -1,307 +1,2674 @@
-//==========================  Open Steamworks  ================================
-//
-// This file is part of the Open Steamworks project. All individuals associated
-// with this project do not claim ownership of the contents
-// 
-// The code, comments, and all related files, projects, resources, 
-// redistributables included with this project are Copyright Valve Corporation.
-// Additionally, Valve, the Valve logo, Half-Life, the Half-Life logo, the
-// Lambda logo, Steam, the Steam logo, Team Fortress, the Team Fortress logo, 
-// Opposing Force, Day of Defeat, the Day of Defeat logo, Counter-Strike, the
-// Counter-Strike logo, Source, the Source logo, and Counter-Strike Condition
-// Zero are trademarks and or registered trademarks of Valve Corporation.
-// All other trademarks are property of their respective owners.
-//
-//=============================================================================
+            /*****************************  Open SteamWorks  *********************************/
+            /*                                                                               */
+            /*  This file is part of the Open SteamWorks project. All individuals associated */
+            /*  with this project do not claim ownership of the contents                     */
+            /*                                                                               */
+            /*  The code, comments, and all related files, projects, resources,              */
+            /*  redistributables included with this project are Copyright Valve Corporation. */
+            /*  Additionally, Valve, the Valve logo, Half-Life, the Half-Life logo, the      */
+            /*  Lambda logo, Steam, the Steam logo, Team Fortress, the Team Fortress logo,   */
+            /*  Opposing Force, Day of Defeat, the Day of Defeat logo, Counter-Strike, the   */
+            /*  Counter-Strike logo, Source, the Source logo, and Counter-Strike Condition   */
+            /*  Zero are trademarks and or registered trademarks of Valve Corporation.       */
+            /*  All other trademarks are property of their respective owners.                */
+            /*                                                                               */
+            /*********************************  NOTICE!  *************************************/
+            /*                                                                               */
+            /*  This is auto-generated code! There may be problems with it or it may be      */
+            /*  wrong. Use at your own risk!                                                 */
+            /*                                                                               */
+            /*********************************************************************************/
 
-#ifndef ICLIENTUSER_H
-#define ICLIENTUSER_H
-#ifdef _WIN32
 #pragma once
-#endif
 
-#include "Types/SteamTypes.hpp"
-#include "Types/UserCommon.hpp"
 #include "Types/ContentServerCommon.hpp"
 #include "Types/ParentalSettingsCommon.hpp"
+#include "Types/SteamTypes.hpp"
+#include "Types/UserCommon.hpp"
 #include "Types/UtilsCommon.hpp"
 
-// Protobuf'ed class
-class ClientAppInfo
-#ifdef _S4N_
-{
-	int m_iPadding;
-}
-#endif
-;
-
-// Protobuf, see steammessages_offline.steamclient.proto
-class COffline_OfflineLogonTicket
-#ifdef _S4N_
-{
-	int m_iPadding;
-}
-#endif
-;
-
-abstract_class UNSAFE_INTERFACE IClientUser
-{
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientUser {
 public:
-	virtual HSteamUser GetHSteamUser() = 0;
-	virtual void LogOn( CSteamID steamID ) = 0;
-	virtual void LogOnWithPassword( const char * pchLogin, const char * pchPassword ) = 0;
-	virtual void LogOnAndCreateNewSteamAccountIfNeeded() = 0;
-	virtual unknown_ret VerifyOfflineLogon() = 0;
-	virtual void LogOff() = 0;
-	virtual bool BLoggedOn() = 0;
-	virtual ELogonState GetLogonState() = 0;
-	virtual bool BConnected() = 0;
-	virtual bool BTryingToLogin() = 0;
-	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
-	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetConsoleSteamID) /*virtual CSteamID GetConsoleSteamID() = 0;*/
-	virtual uint32 GetClientInstanceID() = 0;
-	virtual bool IsVACBanned( AppId_t nGameID ) = 0;
-	virtual bool SetEmail( const char *pchEmail ) = 0;
-	virtual bool SetConfigString( ERegistrySubTree eRegistrySubTree, const char *pchKey, const char *pchValue ) = 0;
-	virtual bool GetConfigString( ERegistrySubTree eRegistrySubTree, const char *pchKey, char *pchValue, int32 cbValue ) = 0;
-	virtual bool SetConfigInt( ERegistrySubTree eRegistrySubTree, const char *pchKey, int32 iValue ) = 0;
-	virtual bool GetConfigInt( ERegistrySubTree eRegistrySubTree, const char *pchKey, int32 *pValue ) = 0;
-	virtual unknown_ret SetConfigBinaryBlob(ERegistrySubTree, const char *, CUtlBuffer*) = 0;
-	virtual unknown_ret GetConfigBinaryBlob(ERegistrySubTree, const char *, CUtlBuffer*) = 0;
-	virtual bool DeleteConfigKey( ERegistrySubTree eRegistrySubTree, const char *pchKey ) = 0;
-	virtual bool GetConfigStoreKeyName( ERegistrySubTree eRegistrySubTree, const char *pchKey, char *pchStoreName, int32 cbStoreName ) = 0;
-	virtual int32 InitiateGameConnection( void *pOutputBlob, int32 cbBlobMax, CSteamID steamIDGS, CGameID gameID, uint32 unIPServer, uint16 usPortServer, bool bSecure ) = 0;
-	virtual int32 InitiateGameConnectionOld( void *pOutputBlob, int32 cbBlobMax, CSteamID steamIDGS, CGameID gameID, uint32 unIPServer, uint16 usPortServer, bool bSecure, void *pvSteam2GetEncryptionKey, int32 cbSteam2GetEncryptionKey ) = 0;
-	virtual void TerminateGameConnection( uint32 unIPServer, uint16 usPortServer ) = 0;
-	virtual bool SignalAppsToShutDown( CGameID ) = 0;
-	virtual bool TerminateAppMultiStep( CGameID, uint32 ) = 0;
-	virtual void SetSelfAsChatDestination( bool bUnk ) = 0;
-	virtual bool IsPrimaryChatDestination() = 0;
-	virtual void RequestLegacyCDKey( AppId_t iAppID ) = 0;
-	virtual bool AckGuestPass( const char *pchGuestPassCode ) = 0;
-	virtual bool RedeemGuestPass( const char *pchGuestPassCode ) = 0;
-	virtual uint32 GetGuestPassToGiveCount() = 0;
-	virtual uint32 GetGuestPassToRedeemCount() = 0;
-	virtual bool GetGuestPassToGiveInfo( uint32 nPassIndex, GID_t *pgidGuestPassID, PackageId_t* pnPackageID, RTime32* pRTime32Created, RTime32* pRTime32Expiration, RTime32* pRTime32Sent, RTime32* pRTime32Redeemed, char* pchRecipientAddress, int32 cRecipientAddressSize ) = 0;
-	virtual unknown_ret GetGuestPassToGiveOut(uint32) = 0;
-	virtual unknown_ret GetGuestPassToRedeem(uint32) = 0;
-	virtual bool GetGuestPassToRedeemInfo( uint32 nPassIndex, GID_t *pgidGuestPassID, PackageId_t* pnPackageID, RTime32* pRTime32Created, RTime32* pRTime32Expiration, RTime32* pRTime32Sent, RTime32* pRTime32Redeemed ) = 0;
-	virtual bool GetGuestPassToRedeemSenderName( uint32 nPassIndex, char* pchSenderName, int32 cSenderNameSize ) = 0;
-	virtual int32 GetNumAppsInGuestPassesToRedeem() = 0;
-	virtual unknown_ret GetAppsInGuestPassesToRedeem(uint32*, uint32) = 0;
-	virtual unknown_ret GetCountUserNotifications() = 0;
-	virtual unknown_ret GetCountUserNotification(EUserNotification) = 0;
-	virtual SteamAPICall_t RequestStoreAuthURL(const char *) = 0;
-	virtual bool SetLanguage( const char *pchLanguage ) = 0;
-	virtual void TrackAppUsageEvent( CGameID gameID, int32 eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
-	virtual int32 RaiseConnectionPriority( EConnectionPriority eConnectionPriority, EConnectionPriorityReason eUnk) = 0;
-	virtual void ResetConnectionPriority( int32 hRaiseConnectionPriorityPrev ) = 0;
-	virtual bool BHasCachedCredentials( const char * pchUnk ) = 0;
-	virtual bool SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bUnk ) = 0;
-	virtual unknown_ret DestroyCachedCredentials( const char *pchAccountName ) = 0;
-	virtual bool GetCurrentWebAuthToken( char *pchBuffer, int32 cubBuffer, char *pchBuffer2, int32 cubBuffer2 ) = 0;
-	virtual SteamAPICall_t RequestWebAuthToken() = 0;
-	virtual void SetLoginInformation( const char *pchAccountName, const char *pchPassword, bool bRememberPassword ) = 0;
-	virtual void SetTwoFactorCode(const char *) = 0;
-	virtual void ClearAllLoginInformation() = 0;
-	virtual bool BEnableEmbeddedClient(uint32) = 0;
-	virtual unknown_ret ResetEmbeddedClient(uint32) = 0;
-	virtual bool BHasEmbeddedClientToken(uint32) = 0;
-	virtual unknown_ret RequestEmbeddedClientToken(uint32) = 0;
-	virtual unknown_ret AuthorizeNewDevice(uint32, uint32, const char*) = 0;
-	virtual bool GetLanguage( char* pchLanguage, int32 cbLanguage ) = 0;
-	virtual bool BIsCyberCafe() = 0;
-	virtual bool BIsAcademicAccount() = 0;
-	virtual bool BIsPortal2EducationAccount() = 0;
-	virtual bool BIsAlienwareDemoAccount() = 0;
-	virtual void TrackNatTraversalStat( const CNatTraversalStat *pNatStat ) = 0;
-	virtual void TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, const uint8 *pubKV, uint32 cubKV ) = 0;
-	virtual void TrackSteamGUIUsage( const char * ) = 0;
-	virtual void SetComputerInUse() = 0;
-	virtual bool BIsGameRunning( CGameID gameID ) = 0;
-	virtual bool BIsGameWindowReady( CGameID gameID ) = 0;
-	virtual bool BUpdateAppOwnershipTicket( AppId_t nAppID, bool bOnlyUpdateIfStale ) = 0;
-	virtual bool RequestCustomBinary( const char *pszAbsolutePath, AppId_t nAppID, bool bForceUpdate, bool bAppLaunchRequest ) = 0;
-	virtual EResult GetCustomBinariesState( AppId_t unAppID, int64* iUnk1, int64* iUnk2 ) = 0;
-	virtual EResult RequestCustomBinaries( AppId_t unAppID, bool, bool, uint32 * ) = 0;
-	virtual void SetCellID( CellID_t cellID ) = 0;
-	virtual const char *GetUserBaseFolder() = 0;
-	virtual bool GetUserDataFolder( CGameID gameID, char* pchBuffer, int32 cubBuffer ) = 0;
-	virtual bool GetUserConfigFolder( char *pchBuffer, int32 cubBuffer ) = 0;
-	virtual bool GetAccountName( char* pchAccountName, uint32 cb ) = 0;
-	virtual bool GetAccountName( CSteamID userID, char * pchAccountName, uint32 cb ) = 0;
-	virtual bool IsPasswordRemembered() = 0;
-	virtual void CheckoutSiteLicenseSeat( uint32 uUnk ) = 0;
-	virtual void GetAvailableSeats( uint32 uUnk ) = 0;
-	virtual const char* GetAssociatedSiteName() = 0;
-	virtual bool BIsRunningInCafe() = 0;
-	virtual bool BAllowCachedCredentialsInCafe() = 0;
-	virtual bool RequiresLegacyCDKey( AppId_t nAppID, bool * pbUnk ) = 0;
-	virtual bool GetLegacyCDKey( AppId_t nAppID, char* pchKeyData, int32 cbKeyData ) = 0;
-	virtual bool SetLegacyCDKey( AppId_t nAppID, const char* pchKeyData ) = 0;
-	virtual bool WriteLegacyCDKey( AppId_t nAppID ) = 0;
-	virtual void RemoveLegacyCDKey( AppId_t nAppID ) = 0;
-	virtual void RequestLegacyCDKeyFromApp( AppId_t nMainAppID, AppId_t nDLCAppID, uint32 uUnk ) = 0;
-	virtual bool BIsAnyGameRunning() = 0;
-	virtual void GetSteamGuardDetails() = 0;
-	virtual void GetTwoFactorDetails() = 0;
-	virtual bool BHasTwoFactor() = 0;
-	virtual bool GetEmail( char* pchEmail, int32 cchEmail, bool* pbValidated ) = 0;
-	virtual void Test_FakeConnectionTimeout() = 0;
-	virtual bool RunInstallScript( AppId_t pAppIDs, const char *pchUnk, bool bUninstall ) = 0;
-	virtual AppId_t IsInstallScriptRunning() = 0;
-	virtual bool GetInstallScriptState( char* pchDescription, uint32 cchDescription, uint32* punNumSteps, uint32* punCurrStep ) = 0;
-	virtual bool SpawnProcess( const char *lpApplicationName, const char *lpCommandLine, const char *lpCurrentDirectory, CGameID gameID, const char *pchGameName, uint32 uUnk, uint32 uUnk2, uint32 uUnk3 ) = 0;
-	virtual uint32 GetAppOwnershipTicketLength( uint32 nAppID ) = 0;
-	virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
-	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, uint32* piAppId, uint32* piSteamId, uint32* piSignature, uint32* pcbSignature ) = 0;
-	virtual int32 GetMarketingMessageCount() = 0;
-	virtual bool GetMarketingMessage( int32 cMarketingMessage, GID_t* gidMarketingMessageID, char* pubMsgUrl, int32 cubMessageUrl, EMarketingMessageFlags *eMarketingMssageFlags ) = 0;
-	virtual HAuthTicket GetAuthSessionTicket( void *pMyAuthTicket, int32 cbMaxMyAuthTicket, uint32* pcbAuthTicket ) = 0;
-	virtual EBeginAuthSessionResult BeginAuthSession( void const* pTheirAuthTicket, int32 cbTicket, CSteamID steamID ) = 0;
-	virtual void EndAuthSession( CSteamID steamID ) = 0;
-	virtual void CancelAuthTicket( HAuthTicket hAuthTicket ) = 0;
-	virtual EUserHasLicenseForAppResult IsUserSubscribedAppInTicket( CSteamID steamID, AppId_t appID ) = 0;
-	virtual unknown_ret GetAuthSessionTicketForGameID(void*, int32, uint32*, CGameID) = 0;
-	virtual void AdvertiseGame( CGameID gameID, CSteamID steamIDGameServer, uint32 unIPServer , uint16 usPortServer ) = 0;
-	virtual SteamAPICall_t RequestEncryptedAppTicket( const void *pUserData, int32 cbUserData ) = 0;
-	virtual bool GetEncryptedAppTicket( void *pTicket, int32 cbMaxTicket, uint32 *pcbTicket ) = 0;
-	virtual int32 GetGameBadgeLevel( int32 nSeries, bool bFoil ) = 0;
-	virtual int32 GetPlayerSteamLevel() = 0;
-	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
-	virtual bool BIsAccountLimited() = 0;
-	virtual void SetAccountCommunityBanned( bool bBanned ) = 0;
-	virtual bool BIsAccountCommunityBanned() = 0;
-	virtual void SetLimitedAccountCanInviteFriends( bool bCanInviteFriends ) = 0;
-	virtual bool BLimitedAccountCanInviteFriends() = 0;
-	virtual void SendValidationEmail() = 0;
-	virtual bool BGameConnectTokensAvailable() = 0;
-	virtual int32 NumGamesRunning() = 0;
-	STEAMWORKS_STRUCT_RETURN_1(CGameID, GetRunningGameID, int32, iGame) /*virtual CGameID GetRunningGameID( int32 iGame ) = 0;*/
-	virtual int32 GetRunningGamePID(int32) = 0;
-	virtual unknown_ret RaiseWindowForGame(CGameID gameID) = 0;
-	virtual uint32 GetAccountSecurityPolicyFlags() = 0;
-	virtual void SetClientStat( EClientStat eStat, int64 llValue, AppId_t nAppID, DepotId_t nDepotID, CellID_t nCellID ) = 0;
-	virtual void VerifyPassword( const char *pchPassword ) = 0;
-	virtual bool BSupportUser() = 0;
-	virtual bool BNeedsSSANextSteamLogon() = 0;
-	virtual void ClearNeedsSSANextSteamLogon() = 0;
-	virtual bool BIsAppOverlayEnabled( CGameID gameID ) = 0;
-	virtual bool BOverlayIgnoreChildProcesses(CGameID) = 0;
-	virtual bool BIsBehindNAT() = 0;
-	virtual AppId_t GetMicroTxnAppID( GID_t gidTransID ) = 0;
-	virtual uint64 GetMicroTxnOrderID( GID_t gidTransID ) = 0;
-	virtual bool BGetMicroTxnPrice( GID_t gidTransID, CAmount *pamtTotal, CAmount *pamtTax, bool *pbVat, CAmount * pUnk ) = 0;
-	virtual unknown_ret GetMicroTxnSteamRealm( GID_t gidTransID ) = 0;
-	virtual int32 GetMicroTxnLineItemCount( GID_t gidTransID ) = 0;
-	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength, int32 *pRecurringTimeUnit, uint8 *pRecurringFrequency, CAmount *pRecurringAmount, bool * pbUnk ) = 0;
-	virtual bool BIsSandboxMicroTxn( GID_t gidTransID, bool* pbSandbox ) = 0;
-	virtual bool BMicroTxnRequiresCachedPmtMethod( GID_t gidTransID, bool *pbRequired ) = 0;
-	virtual SteamAPICall_t AuthorizeMicroTxn( GID_t gidTransID, EMicroTxnAuthResponse eMicroTxnAuthResponse ) = 0;
-	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount *pamtBalance, CAmount *pamtPending ) = 0;
-	virtual SteamAPICall_t RequestMicroTxnInfo( GID_t gidTransID ) = 0;
-	virtual bool BMicroTxnRefundable( GID_t gidTransID ) = 0;
-	virtual bool BGetAppMinutesPlayed( AppId_t nAppId, int32 *pnForever, int32 *pnLastTwoWeeks ) = 0;
-	virtual uint32 GetAppLastPlayedTime( AppId_t nAppId ) = 0;
-	virtual uint32 GetAppUpdateDisabledSecondsRemaining(uint32) = 0;
-	virtual bool BGetGuideURL( AppId_t uAppID, char *pchURL, uint32 cchURL ) = 0;
-	virtual bool BPromptToVerifyEmail() = 0;
-	virtual bool BPromptToChangePassword() = 0;
-	virtual bool BAccountExtraSecurity() = 0;
-	virtual bool BAccountShouldShowLockUI() = 0;
-	virtual int32 GetCountAuthedComputers() = 0;
-	virtual bool BSteamGuardNewMachineNotification() = 0;
-	virtual RTime32 GetSteamGuardEnabledTime() = 0;
-	virtual bool GetSteamGuardHistoryEntry( int32 iEntryIndex, RTime32 *puTimestamp, SteamIPAddress_t* puIP, bool *pbIsRemembered, char *pchGeolocInfo, int32 cchGeolocInfo, char * pchUnk, int32 cbUnk ) = 0;
-	virtual void SetSteamGuardNewMachineDialogResponse( bool bIsApproved, bool bIsWizardComplete ) = 0;
-	virtual void SetPhoneIsVerified(bool) = 0;
-	virtual bool BIsPhoneVerified() = 0;
-	virtual void SetPhoneIsIdentifying(bool) = 0;
-	virtual bool BIsPhoneIdentifying() = 0;
-	virtual void SetPhoneIsRequiringVerification(bool) = 0;
-	virtual bool BIsPhoneRequiringVerification() = 0;
-	virtual void ChangeTwoFactorAuthOptions( int32 eOption ) = 0;
-	virtual void Set2ndFactorAuthCode( const char* pchAuthCode, bool bDontRememberComputer ) = 0;
-	virtual void SetUserMachineName( const char * pchMachineName ) = 0;
-	virtual bool GetUserMachineName( char * pchMachineName, int32 cbMachineName ) = 0;
-	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int32 cbEmailDomain ) = 0;
-	virtual unknown_ret GetAgreementSessionUrl() = 0;
-	virtual int64 GetDurationControl() = 0;
-	virtual unknown_ret GetDurationControlForApp( AppId_t nAppId ) = 0;
-	virtual bool BSetDurationControlOnlineState(EDurationControlOnlineState) = 0;
-	virtual bool BSetDurationControlOnlineStateForApp(EDurationControlOnlineState, AppId_t appID) = 0;
-	virtual bool BIsSubscribedApp( AppId_t nAppId ) = 0;
-	virtual uint32 GetSubscribedApps(AppId_t *, uint32, bool) = 0;
-	virtual SteamAPICall_t RegisterActivationCode( const char * pchActivationCode ) = 0;
-	virtual void AckSystemIM( uint64 ) = 0;
-	virtual SteamAPICall_t RequestSpecialSurvey( uint32 uSurveyId ) = 0;
-	virtual SteamAPICall_t SendSpecialSurveyResponse( uint32 uSurveyId, const uint8 * pubData, uint32 cubData ) = 0;
-	virtual void RequestNotifications() = 0;
-	virtual bool GetAppOwnershipInfo( AppId_t unAppId, RTime32* pRTime32Created, uint32* unk, char* pchCountry ) = 0; // Use a 3 bytes buffer for the country
-	virtual void SendGameWebCallback( AppId_t unAppId, const char *szData ) = 0;
-	virtual bool BIsStreamingUIToRemoteDevice() = 0;
-	virtual bool BIsCurrentlyNVStreaming() = 0;
-	virtual unknown_ret OnBigPictureForStreamingStartResult(bool, void*) = 0;
-	virtual unknown_ret OnBigPictureForStreamingDone() = 0;
-	virtual unknown_ret OnBigPictureForStreamingRestarting() = 0;
-	virtual unknown_ret StopStreaming( uint32 uUnk ) = 0;
-	virtual void LockParentalLock() = 0;
-	virtual bool UnlockParentalLock( const char * pchUnk ) = 0;
-	virtual bool BIsParentalLockEnabled() = 0;
-	virtual bool BIsParentalLockLocked() = 0;
-	virtual void BlockApp( AppId_t unAppID ) = 0;
-	virtual void UnblockApp( AppId_t unAppID ) = 0;
-	virtual bool BIsAppBlocked( AppId_t unAppID ) = 0;
-	virtual bool BIsAppInBlockList( AppId_t unAppID ) = 0;
-	virtual void BlockFeature( EParentalFeature eParentalFeature ) = 0;
-	virtual void UnblockFeature( EParentalFeature eParentalFeature ) = 0;
-	virtual bool BIsFeatureBlocked( EParentalFeature eParentalFeature ) = 0;
-	virtual bool BIsFeatureInBlockList( EParentalFeature eParentalFeature ) = 0;
-	virtual uint32 GetParentalUnlockTime() = 0;
-	virtual bool BGetRecoveryEmail(char*, int) = 0;
-	virtual void RequestParentalRecoveryEmail() = 0;
-	virtual bool BIsLockFromSiteLicense() = 0;
-	virtual bool BGetSerializedParentalSettings( CUtlBuffer * pBuffer ) = 0;
-	virtual bool BSetParentalSettings( CUtlBuffer * pBuffer ) = 0;
-	virtual bool BDisableParentalSettings() = 0;
-	virtual bool BGetParentalWebToken( CUtlBuffer *, CUtlBuffer * ) = 0;
-	virtual unknown_ret GetCommunityPreference( ECommunityPreference eunk ) = 0;
-	virtual unknown_ret SetCommunityPreference( ECommunityPreference eUnk, bool bUnk ) = 0;
-	virtual unknown_ret GetTextFilterSetting() = 0;
-	virtual bool BTextFilterIgnoresFriends() = 0;
-	virtual bool BCanLogonOfflineMode() = 0;
-	virtual EResult LogOnOfflineMode() = 0;
-	virtual EResult ValidateOfflineLogonTicket( const char * pchUnk ) = 0;
-	virtual bool BGetOfflineLogonTicket( const char * pchUnk, COffline_OfflineLogonTicket * pTicket) = 0;
-	virtual void UploadLocalClientLogs() = 0;
-	virtual void SetAsyncNotificationEnabled( uint32, bool ) = 0;
-	virtual bool BIsOtherSessionPlaying( uint32 * ) = 0;
-	virtual bool BKickOtherPlayingSession() = 0;
-	virtual bool BIsAccountLockedDown() = 0;
-	virtual void ClearAndSetAppTags( CGameID, const SteamParamStringArray_t* ) = 0;
-	virtual void RemoveAppTag(CGameID, const char*) = 0;
-	virtual void AddAppTag(CGameID, const char*) = 0;
-	virtual void ClearAppTags( CGameID ) = 0;
-	virtual void SetAppHidden(CGameID, bool) = 0;
-	virtual SteamAPICall_t RequestAccountLinkInfo() = 0;
-	virtual void RequestSurveySchedule() = 0;
-	virtual void RequestNewSteamAnnouncementState() = 0;
-	virtual void UpdateSteamAnnouncementLastRead( uint64 ullUnk, uint32 uUnk) = 0;
-	virtual unknown_ret GetMarketEligibility() = 0;
-	virtual unknown_ret UpdateGameVrDllState(CGameID, bool, bool) = 0;
-	virtual unknown_ret KillVRTheaterPancakeGame(CGameID) = 0;
-	virtual bool BIsAnyGameOrServiceAppRunning() = 0;
-	virtual bool BGetAppArrayMinutesPlayed( uint32*, int32, int32*, int32*) = 0;
-	virtual bool BGetAppsLastPlayedTime( uint32*, int32, uint32*) = 0;
-	virtual unknown_ret SendSteamServiceStatusUpdate(EResult eResult, ESteamServiceStatusUpdate eUnk) = 0;
-	virtual unknown_ret RequestSteamGroupChatMessageNotifications(uint64, uint64, EChatNotificationFormat) = 0;
-	virtual unknown_ret RequestSteamGroupChatMessageHistory(uint64, uint64, uint32) = 0;
-	virtual unknown_ret RequestSendSteamGroupChatMessage(uint64, uint64, uint32, char const*) = 0;
-	virtual unknown_ret OnNewGroupChatMsgAdded(uint64, uint64, uint32, uint32, uint32, char const*) = 0;
-	virtual unknown_ret OnGroupChatUserStateChange(uint64, uint32, int32) = 0;
-	virtual unknown_ret OnReceivedGroupChatSubscriptionResponse(uint64, uint64, bool) = 0;
-	virtual unknown_ret GetTimedTrialStatus(uint32, uint32*, uint32*) = 0;
-	virtual unknown_ret RequestTimedTrialStatus(uint32) = 0;
-};
 
-#endif // ICLIENTUSER_H
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	431059809
+	*/
+	virtual auto AckGuestPass(const char *pchGuestPassCode) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2511831165
+	*/
+	virtual auto AckSystemIM(uint64) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, uint64, bytes4, bytes2]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3156657335
+	*/
+	virtual auto AdvertiseGame(CGameID gameID, CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	853146301
+	*/
+	virtual auto AuthorizeMicroTxn(GID_t gidTransID, EMicroTxnAuthResponse eMicroTxnAuthResponse) -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4, string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3517363616
+	*/
+	virtual auto AuthorizeNewDevice(uint32, uint32, const char *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1871995321
+	*/
+	virtual auto BAccountExtraSecurity() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2235134908
+	*/
+	virtual auto BAccountShouldShowLockUI() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4103932029
+	*/
+	virtual auto BAllowCachedCredentialsInCafe() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	416577873
+	*/
+	virtual auto BConnected() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	443393213
+	*/
+	virtual auto BEnableEmbeddedClient(uint32) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3990474495
+	*/
+	virtual auto BGameConnectTokensAvailable() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean, bytes4, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1628087780
+	*/
+	virtual auto BGetAppMinutesPlayed(AppId_t nAppId, int32 *pnForever, int32 *pnLastTwoWeeks) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[boolean, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1213081939
+	*/
+	virtual auto BGetGuideURL(AppId_t uAppID, char *pchURL, uint32 cchURL) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4, bytes4]
+	 *	[boolean, bytes12, bytes4, bytes_length_from_mem, bytes4, boolean, bytes12, boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	804908475
+	*/
+	virtual auto BGetMicroTxnLineItem(GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength, int32 *pRecurringTimeUnit, uint8 *pRecurringFrequency, CAmount *pRecurringAmount, bool *pbUnk) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean, bytes12, bytes12, boolean, bytes12]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1788250815
+	*/
+	virtual auto BGetMicroTxnPrice(GID_t gidTransID, CAmount *pamtTotal, CAmount *pamtTax, bool *pbVat, CAmount *pUnk) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[boolean, unknown]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1787845987
+	*/
+	virtual auto BGetOfflineLogonTicket(const char *pchUnk, COffline_OfflineLogonTicket *pTicket) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean, unknown, unknown]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3457247085
+	*/
+	virtual auto BGetParentalWebToken(CUtlBuffer *, CUtlBuffer *) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2398049595
+	*/
+	virtual auto BGetRecoveryEmail(char *, int) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean, unknown]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3916534724
+	*/
+	virtual auto BGetSerializedParentalSettings(CUtlBuffer *pBuffer) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean, boolean, bytes12, bytes12]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1291501647
+	*/
+	virtual auto BGetWalletBalance(bool *pbHasWallet, CAmount *pamtBalance, CAmount *pamtPending) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1454473739
+	*/
+	virtual auto BHasCachedCredentials(const char *pchUnk) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	452568501
+	*/
+	virtual auto BHasEmbeddedClientToken(uint32) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3102451335
+	*/
+	virtual auto BHasTwoFactor() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	798641870
+	*/
+	virtual auto BIsAccountCommunityBanned() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	476698855
+	*/
+	virtual auto BIsAccountLimited() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	480548745
+	*/
+	virtual auto BIsAccountLockedDown() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2402425208
+	*/
+	virtual auto BIsAnyGameOrServiceAppRunning() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1104960341
+	*/
+	virtual auto BIsAnyGameRunning() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3339940762
+	*/
+	virtual auto BIsAppBlocked(AppId_t unAppID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	472000778
+	*/
+	virtual auto BIsAppInBlockList(AppId_t unAppID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1262244446
+	*/
+	virtual auto BIsAppOverlayEnabled(CGameID gameID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3457053125
+	*/
+	virtual auto BIsBehindNAT() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1935345352
+	*/
+	virtual auto BIsCurrentlyNVStreaming() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1817600248
+	*/
+	virtual auto BIsFeatureBlocked(EParentalFeature eParentalFeature) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2648774728
+	*/
+	virtual auto BIsFeatureInBlockList(EParentalFeature eParentalFeature) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1128737047
+	*/
+	virtual auto BIsGameRunning(CGameID gameID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1188072489
+	*/
+	virtual auto BIsGameWindowReady(CGameID gameID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1840674887
+	*/
+	virtual auto BIsLockFromSiteLicense() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2017370511
+	*/
+	virtual auto BIsOtherSessionPlaying(uint32 *) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1048326707
+	*/
+	virtual auto BIsParentalLockEnabled() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1754129474
+	*/
+	virtual auto BIsParentalLockLocked() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1499237290
+	*/
+	virtual auto BIsPhoneIdentifying() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3164481967
+	*/
+	virtual auto BIsPhoneRequiringVerification() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1266469364
+	*/
+	virtual auto BIsPhoneVerified() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	507660533
+	*/
+	virtual auto BIsRunningInCafe() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean, boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1947042251
+	*/
+	virtual auto BIsSandboxMicroTxn(GID_t gidTransID, bool *pbSandbox) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	378659725
+	*/
+	virtual auto BIsStreamingUIToRemoteDevice() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2379493210
+	*/
+	virtual auto BIsSubscribedApp(AppId_t nAppId) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1793648786
+	*/
+	virtual auto BKickOtherPlayingSession() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	106564577
+	*/
+	virtual auto BLimitedAccountCanInviteFriends() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1703699413
+	*/
+	virtual auto BLoggedOn() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3867701219
+	*/
+	virtual auto BMicroTxnRefundable(GID_t gidTransID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean, boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	704571062
+	*/
+	virtual auto BMicroTxnRequiresCachedPmtMethod(GID_t gidTransID, bool *pbRequired) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3780888194
+	*/
+	virtual auto BNeedsSSANextSteamLogon() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3045861739
+	*/
+	virtual auto BOverlayIgnoreChildProcesses(CGameID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1615558740
+	*/
+	virtual auto BPromptToChangePassword() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	891281897
+	*/
+	virtual auto BSetDurationControlOnlineState(EDurationControlOnlineState) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2366668512
+	*/
+	virtual auto BSetDurationControlOnlineStateForApp(EDurationControlOnlineState, AppId_t appID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2391743772
+	*/
+	virtual auto BSupportUser() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3114765059
+	*/
+	virtual auto BTextFilterIgnoresFriends() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3442381169
+	*/
+	virtual auto BTryingToLogin() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes1]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3474626450
+	*/
+	virtual auto BUpdateAppOwnershipTicket(AppId_t nAppID, bool bOnlyUpdateIfStale) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, uint64, bytes_length_from_mem]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2262560642
+	*/
+	virtual auto BeginAuthSession(const void *pTheirAuthTicket, int32 cbTicket, CSteamID steamID) -> EBeginAuthSessionResult = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1272438380
+	*/
+	virtual auto CancelAuthTicket(HAuthTicket hAuthTicket) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3530549688
+	*/
+	virtual auto CheckoutSiteLicenseSeat(uint32 uUnk) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	393939951
+	*/
+	virtual auto ClearAllLoginInformation() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1381569433
+	*/
+	virtual auto ClearNeedsSSANextSteamLogon() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3808326070
+	*/
+	virtual auto DeleteConfigKey(ERegistrySubTree eRegistrySubTree, const char *pchKey) -> bool = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2589709941
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto DestroyCachedCredentials(const char *pchAccountName) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[uint64]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2603453363
+	*/
+	virtual auto EndAuthSession(CSteamID steamID) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2478969772
+	*/
+	virtual auto GetAccountName(char *pchAccountName, uint32 cb) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[uint64, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3851968773
+	*/
+	virtual auto GetAccountName(CSteamID userID, char *pchAccountName, uint32 cb) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	734879535
+	*/
+	virtual auto GetAccountSecurityPolicyFlags() -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[string]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1128117076
+	*/
+	virtual auto GetAgreementSessionUrl() -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2247854064
+	*/
+	virtual auto GetAppLastPlayedTime(AppId_t nAppId) -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes4, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1439892109
+	*/
+	virtual auto GetAppOwnershipTicketData(uint32 nAppID, void *pvBuffer, uint32 cbBufferLength) -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes4, bytes_length_from_mem, bytes4, bytes4, bytes4, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3359938624
+	*/
+	virtual auto GetAppOwnershipTicketExtendedData(uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, uint32 *piAppId, uint32 *piSteamId, uint32 *piSignature, uint32 *pcbSignature) -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2038169144
+	*/
+	virtual auto GetAppOwnershipTicketLength(uint32 nAppID) -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1691284013
+	*/
+	virtual auto GetAppUpdateDisabledSecondsRemaining(uint32) -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4, bytes_length_from_reg]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1291523471
+	*/
+	virtual auto GetAppsInGuestPassesToRedeem(uint32 *, uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[string]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1848573867
+	*/
+	virtual auto GetAssociatedSiteName() -> const char* = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4, bytes_length_from_mem, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3390298139
+	*/
+	virtual auto GetAuthSessionTicket(void *pMyAuthTicket, int32 cbMaxMyAuthTicket, uint32 *pcbAuthTicket) -> HAuthTicket = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes8, steamnetworkingidentity]
+	 *	[bytes4, bytes_length_from_mem, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	972712776
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetAuthSessionTicketForGameID(void *, int32, uint32 *, CGameID) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3939337152
+	*/
+	virtual auto GetAvailableSeats(uint32 uUnk) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3527561565
+	*/
+	virtual auto GetClientInstanceID() -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	964616723
+	*/
+	virtual auto GetCommunityPreference(ECommunityPreference eunk) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string]
+	 *	[bytes1, unknown]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	641833930
+	*/
+	virtual auto GetConfigBinaryBlob(ERegistrySubTree, const char *, CUtlBuffer *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string]
+	 *	[bytes1, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3688805876
+	*/
+	virtual auto GetConfigInt(ERegistrySubTree eRegistrySubTree, const char *pchKey, int32 *pValue) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3614842417
+	*/
+	virtual auto GetConfigStoreKeyName(ERegistrySubTree eRegistrySubTree, const char *pchKey, char *pchStoreName, int32 cbStoreName) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3687331491
+	*/
+	virtual auto GetConfigString(ERegistrySubTree eRegistrySubTree, const char *pchKey, char *pchValue, int32 cbValue) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	313347943
+	*/
+	virtual auto GetCountAuthedComputers() -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	502385579
+	*/
+	virtual auto GetCountUserNotification(EUserNotification) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1423538747
+	*/
+	virtual auto GetCountUserNotifications() -> unknown_ret = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3522395880
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetCurrentWebAuthToken(char *pchBuffer, int32 cubBuffer, char *pchBuffer2, int32 cubBuffer2) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4, bytes8, bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3809719294
+	*/
+	virtual auto GetCustomBinariesState(AppId_t unAppID, int64 *iUnk1, int64 *iUnk2) -> EResult = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3461294092
+	*/
+	virtual auto GetDurationControl() -> int64 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1946904231
+	*/
+	virtual auto GetDurationControlForApp(AppId_t nAppId) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem, bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3997797124
+	*/
+	virtual auto GetEmail(char *pchEmail, int32 cchEmail, bool *pbValidated) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1208932377
+	*/
+	virtual auto GetEmailDomainFromLogonFailure(char *pchEmailDomain, int32 cbEmailDomain) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes4, bytes_length_from_reg]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3770155520
+	*/
+	virtual auto GetEncryptedAppTicket(void *pTicket, int32 cbMaxTicket, uint32 *pcbTicket) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes1]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3052465329
+	*/
+	virtual auto GetGameBadgeLevel(int32 nSeries, bool bFoil) -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3211469971
+	*/
+	virtual auto GetGuestPassToGiveCount() -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes1, bytes_length_from_mem, bytes8, bytes4, bytes4, bytes4, bytes4, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1412485749
+	*/
+	virtual auto GetGuestPassToGiveInfo(uint32 nPassIndex, GID_t *pgidGuestPassID, PackageId_t *pnPackageID, RTime32 *pRTime32Created, RTime32 *pRTime32Expiration, RTime32 *pRTime32Sent, RTime32 *pRTime32Redeemed, char *pchRecipientAddress, int32 cRecipientAddressSize) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1833634965
+	*/
+	virtual auto GetGuestPassToGiveOut(uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	618302606
+	*/
+	virtual auto GetGuestPassToRedeem(uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3057222566
+	*/
+	virtual auto GetGuestPassToRedeemCount() -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes8, bytes4, bytes4, bytes4, bytes4, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1214426766
+	*/
+	virtual auto GetGuestPassToRedeemInfo(uint32 nPassIndex, GID_t *pgidGuestPassID, PackageId_t *pnPackageID, RTime32 *pRTime32Created, RTime32 *pRTime32Expiration, RTime32 *pRTime32Sent, RTime32 *pRTime32Redeemed) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	680419026
+	*/
+	virtual auto GetGuestPassToRedeemSenderName(uint32 nPassIndex, char *pchSenderName, int32 cSenderNameSize) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem, bytes4, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	195875811
+	*/
+	virtual auto GetInstallScriptState(char *pchDescription, uint32 cchDescription, uint32 *punNumSteps, uint32 *punCurrStep) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1290470322
+	*/
+	virtual auto GetLanguage(char *pchLanguage, int32 cbLanguage) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3398934239
+	*/
+	virtual auto GetLegacyCDKey(AppId_t nAppID, char *pchKeyData, int32 cbKeyData) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3010408891
+	*/
+	virtual auto GetLogonState() -> ELogonState = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4259999276
+	*/
+	virtual auto GetMarketEligibility() -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes1, bytes8, bytes_length_from_mem, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3547171544
+	*/
+	virtual auto GetMarketingMessage(int32 cMarketingMessage, GID_t *gidMarketingMessageID, char *pubMsgUrl, int32 cubMessageUrl, EMarketingMessageFlags *eMarketingMssageFlags) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4139262763
+	*/
+	virtual auto GetMarketingMessageCount() -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1019412206
+	*/
+	virtual auto GetMicroTxnAppID(GID_t gidTransID) -> AppId_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2714865626
+	*/
+	virtual auto GetMicroTxnLineItemCount(GID_t gidTransID) -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4049034112
+	*/
+	virtual auto GetMicroTxnOrderID(GID_t gidTransID) -> uint64 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4161898034
+	*/
+	virtual auto GetMicroTxnSteamRealm(GID_t gidTransID) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3066264717
+	*/
+	virtual auto GetNumAppsInGuestPassesToRedeem() -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1019281044
+	*/
+	virtual auto GetParentalUnlockTime() -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2522968862
+	*/
+	virtual auto GetPlayerSteamLevel() -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2916802151
+	*/
+	STEAMWORKS_STRUCT_RETURN(CGameID, GetRunningGameID, int32 iGame)
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3416226026
+	*/
+	virtual auto GetRunningGamePID(int32) -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	658859873
+	*/
+	virtual auto GetSteamGuardDetails() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	168595417
+	*/
+	virtual auto GetSteamGuardEnabledTime() -> RTime32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[uint64]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3607432869
+	*/
+	STEAMWORKS_STRUCT_RETURN(CSteamID, GetSteamID)
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes1]
+	 *	[bytes4, bytes_length_from_reg]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2245087005
+	*/
+	virtual auto GetSubscribedApps(AppId_t *, uint32, bool) -> uint32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	529684784
+	*/
+	virtual auto GetTextFilterSetting() -> unknown_ret = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes1, bytes4, bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3358854461
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetTimedTrialStatus(uint32, uint32 *, uint32 *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4230335601
+	*/
+	virtual auto GetTwoFactorDetails() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2725326785
+	*/
+	virtual auto GetUserConfigFolder(char *pchBuffer, int32 cubBuffer) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1139786770
+	*/
+	virtual auto GetUserDataFolder(CGameID gameID, char *pchBuffer, int32 cubBuffer) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	957502393
+	*/
+	virtual auto GetUserMachineName(char *pchMachineName, int32 cbMachineName) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, uint64, bytes8, bytes4, bytes2, bytes1]
+	 *	[bytes4, bytes_length_from_reg]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	550484837
+	*/
+	virtual auto InitiateGameConnection(void *pOutputBlob, int32 cbBlobMax, CSteamID steamIDGS, CGameID gameID, uint32 unIPServer, uint16 usPortServer, bool bSecure) -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, uint64, bytes8, bytes4, bytes2, bytes1, bytes4, bytes_length_from_mem]
+	 *	[bytes4, bytes_length_from_reg]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1863321419
+	*/
+	virtual auto InitiateGameConnectionOld(void *pOutputBlob, int32 cbBlobMax, CSteamID steamIDGS, CGameID gameID, uint32 unIPServer, uint16 usPortServer, bool bSecure, void *pvSteam2GetEncryptionKey, int32 cbSteam2GetEncryptionKey) -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	374924268
+	*/
+	virtual auto IsInstallScriptRunning() -> AppId_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4284662215
+	*/
+	virtual auto IsPasswordRemembered() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2509483822
+	*/
+	virtual auto IsPrimaryChatDestination() -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[uint64, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2478440402
+	*/
+	virtual auto IsUserSubscribedAppInTicket(CSteamID steamID, AppId_t appID) -> EUserHasLicenseForAppResult = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2105576693
+	*/
+	virtual auto IsVACBanned(AppId_t nGameID) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	766544802
+	*/
+	virtual auto KillVRTheaterPancakeGame(CGameID) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3043898703
+	*/
+	virtual auto LockParentalLock() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1265411329
+	*/
+	virtual auto LogOff() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[uint64]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1046042777
+	*/
+	virtual auto LogOn(CSteamID steamID) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3751721273
+	*/
+	virtual auto NumGamesRunning() -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1078543036
+	*/
+	virtual auto OnBigPictureForStreamingDone() -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2872666811
+	*/
+	virtual auto OnBigPictureForStreamingRestarting() -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	276206633
+	*/
+	virtual auto OnBigPictureForStreamingStartResult(bool, void *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1207586650
+	*/
+	virtual auto OnGroupChatUserStateChange(uint64, uint32, int32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes8, bytes4, bytes4, bytes4, string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3771735468
+	*/
+	virtual auto OnNewGroupChatMsgAdded(uint64, uint64, uint32, uint32, uint32, const char *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes8, bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1720413927
+	*/
+	virtual auto OnReceivedGroupChatSubscriptionResponse(uint64, uint64, bool) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	994648515
+	*/
+	virtual auto RaiseConnectionPriority(EConnectionPriority eConnectionPriority, EConnectionPriorityReason eUnk) -> int32 = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	87137573
+	*/
+	virtual auto RaiseWindowForGame(CGameID gameID) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	617045666
+	*/
+	virtual auto RedeemGuestPass(const char *pchGuestPassCode) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1263666844
+	*/
+	virtual auto RemoveLegacyCDKey(AppId_t nAppID) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1587279309
+	*/
+	virtual auto RequestAccountLinkInfo() -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes1, bytes1, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	145808556
+	*/
+	virtual auto RequestCustomBinaries(AppId_t unAppID, bool, bool, uint32 *) -> EResult = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3922526440
+	*/
+	virtual auto RequestEmbeddedClientToken(uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes_length_from_mem]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	642168419
+	*/
+	virtual auto RequestEncryptedAppTicket(const void *pUserData, int32 cbUserData) -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3503027821
+	*/
+	virtual auto RequestLegacyCDKey(AppId_t iAppID) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2821477426
+	*/
+	virtual auto RequestLegacyCDKeyFromApp(AppId_t nMainAppID, AppId_t nDLCAppID, uint32 uUnk) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1534658255
+	*/
+	virtual auto RequestMicroTxnInfo(GID_t gidTransID) -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1435885291
+	*/
+	virtual auto RequestNewSteamAnnouncementState() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2504183819
+	*/
+	virtual auto RequestNotifications() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes8, bytes4, string]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	803512895
+	*/
+	virtual auto RequestSendSteamGroupChatMessage(uint64, uint64, uint32, const char *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	675359058
+	*/
+	virtual auto RequestSpecialSurvey(uint32 uSurveyId) -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes8, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1887651266
+	*/
+	virtual auto RequestSteamGroupChatMessageHistory(uint64, uint64, uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes8, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2400920534
+	*/
+	virtual auto RequestSteamGroupChatMessageNotifications(uint64, uint64, EChatNotificationFormat) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3972164033
+	*/
+	virtual auto RequestStoreAuthURL(const char *) -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1756656996
+	*/
+	virtual auto RequestSurveySchedule() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3031630695
+	*/
+	virtual auto RequestTimedTrialStatus(uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3666832281
+	*/
+	virtual auto RequestWebAuthToken() -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1, bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1940595017
+	*/
+	virtual auto RequiresLegacyCDKey(AppId_t nAppID, bool *pbUnk) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	10944524
+	*/
+	virtual auto ResetConnectionPriority(int32 hRaiseConnectionPriorityPrev) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1625201299
+	*/
+	virtual auto ResetEmbeddedClient(uint32) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, bytes1]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	326696747
+	*/
+	virtual auto RunInstallScript(AppId_t pAppIDs, const char *pchUnk, bool bUninstall) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	930661847
+	*/
+	virtual auto SendGameWebCallback(AppId_t unAppId, const char *szData) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4, bytes_length_from_mem]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3745843055
+	*/
+	virtual auto SendSpecialSurveyResponse(uint32 uSurveyId, const uint8 *pubData, uint32 cubData) -> SteamAPICall_t = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	673928127
+	*/
+	virtual auto SendSteamServiceStatusUpdate(EResult eResult, ESteamServiceStatusUpdate eUnk) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3960731143
+	*/
+	virtual auto SendValidationEmail() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3838749840
+	*/
+	virtual auto Set2ndFactorAuthCode(const char *pchAuthCode, bool bDontRememberComputer) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	458487486
+	*/
+	virtual auto SetAccountCommunityBanned(bool bBanned) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1718745941
+	*/
+	virtual auto SetAccountLimited(bool bAccountLimited) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, bytes1]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2428720500
+	*/
+	virtual auto SetAccountNameForCachedCredentialLogin(const char *pchAccountName, bool bUnk) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2223103025
+	*/
+	virtual auto SetAsyncNotificationEnabled(uint32, bool) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2593931163
+	*/
+	virtual auto SetCellID(CellID_t cellID) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes8, bytes4, bytes4, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2826663503
+	*/
+	virtual auto SetClientStat(EClientStat eStat, int64 llValue, AppId_t nAppID, DepotId_t nDepotID, CellID_t nCellID) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	768508499
+	*/
+	virtual auto SetCommunityPreference(ECommunityPreference eUnk, bool bUnk) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1208604801
+	*/
+	virtual auto SetComputerInUse() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, unknown]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2026300287
+	*/
+	virtual auto SetConfigBinaryBlob(ERegistrySubTree, const char *, CUtlBuffer *) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1944177826
+	*/
+	virtual auto SetConfigInt(ERegistrySubTree eRegistrySubTree, const char *pchKey, int32 iValue) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3715344610
+	*/
+	virtual auto SetConfigString(ERegistrySubTree eRegistrySubTree, const char *pchKey, const char *pchValue) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2510405117
+	*/
+	virtual auto SetEmail(const char *pchEmail) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1455490259
+	*/
+	virtual auto SetLanguage(const char *pchLanguage) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1533228989
+	*/
+	virtual auto SetLegacyCDKey(AppId_t nAppID, const char *pchKeyData) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2868125575
+	*/
+	virtual auto SetLimitedAccountCanInviteFriends(bool bCanInviteFriends) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, string, bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	996439227
+	*/
+	virtual auto SetLoginInformation(const char *pchAccountName, const char *pchPassword, bool bRememberPassword) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	475078898
+	*/
+	virtual auto SetPhoneIsIdentifying(bool) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1405130925
+	*/
+	virtual auto SetPhoneIsRequiringVerification(bool) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3290556604
+	*/
+	virtual auto SetPhoneIsVerified(bool) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1793699048
+	*/
+	virtual auto SetSelfAsChatDestination(bool bUnk) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2530497507
+	*/
+	virtual auto SetTwoFactorCode(const char *) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1163140036
+	*/
+	virtual auto SetUserMachineName(const char *pchMachineName) -> void = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, string, string, bytes8, string, bytes4, bytes4, bytes4, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1289644519
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto SpawnProcess(const char *lpApplicationName, const char *lpCommandLine, const char *lpCurrentDirectory, CGameID gameID, const char *pchGameName, uint32 uUnk, uint32 uUnk2, uint32 uUnk3) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1931411530
+	*/
+	virtual auto StopStreaming(uint32 uUnk) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes2]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3945361789
+	*/
+	virtual auto TerminateGameConnection(uint32 unIPServer, uint16 usPortServer) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3747470703
+	*/
+	virtual auto Test_FakeConnectionTimeout() -> void = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4, string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3185617101
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto TrackAppUsageEvent(CGameID gameID, int32 eAppUsageEvent) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4, bytes_length_from_mem]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3726403073
+	*/
+	virtual auto TrackSteamUsageEvent(ESteamUsageEvent eSteamUsageEvent, const uint8 *pubKV, uint32 cubKV) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3308505883
+	*/
+	virtual auto UnlockParentalLock(const char *pchUnk) -> bool = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes1, bytes1]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3644985246
+	*/
+	virtual auto UpdateGameVrDllState(CGameID, bool, bool) -> unknown_ret = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	565356985
+	*/
+	virtual auto UpdateSteamAnnouncementLastRead(uint64 ullUnk, uint32 uUnk) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3988630015
+	*/
+	virtual auto UploadLocalClientLogs() -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1938264571
+	*/
+	virtual auto ValidateOfflineLogonTicket(const char *pchUnk) -> EResult = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3398507085
+	*/
+	virtual auto VerifyPassword(const char *pchPassword) -> void = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1599576475
+	*/
+	virtual auto WriteLegacyCDKey(AppId_t nAppID) -> bool = 0;
+
+
+};

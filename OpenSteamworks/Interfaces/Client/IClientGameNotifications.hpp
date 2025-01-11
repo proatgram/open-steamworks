@@ -21,47 +21,20 @@
 
 #pragma once
 
-#include "Types/BillingCommon.hpp"
-#include "Types/SteamTypes.hpp"
-
-osw_abstract_class OSW_UNSAFE_INTERFACE IClientBilling {
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientGameNotifications {
 public:
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[bytes4]
-	 *	[]
+	 *	[bytes8]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3913807543
+	 * 	1463146222
 	*/
-	virtual auto DisableTestLicense(PackageId_t unPackageID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3700632448
-	*/
-	virtual auto EnableTestLicense(PackageId_t unPackageID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes4]
-	 *	[bytes4, bytes_length_from_reg]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3864573293
-	*/
-	virtual auto GetAppsInPackage(PackageId_t unPackageID, AppId_t puIds[], uint32 uMaxIds) -> uint32 = 0;
+	virtual auto EnumerateNotifications(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * UNSAFE FUNCTION WARNING:
@@ -71,51 +44,63 @@ public:
 	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[bytes1, bytes4, bytes4, bytes4, bytes4, bytes4, bytes4, bytes4, bytes3]
+	 * 	[bytes4, bytes4]
+	 *	[bytes1, bytes4124]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	1636797832
+	 * 	2243415283
 	*/
 	OSW_UNSAFE_WARNING
-	virtual auto GetLicenseInfo(uint32 nLicenseIndex, RTime32 *pRTime32Created, RTime32 *pRTime32NextProcess, int32 *pnMinuteLimit, int32 *pnMinutesUsed, EPaymentMethod *pePaymentMethod, uint32 *punFlags, int32 *pnTerritoryCode) -> bool = 0;
+	virtual auto GetNotification(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[bytes4]
-	 *	[bytes1]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2310906715
+	 * 	3060486084
 	*/
-	virtual auto HasActiveLicense(uint32) -> bool = 0;
+	virtual auto GetNotificationCount(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[string]
-	 *	[bytes1]
+	 * 	[bytes4, bytes8]
+	 *	[]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2448112619
+	 * 	1505670367
 	*/
-	virtual auto PurchaseWithActivationCode(const char *pchActivationCode) -> bool = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto RemoveSession(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes_length_from_reg]
-	 *	[bytes8]
+	 * 	[bytes4, bytes8]
+	 *	[]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3827388635
+	 * 	226843754
 	*/
-	virtual auto RequestFreeLicenseForApps(AppId_t puIds[], uint32 smth) -> SteamAPICall_t = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto UpdateSession(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 
 };

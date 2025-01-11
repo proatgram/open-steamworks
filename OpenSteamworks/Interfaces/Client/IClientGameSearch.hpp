@@ -21,10 +21,7 @@
 
 #pragma once
 
-#include "Types/ClientShortcutsCommon.hpp"
-#include "Types/SteamTypes.hpp"
-
-osw_abstract_class OSW_UNSAFE_INTERFACE IClientShortcuts {
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientGameSearch {
 public:
 
 	/*
@@ -35,39 +32,69 @@ public:
 	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[string, string, string, bytes4]
+	 * 	[]
 	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	83378837
+	 * 	2352096625
 	*/
 	OSW_UNSAFE_WARNING
-	virtual auto AddOpenVRShortcut(const char *, const char *, const char *) -> uint32 = 0;
+	virtual auto AcceptGame(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[string, string, string, string, string]
+	 * 	[string, string]
 	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3732273707
+	 * 	2357139750
 	*/
-	virtual auto AddShortcut(const char *szShortcutName, const char *szShortcutExe, const char *szUnk1, const char *szUnk2, const char *szhUnk3) -> AppId_t = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto AddGameSearchParams(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[string, string, string]
+	 * 	[]
 	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3604162044
+	 * 	3631887883
 	*/
-	virtual auto AddTemporaryShortcut(const char *, const char *, const char *) -> uint32 = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto CancelRequestPlayersForGame(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	26360099
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto DeclineGame(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
@@ -77,35 +104,16 @@ public:
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3502541395
+	 * 	1268543880
 	*/
-	virtual auto GetAppIDForGameID(CGameID gameID) -> AppId_t = 0;
+	virtual auto EndGame(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[string]
-	 *	[bytes4]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3623659958
-	*/
-	virtual auto GetDevkitAppIDByDevkitGameID(const char *pchUnk) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3781161485
-	*/
-	virtual auto GetGameIDForAppID(AppId_t unAppID) -> CGameID = 0;
-
-	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[]
@@ -113,11 +121,65 @@ public:
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2153039271
+	 * 	2393847542
 	*/
-	virtual auto GetUniqueLocalAppId() -> uint32 = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto EndGameSearch(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2295157273
+	*/
+	virtual auto HostConfirmGameStart(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4, bytes4]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3825120688
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto RequestPlayersForGame(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[uint64, bytes4]
+	 *	[bytes4, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2265972762
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto RetrieveConnectionDetails(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[bytes4, bytes4]
@@ -125,57 +187,10 @@ public:
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	24332840
+	 * 	386206579
 	*/
-	virtual auto LaunchShortcut(AppId_t unAppID, uint32 uUnk) -> bool = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	2625628007
-	*/
-	virtual auto RemoveAllTemporaryShortcuts() -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	672889531
-	*/
-	virtual auto RemoveShortcut(AppId_t unAppID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes1]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3487225320
-	*/
-	virtual auto SetAllowDesktopConfig(uint32, bool) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes1]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	821246334
-	*/
-	virtual auto SetAllowOverlay(AppId_t unAppID, bool) -> void = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto SearchForGameSolo(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * UNSAFE FUNCTION WARNING:
@@ -185,51 +200,15 @@ public:
 	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string, bytes4]
-	 *	[bytes1]
+	 * 	[uint64, bytes4, bytes4]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	1039181822
+	 * 	3772818676
 	*/
 	OSW_UNSAFE_WARNING
-	virtual auto SetDevkitShortcut(uint32 uUnk, const char *pchUnk) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes1]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	2410918611
-	*/
-	virtual auto SetOpenVRShortcut(uint32, bool) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	1636088072
-	*/
-	virtual auto SetShortcutAppName(AppId_t unAppID, const char *szAppName) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	4045246421
-	*/
-	virtual auto SetShortcutCommandLine(AppId_t unAppID, const char *szCommandLine) -> void = 0;
+	virtual auto SearchForGameWithLobby(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * UNSAFE FUNCTION WARNING:
@@ -239,63 +218,51 @@ public:
 	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string, bytes4]
-	 *	[bytes1]
+	 * 	[string, bytes4]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	694225291
+	 * 	1711522597
 	*/
 	OSW_UNSAFE_WARNING
-	virtual auto SetShortcutExe(AppId_t unAppID, const char *szExePath) -> void = 0;
+	virtual auto SetConnectionDetails(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
-	 *	[]
+	 * 	[string, string]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	1862292740
+	 * 	836319061
 	*/
-	virtual auto SetShortcutFromFullpath(AppId_t unAppID, const char *szPath) -> void = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto SetGameHostParams(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes1]
-	 *	[]
+	 * 	[bytes8, uint64, bytes4]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3247819617
+	 * 	565985439
 	*/
-	virtual auto SetShortcutHidden(AppId_t unAppID, bool) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3475420947
-	*/
-	virtual auto SetShortcutIcon(AppId_t unAppID, const char *szIconPath) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	959867331
-	*/
-	virtual auto SetShortcutStartDir(AppId_t unAppID, const char *szPath) -> void = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto SubmitPlayerResult(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 
 };

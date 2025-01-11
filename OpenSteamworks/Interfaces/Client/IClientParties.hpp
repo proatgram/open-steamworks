@@ -21,226 +21,218 @@
 
 #pragma once
 
-#include "Types/SteamTypes.hpp"
-
-osw_abstract_class OSW_UNSAFE_INTERFACE IClientShader {
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientParties {
 public:
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[boolean]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	2570282721
-	*/
-	virtual auto BAppHasPendingShaderContentDownload(uint32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[boolean]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	2993037355
-	*/
-	virtual auto BIsShaderBackgroundProcessingEnabled() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[boolean]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3404319357
-	*/
-	virtual auto BIsShaderManagementEnabled() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes1]
+	 * 	[bytes8, uint64]
 	 *	[]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	1936720357
+	 * 	3848843668
 	*/
-	virtual auto EnableShaderBackgroundProcessing(bool) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto CancelReservation(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes1]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	1770888635
-	*/
-	virtual auto EnableShaderManagement(bool) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
+	 * 	[bytes8, bytes4]
 	 *	[bytes8]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3098951343
+	 * 	2604345029
 	*/
-	virtual auto GetAppPendingShaderDownloadSize(uint32) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto ChangeNumOpenSlots(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string, string]
+	 * 	[bytes4, bytes4, bytes_length_from_reg, string, string]
 	 *	[bytes8]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3626415515
+	 * 	4189904535
 	*/
-	virtual auto GetBucketManifest(uint32, const char *, const char *) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto CreateBeacon(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[bytes4]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3976818845
-	*/
-	virtual auto GetShaderCacheProcessingAppID() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[bytes4]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	1570248938
-	*/
-	virtual auto GetShaderCacheProcessingCompletion() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3173142366
-	*/
-	virtual auto GetShaderDepotsTotalDiskUsage() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[string, string]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	4065668474
-	*/
-	virtual auto GetStaleBucket(const char *, const char *) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
+	 * 	[bytes8]
 	 *	[bytes1]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3951540241
+	 * 	2685386834
 	*/
-	virtual auto ProcessShaderCache(uint32) -> unknown_ret = 0;
+	virtual auto DestroyBeacon(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string, string, bytes8, string, string, bytes8]
-	 *	[bytes8]
+	 * 	[bytes4]
+	 *	[bytes1, bytes_length_from_reg]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2376616174
+	 * 	1033672009
 	*/
-	virtual auto ReportExternalBuild(uint32, const char *, const char *, uint64, const char *, const char *, uint64) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto GetAvailableBeaconLocations(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	4194336132
-	*/
-	virtual auto SkipShaderProcessing(uint32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3343926208
-	*/
-	virtual auto StartPipelineBuild(uint32, int32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes8, string]
 	 *	[bytes8]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3844795188
+	 * 	3746264070
 	*/
-	virtual auto StartShaderConversion(uint32, uint64, const char *) -> unknown_ret = 0;
+	virtual auto GetBeaconByIndex(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, bytes4]
+	 *	[bytes1, uint64, bytes12, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1488327073
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetBeaconDetails(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes12, bytes4, bytes4]
+	 *	[bytes1, bytes_length_from_mem]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3526976865
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetBeaconLocationData(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1184933074
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetNumActiveBeacons(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[]
-	 *	[]
+	 *	[bytes1, bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3680346368
+	 * 	1250960114
 	*/
-	virtual auto StartShaderPruning() -> unknown_ret = 0;
+	virtual auto GetNumAvailableBeaconLocations(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
+	 * 	[bytes8]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	719012225
+	*/
+	virtual auto JoinParty(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes8, uint64]
 	 *	[]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	531083842
+	 * 	3422807140
 	*/
-	virtual auto StartShaderScan(uint32, const char *) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto OnReservationCompleted(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes8]
+	 *	[bytes8]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4007830240
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto ReservePartySlot(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 
 };

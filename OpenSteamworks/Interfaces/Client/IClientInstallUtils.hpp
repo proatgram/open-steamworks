@@ -21,142 +21,164 @@
 
 #pragma once
 
-#include "Types/SteamTypes.hpp"
-
-osw_abstract_class OSW_UNSAFE_INTERFACE IClientShader {
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientInstallUtils {
 public:
 
 	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[boolean]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	2570282721
-	*/
-	virtual auto BAppHasPendingShaderContentDownload(uint32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[boolean]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	2993037355
-	*/
-	virtual auto BIsShaderBackgroundProcessingEnabled() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[boolean]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3404319357
-	*/
-	virtual auto BIsShaderManagementEnabled() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes1]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	1936720357
-	*/
-	virtual auto EnableShaderBackgroundProcessing(bool) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes1]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	1770888635
-	*/
-	virtual auto EnableShaderManagement(bool) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3098951343
-	*/
-	virtual auto GetAppPendingShaderDownloadSize(uint32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, string, string]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3626415515
-	*/
-	virtual auto GetBucketManifest(uint32, const char *, const char *) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[bytes4]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3976818845
-	*/
-	virtual auto GetShaderCacheProcessingAppID() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[bytes4]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	1570248938
-	*/
-	virtual auto GetShaderCacheProcessingCompletion() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3173142366
-	*/
-	virtual auto GetShaderDepotsTotalDiskUsage() -> unknown_ret = 0;
-
-	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[string, string]
-	 *	[bytes8]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	4065668474
+	 * 	461606018
 	*/
-	virtual auto GetStaleBucket(const char *, const char *) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto AddInstallScriptToWhiteList(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, string, string, string, string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	163342182
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto AddShortcut(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	727788273
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto AddToFirewall(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, string, string, string, string, string, string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2148568104
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto AddUninstallEntry(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, bytes1, bytes4, bytes4, bytes4, bytes4, bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4248075744
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto ConfigureNetworDeviceIPAddresses(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1420630431
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetInstallScriptExitCode(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	633123011
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto RegisterSteamProtocolHandler(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string, bytes4]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	4118846506
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto RemoveFromFirewall(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[string]
+	 *	[bytes1]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1613880202
+	*/
+	virtual auto RemoveShortcut(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
@@ -166,21 +188,27 @@ public:
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3951540241
+	 * 	777979602
 	*/
-	virtual auto ProcessShaderCache(uint32) -> unknown_ret = 0;
+	virtual auto RemoveUninstallEntry(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, string, string, bytes8, string, string, bytes8]
-	 *	[bytes8]
+	 * 	[string, bytes4, bytes1]
+	 *	[bytes1]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2376616174
+	 * 	2985808312
 	*/
-	virtual auto ReportExternalBuild(uint32, const char *, const char *, uint64, const char *, const char *, uint64) -> unknown_ret = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto RunInstallScript(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
@@ -190,57 +218,9 @@ public:
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	4194336132
+	 * 	3240592498
 	*/
-	virtual auto SkipShaderProcessing(uint32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3343926208
-	*/
-	virtual auto StartPipelineBuild(uint32, int32) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes8, string]
-	 *	[bytes8]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3844795188
-	*/
-	virtual auto StartShaderConversion(uint32, uint64, const char *) -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3680346368
-	*/
-	virtual auto StartShaderPruning() -> unknown_ret = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, string]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	531083842
-	*/
-	virtual auto StartShaderScan(uint32, const char *) -> unknown_ret = 0;
+	virtual auto SetUniverse(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 
 };

@@ -21,47 +21,8 @@
 
 #pragma once
 
-#include "Types/BillingCommon.hpp"
-#include "Types/SteamTypes.hpp"
-
-osw_abstract_class OSW_UNSAFE_INTERFACE IClientBilling {
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientRemotePlay {
 public:
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3913807543
-	*/
-	virtual auto DisableTestLicense(PackageId_t unPackageID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3700632448
-	*/
-	virtual auto EnableTestLicense(PackageId_t unPackageID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes4]
-	 *	[bytes4, bytes_length_from_reg]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3864573293
-	*/
-	virtual auto GetAppsInPackage(PackageId_t unPackageID, AppId_t puIds[], uint32 uMaxIds) -> uint32 = 0;
 
 	/*
 	 * UNSAFE FUNCTION WARNING:
@@ -72,50 +33,104 @@ public:
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[bytes4]
-	 *	[bytes1, bytes4, bytes4, bytes4, bytes4, bytes4, bytes4, bytes4, bytes3]
+	 *	[boolean, bytes4, bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	1636797832
+	 * 	2507491852
 	*/
 	OSW_UNSAFE_WARNING
-	virtual auto GetLicenseInfo(uint32 nLicenseIndex, RTime32 *pRTime32Created, RTime32 *pRTime32NextProcess, int32 *pnMinuteLimit, int32 *pnMinutesUsed, EPaymentMethod *pePaymentMethod, uint32 *punFlags, int32 *pnTerritoryCode) -> bool = 0;
+	virtual auto BGetSessionClientResolution(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[uint64]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	1582555088
+	*/
+	virtual auto BSendRemotePlayTogetherInvite(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes1]
+	 *	[boolean]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2021363223
+	*/
+	virtual auto BStartRemotePlayTogether(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[bytes4]
-	 *	[bytes1]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2310906715
+	 * 	4159542007
 	*/
-	virtual auto HasActiveLicense(uint32) -> bool = 0;
+	virtual auto GetSessionClientFormFactor(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[string]
-	 *	[bytes1]
+	 * 	[bytes4]
+	 *	[string]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2448112619
+	 * 	886155648
 	*/
-	virtual auto PurchaseWithActivationCode(const char *pchActivationCode) -> bool = 0;
+	virtual auto GetSessionClientName(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[bytes4]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2893271175
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto GetSessionCount(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes_length_from_reg]
-	 *	[bytes8]
+	 * 	[bytes4]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3827388635
+	 * 	2072282617
 	*/
-	virtual auto RequestFreeLicenseForApps(AppId_t puIds[], uint32 smth) -> SteamAPICall_t = 0;
+	virtual auto GetSessionID(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4]
+	 *	[uint64]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3007217272
+	*/
+	virtual auto GetSessionSteamID(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 
 };

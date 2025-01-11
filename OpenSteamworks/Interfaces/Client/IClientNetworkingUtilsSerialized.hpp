@@ -21,47 +21,8 @@
 
 #pragma once
 
-#include "Types/BillingCommon.hpp"
-#include "Types/SteamTypes.hpp"
-
-osw_abstract_class OSW_UNSAFE_INTERFACE IClientBilling {
+osw_abstract_class OSW_UNSAFE_INTERFACE IClientNetworkingUtilsSerialized {
 public:
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3913807543
-	*/
-	virtual auto DisableTestLicense(PackageId_t unPackageID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3700632448
-	*/
-	virtual auto EnableTestLicense(PackageId_t unPackageID) -> void = 0;
-
-	/*
-	 * Serialization information:
-	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes4]
-	 *	[bytes4, bytes_length_from_reg]
-	 * Function address:
-	 * 	0
-	 * Function fencepost:
-	 * 	3864573293
-	*/
-	virtual auto GetAppsInPackage(PackageId_t unPackageID, AppId_t puIds[], uint32 uMaxIds) -> uint32 = 0;
 
 	/*
 	 * UNSAFE FUNCTION WARNING:
@@ -71,51 +32,117 @@ public:
 	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[bytes1, bytes4, bytes4, bytes4, bytes4, bytes4, bytes4, bytes4, bytes3]
+	 * 	[]
+	 *	[bytes4]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	1636797832
+	 * 	2948797870
 	*/
 	OSW_UNSAFE_WARNING
-	virtual auto GetLicenseInfo(uint32 nLicenseIndex, RTime32 *pRTime32Created, RTime32 *pRTime32NextProcess, int32 *pnMinuteLimit, int32 *pnMinutesUsed, EPaymentMethod *pePaymentMethod, uint32 *punFlags, int32 *pnTerritoryCode) -> bool = 0;
+	virtual auto GetLauncherType(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4]
-	 *	[bytes1]
+	 * 	[bytes4, string]
+	 *	[bytes4, bytes_length_from_mem]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2310906715
+	 * 	786558666
 	*/
-	virtual auto HasActiveLicense(uint32) -> bool = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto GetNetworkConfigJSON_DEPRECATED(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
 	 * Serialization information:
 	 * Serialized arguments and returns:
 	 * 	[string]
-	 *	[bytes1]
+	 *	[]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	2448112619
+	 * 	2119074844
 	*/
-	virtual auto PurchaseWithActivationCode(const char *pchActivationCode) -> bool = 0;
+	virtual auto GotLocationString(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
 	 * Serialization information:
 	 * Serialized arguments and returns:
-	 * 	[bytes4, bytes_length_from_reg]
-	 *	[bytes8]
+	 * 	[]
+	 *	[]
 	 * Function address:
 	 * 	0
 	 * Function fencepost:
-	 * 	3827388635
+	 * 	136715818
 	*/
-	virtual auto RequestFreeLicenseForApps(AppId_t puIds[], uint32 smth) -> SteamAPICall_t = 0;
+	OSW_UNSAFE_WARNING
+	virtual auto PostAppSummaryUpdates(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[bytes4, bytes_length_from_mem]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3873806590
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto PostConnectionStateMsg(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	2360636135
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto PostConnectionStateUpdatesForAllConnections(osw_unknown_arguments) -> osw_unknown_return = 0;
+
+	/*
+	 * UNSAFE FUNCTION WARNING:
+	 * The functions argc does not match the previous dump
+	 * Use this function at your own risk.
+	 * Old serialized arguments and returns:
+	 * 	[NO DUMPED INFO]
+	 * Serialization information:
+	 * Serialized arguments and returns:
+	 * 	[]
+	 *	[]
+	 * Function address:
+	 * 	0
+	 * Function fencepost:
+	 * 	3160474473
+	*/
+	OSW_UNSAFE_WARNING
+	virtual auto TEST_ClearCachedNetworkConfig(osw_unknown_arguments) -> osw_unknown_return = 0;
 
 
 };

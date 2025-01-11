@@ -18,6 +18,23 @@
 
 #include "Types/SteamTypes.hpp"
 
+#pragma pack( push, 8 )
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+struct ShortcutChanged_t
+{
+	enum { k_iCallback = k_iClientShortcutsCallbacks + 1 };
+
+	AppId_t m_nAppID;
+	bool m_bRemote;
+};
+
+struct ShortcutRemoved_t
+{
+	enum { k_iCallback = k_iClientShortcutsCallbacks + 2 };
+
+	AppId_t m_nAppID;
+	bool m_bRemote;
+};
+
+#pragma pack( pop )
+

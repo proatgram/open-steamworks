@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#include "Interface_OSW.h"
-#include "CCallbackMgr.h"
+#include "Interface_OSW.hpp"
+#include "CCallbackMgr.hpp"
 
 CSteamAPILoader g_ClientLoader;
 

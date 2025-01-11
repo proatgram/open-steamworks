@@ -14,10 +14,24 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTGAMECOORDINATOR_H
+#define ICLIENTGAMECOORDINATOR_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
+#include "Types/GameCoordinatorCommon.hpp"
 
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+abstract_class IClientGameCoordinator
+{
+public:
+	virtual EGCResults SendMessage( AppId_t unAppID, uint32 unMsgType, const void *pubData, uint32 cubData ) = 0;
+
+	virtual bool IsMessageAvailable( AppId_t unAppID, uint32 *pcubMsgSize ) = 0;
+
+	virtual EGCResults RetrieveMessage( AppId_t unAppID, uint32 *punMsgType, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize ) = 0;
+};
+
+#endif

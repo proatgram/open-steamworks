@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "Types/SteamTypes.h"
+#include "Types/SteamTypes.hpp"
 
 
 typedef enum EDepotBuildStatus {

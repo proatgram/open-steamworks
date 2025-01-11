@@ -14,10 +14,24 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTUNIFIEDMESSAGES_H
+#define ICLIENTUNIFIEDMESSAGES_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
+#include "Types/UnifiedMessagesCommon.hpp"
 
+abstract_class UNSAFE_INTERFACE IClientUnifiedMessages
+{
+public:
+	virtual ClientUnifiedMessageHandle_t SendMethod(const char * pchServiceMethod, const void * pRequest, uint32 nBuf, uint64 ctx) = 0;
+	virtual bool GetMethodResponseInfo(ClientUnifiedMessageHandle_t hUmsg, uint32 *pnResponse, EResult *eResult) = 0;
+	virtual bool GetMethodResponseData(ClientUnifiedMessageHandle_t hUmsg, void *pResponseBuf, uint32 bufSize, bool autoRelease) = 0;
+	virtual bool ReleaseMethod(ClientUnifiedMessageHandle_t hUmsg) = 0;
+	virtual bool SendNotification(const char * pchNotification, const void * buf, uint32 bufSize) = 0;
+};
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#endif // ICLIENTUNIFIEDMESSAGES_H
+ 

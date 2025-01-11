@@ -14,10 +14,18 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTSTORAGEDEVICE_H
+#define ICLIENTSTORAGEDEVICE_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
 
+class IClientStorageDeviceManager
+{
+public:
+	virtual unknown_ret IsInterfaceValid() = 0;
+};
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#endif // ICLIENTSTORAGEDEVICE_H

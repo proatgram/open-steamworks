@@ -16,8 +16,17 @@
 
 #pragma once
 
-#include "Types/SteamTypes.hpp"
+#include "CGameID.hpp"
 
+#pragma pack( push, 8 )
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+// friend game played information
+struct FriendGameInfo_t {
+	CGameID m_gameID;
+	uint32 m_unGameIP;
+	uint16 m_usGamePort;
+	uint16 m_usQueryPort;
+	CSteamID m_steamIDLobby;
+};
+
+#pragma pack( pop )

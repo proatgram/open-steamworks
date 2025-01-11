@@ -18,6 +18,5 @@
 
 #include "Types/SteamTypes.hpp"
 
-
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#include "Steamclient.hpp"
+#include "OpenSteamAPI.hpp"

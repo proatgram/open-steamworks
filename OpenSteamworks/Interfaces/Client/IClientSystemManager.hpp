@@ -14,10 +14,20 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTSYSTEMMANAGER_H
+#define ICLIENTSYSTEMMANAGER_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
 
+class IClientSystemManager
+{
+public:
+	virtual unknown_ret ShutdownSystem() = 0;
+	virtual unknown_ret SuspendSystem() = 0;
+	virtual unknown_ret RestartSystem() = 0;
+};
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#endif // ICLIENTSYSTEMMANAGER_H

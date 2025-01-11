@@ -1,6 +1,6 @@
 #define STEAMWORKS_CLIENT_INTERFACES
 
-#include <OpenSteamworks.h>
+#include <OpenSteamworks.hpp>
 
 class TestClient
 {

@@ -16,8 +16,12 @@
 
 #pragma once
 
-#include "Types/SteamTypes.hpp"
+#include "SteamTypes.hpp"
 
+using HSharedConnection = uint32;
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+struct SharedConnectionMessageReady_t {
+	enum { k_iCallback = k_iClientSharedConnectionCallbacks + 1 };
+
+	uint32 m_hResult;
+};

@@ -14,10 +14,20 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTSTREAMLAUNCHER_H
+#define ICLIENTSTREAMLAUNCHER_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
+#include "Types/StreamLauncherCommon.hpp"
 
+abstract_class UNSAFE_INTERFACE IClientStreamLauncher
+{
+public:
+	virtual EStreamLauncherResult StartStreaming( const char *cszFilePath ) = 0;
+	virtual void StopStreaming() = 0;
+};
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#endif // ICLIENTSTREAMLAUNCHER_H

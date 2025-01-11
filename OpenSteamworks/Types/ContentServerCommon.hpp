@@ -16,8 +16,31 @@
 
 #pragma once
 
-#include "Types/SteamTypes.hpp"
+#include "GameServerCommon.hpp"
+#include "SteamTypes.hpp"
+
+typedef enum EConnectionPriority {
+	k_EConnectionPriorityLow = 0,
+	k_EConnectionPriorityMedium = 1,
+	k_EConnectionPriorityHigh = 2,
+} EConnectionPriority;
 
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#pragma pack( push, 8 )
+
+struct CSClientApprove_t {
+	enum { k_iCallback = k_iSteamContentServerCallbacks + 1 };
+	
+	CSteamID m_SteamID;
+	uint32 m_uContentID;
+};
+
+struct CSClientDeny_t {
+	enum { k_iCallback = k_iSteamContentServerCallbacks + 2 };
+
+	CSteamID m_SteamID;
+	uint32 m_uContentID;
+	EDenyReason m_eDenyReason;
+};
+
+#pragma pack( pop )

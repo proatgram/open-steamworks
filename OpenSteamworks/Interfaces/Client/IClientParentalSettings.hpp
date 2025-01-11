@@ -14,10 +14,28 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTPARENTALSETTINGS_H
+#define ICLIENTPARENTALSETTINGS_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
+#include "Types/ParentalSettingsCommon.hpp"
 
+abstract_class UNSAFE_INTERFACE IClientParentalSettings
+{
+public:
+	virtual bool BIsParentalLockEnabled() = 0;
+	virtual bool BIsParentalLockLocked() = 0;
+	virtual bool BIsAppBlocked(AppId_t unAppID) = 0;
+	virtual bool BIsAppInBlockList(AppId_t unAppID) = 0;
+	virtual bool BIsFeatureBlocked(EParentalFeature eParentalFeature) = 0;
+	virtual bool BIsFeatureInBlockList(EParentalFeature eParentalFeature) = 0;
+	virtual bool BGetSerializedParentalSettings(CUtlBuffer*) = 0;
+	virtual bool BGetRecoveryEmail(char* pchEmailAddr, int32 cbEmailAddr) = 0;
+	virtual bool BIsLockFromSiteLicense() = 0;
+};
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#endif // ICLIENTPARENTALSETTINGS_H
+ 

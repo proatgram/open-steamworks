@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#include "Types/SteamTypes.h"
-#include "Interface_OSW.h"
+#include "Types/SteamTypes.hpp"
+#include "Interface_OSW.hpp"
 
 CSteamAPILoader::CSteamAPILoader(ESearchOrder eSearchOrder, const std::string &sCustomLocation) {
 	m_eSearchOrder = eSearchOrder;

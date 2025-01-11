@@ -14,10 +14,25 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTPRODUCTBUILDER_H
+#define ICLIENTPRODUCTBUILDER_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
 
+// Not a typo, it seem that IClientProductBuilder's version string is really the same as IClientDepotBuilder's.
+// Valid as of Steamclient beta 22nd March 2014 (1395164792)
+#define CLIENTPRODUCTBUILDER_INTERFACE_VERSION "CLIENTDEPOTBUILDER_INTERFACE_VERSION001"
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+
+abstract_class IClientProductBuilder
+{
+public:
+	virtual uint64 SignInstallScript( uint32, const char *, const char * ) = 0;
+	virtual uint64 DRMWrap( uint32, const char *, const char *, const char *, uint32 ) = 0;
+	virtual uint64 CEGWrap( uint32, const char *, const char *, const char * ) = 0;
+};
+
+#endif // ICLIENTPRODUCTBUILDER_H

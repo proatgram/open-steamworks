@@ -14,10 +14,30 @@
 //
 //=============================================================================
 
+#ifndef ICLIENTDEPOTBUILDER_H
+#define ICLIENTDEPOTBUILDER_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include "Types/SteamTypes.hpp"
+#include "Types/DepotBuilderCommon.hpp"
 
 
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+#define CLIENTDEPOTBUILDER_INTERFACE_VERSION "CLIENTDEPOTBUILDER_INTERFACE_VERSION001"
+
+
+
+
+abstract_class IClientDepotBuilder
+{
+public:
+    virtual bool BGetDepotBuildStatus(uint64, EDepotBuildStatus*, uint64*, uint64*) = 0;
+    virtual unknown_ret VerifyChunkStore(uint32, uint32, const char*) = 0;
+    virtual unknown_ret DownloadDepot(uint32, uint32, uint64, uint64, uint64, uint32, const char*) = 0;
+    virtual unknown_ret DownloadChunk(uint32, uint32, uint8*) = 0;
+    virtual unknown_ret StartDepotBuild(uint32, uint32, uint32, const char*) = 0;
+    virtual unknown_ret CommitAppBuild(uint32, uint32, const uint32*, const uint64*, const char*, const char*) = 0;
+};
+
+#endif // ICLIENTDEPOTBUILDER_H

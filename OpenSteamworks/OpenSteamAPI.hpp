@@ -18,6 +18,4 @@
 
 #include "Types/SteamTypes.hpp"
 
-
-typedef uint32 HAudio;
-typedef uint32 HFileSource;
+S_API bool STEAM_CALL OpenAPI_LoadLibrary(const char *pcCustomSteamPath = nullptr);
